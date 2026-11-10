@@ -53,7 +53,22 @@ async function fetchProjects() {
       }
     }
 
-    // Static / GitHub Pages Mode
+    // Static / GitHub Pages Mode: Always fetch latest data from projects.json first (bypass cache)
+    try {
+      const res = await fetch('data/projects.json?v=' + Date.now());
+      if (res.ok) {
+        projects = await res.json();
+        localStorage.setItem('airdrop_projects_data', JSON.stringify(projects));
+        updateStats();
+        renderProjects();
+        checkHashRoute();
+        return;
+      }
+    } catch (fetchErr) {
+      console.warn('Network fetch failed, falling back to local storage cache:', fetchErr);
+    }
+
+    // Fallback if offline: Read from local storage
     const localSaved = localStorage.getItem('airdrop_projects_data');
     if (localSaved) {
       try {
@@ -66,13 +81,6 @@ async function fetchProjects() {
         console.error('Local storage parse error:', e);
       }
     }
-
-    // Fallback: Fetch initial data from static JSON file
-    const res = await fetch('data/projects.json');
-    if (!res.ok) throw new Error('data/projects.json yüklenemedi');
-    projects = await res.json();
-    localStorage.setItem('airdrop_projects_data', JSON.stringify(projects));
-    updateStats();
     renderProjects();
     checkHashRoute();
   } catch (err) {
