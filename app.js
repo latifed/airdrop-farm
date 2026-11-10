@@ -383,38 +383,38 @@ function renderProjects() {
 }
 
 function createCardHTML(p) {
-  let statusBadgeClass = 'bg-pink-950 text-white border-2 border-pink-400';
+  let statusBadgeClass = 'bg-pink-950/80 text-white border border-pink-400';
   if (p.status && p.status.includes('Aktif')) {
-    statusBadgeClass = 'bg-[#400d2b] text-white border-2 border-pink-400 shadow-md';
+    statusBadgeClass = 'bg-[#400d2b] text-white border border-pink-400 shadow-sm';
   } else if (p.status && (p.status.includes('TGE') || p.status.includes('Donduruluyor'))) {
-    statusBadgeClass = 'bg-[#3b2400] text-amber-200 border-2 border-amber-400 shadow-md';
+    statusBadgeClass = 'bg-[#3b2400] text-amber-200 border border-amber-400 shadow-sm';
   } else if (p.status && p.status.includes('Erken')) {
-    statusBadgeClass = 'bg-[#003440] text-cyan-200 border-2 border-cyan-400 shadow-md';
+    statusBadgeClass = 'bg-[#003440] text-cyan-200 border border-cyan-400 shadow-sm';
   }
 
   const isStableStock = p.id === 'stablestock';
 
-  // Render Large High-Contrast Bulletins
+  // Render Large High-Contrast Bulletins with strict uniform height for pixel-perfect row sync
   let bulletinsHTML = '';
   if (p.bulletins && p.bulletins.length > 0) {
     bulletinsHTML = `
-      <div class="space-y-2.5 my-3.5">
+      <div class="space-y-2.5 my-3">
         ${p.bulletins.map(b => `
-          <div class="text-[15px] sm:text-[16px] text-white leading-snug bg-[#1d093d]/85 border border-pink-500/35 rounded-xl px-3.5 py-2.5 shadow-sm">
-            ${b}
+          <div class="min-h-[64px] flex items-center text-[15px] sm:text-[16px] text-white leading-snug bg-[#1d093d]/85 border border-pink-500/35 rounded-xl px-3.5 py-2 shadow-sm">
+            <span class="w-full">${b}</span>
           </div>
         `).join('')}
       </div>
     `;
   } else {
     bulletinsHTML = `
-      <div class="space-y-2.5 my-3.5">
-        <div class="text-[15px] sm:text-[16px] text-white leading-snug bg-[#1d093d]/85 border border-pink-500/35 rounded-xl px-3.5 py-2.5 shadow-sm">
-          🎯 <b>Strateji & Özet:</b> ${p.summary || 'Proje detayları için tıklayın.'}
+      <div class="space-y-2.5 my-3">
+        <div class="min-h-[64px] flex items-center text-[15px] sm:text-[16px] text-white leading-snug bg-[#1d093d]/85 border border-pink-500/35 rounded-xl px-3.5 py-2 shadow-sm">
+          <span class="w-full">🎯 <b>Strateji & Özet:</b> ${p.summary || 'Proje detayları için tıklayın.'}</span>
         </div>
         ${p.funding ? `
-          <div class="text-[15px] sm:text-[16px] text-white leading-snug bg-[#1d093d]/85 border border-pink-500/35 rounded-xl px-3.5 py-2.5 shadow-sm">
-            💰 <b>Değerleme:</b> ${p.funding}
+          <div class="min-h-[64px] flex items-center text-[15px] sm:text-[16px] text-white leading-snug bg-[#1d093d]/85 border border-pink-500/35 rounded-xl px-3.5 py-2 shadow-sm">
+            <span class="w-full">💰 <b>Değerleme:</b> ${p.funding}</span>
           </div>
         ` : ''}
       </div>
@@ -422,45 +422,52 @@ function createCardHTML(p) {
   }
 
   return `
-    <div class="project-card relative rounded-2xl p-5 sm:p-6 flex flex-col justify-between cursor-pointer group"
+    <div class="project-card relative rounded-2xl p-5 sm:p-6 flex flex-col justify-between cursor-pointer group h-full"
          style="background: linear-gradient(180deg, #15072e 0%, #0d041c 100%) !important; border: 2px solid rgba(255, 0, 127, 0.55) !important; color: #ffffff !important;"
          onclick="openDetailModal('${p.id}')">
       
-      ${isStableStock ? `
-        <div class="absolute -top-3.5 right-6 bg-gradient-to-r from-[#ff007f] via-[#ff5500] to-[#ffbe0b] text-white text-[11px] font-black uppercase px-3.5 py-1 rounded-full shadow-lg shadow-pink-500/60 tracking-wider flex items-center space-x-1.5 border border-white/30">
-          <span>🌴 ÖZEL DERİN ANALİZ</span>
-        </div>
-      ` : ''}
-
       <div>
-        <!-- Card Header: Compact & Clear -->
-        <div class="flex items-start justify-between gap-3 mb-2">
-          <div class="flex items-center space-x-3.5">
-            <div class="w-13 h-13 sm:w-14 sm:h-14 rounded-xl bg-gradient-to-tr from-[#ff007f] via-[#ff5500] to-[#ffbe0b] p-[2px] shadow-lg flex-shrink-0">
-              <div class="w-full h-full bg-[#0d041c] rounded-[10px] flex items-center justify-center font-black text-cyan-300 text-lg sm:text-xl tracking-wider">
-                ${(p.symbol || 'PRJ').slice(0, 4)}
-              </div>
-            </div>
-            <div>
-              <div class="flex flex-wrap items-center gap-2">
-                <h3 class="text-xl sm:text-2xl font-black text-white group-hover:text-cyan-300 transition-colors tracking-tight">${p.name}</h3>
-                <span class="text-xs sm:text-sm font-extrabold px-2.5 py-0.5 rounded-lg bg-pink-500/25 text-cyan-300 border border-pink-500/50">// ${p.symbol}</span>
-              </div>
-              <p class="text-xs sm:text-sm font-bold text-pink-300 mt-0.5">${p.category || 'DeFi & Airdrop'}</p>
-            </div>
+        <!-- Tier 1: Meta Bar (Category on Left + Status Badge on Right) -->
+        <div class="flex items-center justify-between gap-2 pb-2.5 mb-3 border-b border-pink-500/25 min-h-[34px]">
+          <div class="flex items-center space-x-2 overflow-hidden">
+            <span class="text-xs sm:text-sm font-bold text-pink-300 tracking-wide uppercase truncate">
+              ${p.category || 'DeFi & Airdrop'}
+            </span>
+            ${isStableStock ? `
+              <span class="inline-flex items-center space-x-1 px-2 py-0.5 rounded-md bg-gradient-to-r from-pink-500 via-orange-500 to-amber-400 text-white text-[10px] sm:text-[11px] font-black tracking-wider uppercase shadow-sm flex-shrink-0">
+                <span>🌴 ÖZEL DERİN ANALİZ</span>
+              </span>
+            ` : ''}
           </div>
 
-          <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold border ${statusBadgeClass} flex-shrink-0">
+          <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold ${statusBadgeClass} flex-shrink-0 shadow-sm">
             ${p.status || 'Aktif'}
           </span>
         </div>
 
-        <!-- Card Body: Large, Readable Bulletins -->
+        <!-- Tier 2: Identity Bar (Avatar Box + Title + Ticker on Single Row) -->
+        <div class="flex items-center space-x-3.5 mb-3 min-h-[52px]">
+          <div class="w-12 h-12 sm:w-13 sm:h-13 rounded-xl bg-gradient-to-tr from-[#ff007f] via-[#ff5500] to-[#ffbe0b] p-[2px] shadow-lg flex-shrink-0">
+            <div class="w-full h-full bg-[#0d041c] rounded-[10px] flex items-center justify-center font-black text-cyan-300 text-base sm:text-lg tracking-wider">
+              ${(p.symbol || 'PRJ').slice(0, 4)}
+            </div>
+          </div>
+          <div class="flex items-center gap-2.5 flex-wrap min-w-0">
+            <h3 class="text-xl sm:text-2xl font-black text-white group-hover:text-cyan-300 transition-colors tracking-tight truncate">
+              ${p.name}
+            </h3>
+            <span class="text-xs sm:text-sm font-extrabold px-2.5 py-0.5 rounded-lg bg-pink-500/25 text-cyan-300 border border-pink-500/50 font-mono flex-shrink-0">
+              // ${p.symbol}
+            </span>
+          </div>
+        </div>
+
+        <!-- Card Body: Large, Readable Bulletins (Strictly Synchronized Heights) -->
         ${bulletinsHTML}
       </div>
 
-      <!-- Card Action Footer: Compact & High Contrast -->
-      <div class="pt-3.5 border-t-2 border-pink-500/25 flex items-center justify-between" onclick="event.stopPropagation()">
+      <!-- Card Action Footer: Compact & High Contrast (Bottom Pinned) -->
+      <div class="mt-auto pt-3.5 border-t-2 border-pink-500/25 flex items-center justify-between" onclick="event.stopPropagation()">
         <button onclick="openDetailModal('${p.id}')" class="inline-flex items-center space-x-2 text-sm sm:text-base font-black text-black bg-cyan-400 hover:bg-cyan-300 py-2.5 px-5 rounded-xl transition-all shadow-md shadow-cyan-400/30 transform hover:scale-[1.02]">
           <span>İNCELE & ALPHA OKU</span>
           <i data-lucide="arrow-right" class="w-4 h-4 text-black stroke-[3]"></i>
