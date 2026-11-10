@@ -3,25 +3,39 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Airdrop Farm | Proje Takip & Alpha Terminali</title>
+  <title>AIRDROP FARM // CYBERNETIC ALPHA TERMINAL</title>
+  
+  <!-- Google Fonts: Orbitron & JetBrains Mono & Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&family=Orbitron:wght@600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
       darkMode: 'class',
       theme: {
         extend: {
+          fontFamily: {
+            orbitron: ['Orbitron', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+            sans: ['Plus Jakarta Sans', 'sans-serif'],
+          },
           colors: {
-            brand: {
-              50: '#ecfdf5',
-              400: '#34d399',
-              500: '#10b981',
-              600: '#059669',
-            },
-            surface: {
-              900: '#0b0f17',
-              800: '#121824',
-              700: '#1a2234',
-              600: '#26334d',
+            cyber: {
+              void: '#060310',
+              dark: '#0b071d',
+              surface: '#110a26',
+              card: '#160d33',
+              cardHover: '#1f1245',
+              border: '#2e1c59',
+              borderGlow: '#8b5cf6',
+              neonCyan: '#00f0ff',
+              neonPink: '#ff007f',
+              neonPurple: '#a855f7',
+              neonViolet: '#c084fc',
+              neonYellow: '#fcee0a',
+              neonGreen: '#00ff9d',
             }
           }
         }
@@ -34,39 +48,44 @@
   <script src="https://unpkg.com/lucide@latest"></script>
   <link rel="stylesheet" href="style.css">
 </head>
-<body class="bg-surface-900 text-slate-100 min-h-screen flex flex-col font-sans selection:bg-brand-500 selection:text-black">
+<body class="min-h-screen flex flex-col font-sans selection:bg-fuchsia-500 selection:text-white">
 
-  <!-- Top Navigation Header -->
-  <header class="sticky top-0 z-40 bg-surface-900/80 backdrop-blur-md border-b border-surface-700/60">
+  <!-- Blade Runner Top Navigation Header -->
+  <header class="sticky top-0 z-40 bg-[#070414]/85 backdrop-blur-xl border-b border-purple-500/25 shadow-2xl shadow-purple-950/40">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
       
       <!-- Logo / Title -->
       <div class="flex items-center space-x-4">
-        <div class="w-11 h-11 rounded-xl bg-gradient-to-tr from-brand-500 to-cyan-500 flex items-center justify-center shadow-lg shadow-brand-500/20 text-black font-black text-xl">
-          🌾
+        <div class="relative w-11 h-11 rounded-xl bg-gradient-to-tr from-fuchsia-600 via-purple-600 to-cyan-400 p-[1.5px] shadow-lg shadow-purple-500/30">
+          <div class="w-full h-full bg-[#090518] rounded-[10px] flex items-center justify-center font-orbitron font-black text-cyan-400 text-lg">
+            ⚡
+          </div>
         </div>
         <div>
-          <div class="flex items-center space-x-2">
-            <h1 class="text-2xl font-black tracking-tight bg-gradient-to-r from-white via-slate-100 to-slate-400 bg-clip-text text-transparent">
+          <div class="flex items-center space-x-2.5">
+            <h1 class="text-2xl font-orbitron font-black tracking-wider bg-gradient-to-r from-fuchsia-400 via-purple-200 to-cyan-400 bg-clip-text text-transparent cyber-glow-title">
               AIRDROP FARM
             </h1>
-            <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-semibold bg-brand-500/10 text-brand-400 border border-brand-500/20">
-              Terminal v1.0
+            <span class="inline-flex items-center space-x-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold bg-fuchsia-500/10 text-fuchsia-300 border border-fuchsia-500/30 shadow-sm shadow-fuchsia-500/20">
+              <span class="w-1.5 h-1.5 rounded-full bg-cyan-400 neon-pulse-dot"></span>
+              <span>NEXUS // v2.0</span>
             </span>
           </div>
-          <p class="text-xs text-slate-400 font-medium">Küratörlü Alpha, VC Sicili & Puan Optimizasyon Merkezi</p>
+          <p class="text-[11px] font-mono text-purple-300/60 uppercase tracking-widest mt-0.5">
+            // CYBERNETIC PROTOCOL HARVESTER // ACTIVE ALPHA POOL
+          </p>
         </div>
       </div>
 
-      <!-- Action Buttons & Search Trigger -->
+      <!-- Action Buttons -->
       <div class="flex items-center space-x-3">
-        <button id="btnExportJSON" class="hidden sm:inline-flex items-center space-x-1.5 px-3 py-2 rounded-xl bg-surface-800 hover:bg-surface-700 text-slate-300 hover:text-white border border-surface-700 text-xs font-semibold transition" title="Mevcut listeyi projects.json olarak indir">
-          <i data-lucide="download" class="w-3.5 h-3.5 text-brand-400"></i>
-          <span>JSON İndir</span>
+        <button id="btnExportJSON" class="hidden sm:inline-flex items-center space-x-1.5 px-3.5 py-2 rounded-xl bg-[#140b2e] hover:bg-[#1f1147] text-purple-200 hover:text-cyan-300 border border-purple-500/30 hover:border-cyan-400/50 text-xs font-mono font-semibold transition-all shadow-md" title="Mevcut listeyi projects.json olarak indir">
+          <i data-lucide="download" class="w-3.5 h-3.5 text-cyan-400"></i>
+          <span>JSON İNDİR</span>
         </button>
-        <button id="btnNewProject" class="inline-flex items-center space-x-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-brand-500 to-emerald-600 hover:from-brand-400 hover:to-emerald-500 text-black font-bold text-sm shadow-lg shadow-brand-500/25 transition-all transform hover:-translate-y-0.5 active:translate-y-0">
-          <i data-lucide="plus-circle" class="w-4 h-4"></i>
-          <span>Yeni Proje Ekle</span>
+        <button id="btnNewProject" class="inline-flex items-center space-x-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-fuchsia-600 via-purple-600 to-cyan-500 hover:from-fuchsia-500 hover:to-cyan-400 text-white font-orbitron font-bold text-xs tracking-wider shadow-lg shadow-purple-600/30 transition-all transform hover:-translate-y-0.5 active:translate-y-0">
+          <i data-lucide="plus-circle" class="w-4 h-4 text-cyan-200"></i>
+          <span>YENİ HEDEF EKLE</span>
         </button>
       </div>
     </div>
@@ -75,69 +94,68 @@
   <!-- Main Content Container -->
   <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
 
-    <!-- Hero / Stats Bar -->
+    <!-- Cyberpunk Stats Bar -->
     <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
-      <div class="bg-surface-800/80 border border-surface-700/60 rounded-2xl p-4.5 flex items-center space-x-4">
-        <div class="p-3 bg-brand-500/10 text-brand-400 rounded-xl">
+      <div class="bg-[#120a28]/80 border border-purple-500/25 rounded-2xl p-4.5 flex items-center space-x-4 shadow-lg backdrop-blur-md">
+        <div class="p-3 bg-purple-500/10 text-purple-400 rounded-xl border border-purple-500/20">
           <i data-lucide="layers" class="w-6 h-6"></i>
         </div>
         <div>
-          <div class="text-2xl font-black text-white" id="statTotal">8</div>
-          <div class="text-xs text-slate-400 font-medium">Toplam Proje</div>
+          <div class="text-2xl font-orbitron font-black text-white" id="statTotal">5</div>
+          <div class="text-xs font-mono text-purple-300/60 uppercase">Aktif Havuz</div>
         </div>
       </div>
 
-      <div class="bg-surface-800/80 border border-surface-700/60 rounded-2xl p-4.5 flex items-center space-x-4">
-        <div class="p-3 bg-emerald-500/10 text-emerald-400 rounded-xl">
+      <div class="bg-[#120a28]/80 border border-purple-500/25 rounded-2xl p-4.5 flex items-center space-x-4 shadow-lg backdrop-blur-md">
+        <div class="p-3 bg-cyan-500/10 text-cyan-400 rounded-xl border border-cyan-500/20">
           <i data-lucide="flame" class="w-6 h-6"></i>
         </div>
         <div>
-          <div class="text-2xl font-black text-emerald-400" id="statActive">2</div>
-          <div class="text-xs text-slate-400 font-medium">Aktif Puan Kasımı</div>
+          <div class="text-2xl font-orbitron font-black text-cyan-400 cyber-neon-cyan" id="statActive">2</div>
+          <div class="text-xs font-mono text-cyan-300/60 uppercase">Aktif Puan Kasımı</div>
         </div>
       </div>
 
-      <div class="bg-surface-800/80 border border-surface-700/60 rounded-2xl p-4.5 flex items-center space-x-4">
-        <div class="p-3 bg-amber-500/10 text-amber-400 rounded-xl">
+      <div class="bg-[#120a28]/80 border border-purple-500/25 rounded-2xl p-4.5 flex items-center space-x-4 shadow-lg backdrop-blur-md">
+        <div class="p-3 bg-fuchsia-500/10 text-fuchsia-400 rounded-xl border border-fuchsia-500/20">
           <i data-lucide="clock" class="w-6 h-6"></i>
         </div>
         <div>
-          <div class="text-2xl font-black text-amber-400" id="statTge">3</div>
-          <div class="text-xs text-slate-400 font-medium">TGE / Claim Eşiğinde</div>
+          <div class="text-2xl font-orbitron font-black text-fuchsia-400 cyber-neon-magenta" id="statTge">1</div>
+          <div class="text-xs font-mono text-fuchsia-300/60 uppercase">TGE Yaklaşan</div>
         </div>
       </div>
 
-      <div class="bg-surface-800/80 border border-surface-700/60 rounded-2xl p-4.5 flex items-center space-x-4">
-        <div class="p-3 bg-cyan-500/10 text-cyan-400 rounded-xl">
-          <i data-lucide="shield-alert" class="w-6 h-6"></i>
+      <div class="bg-[#120a28]/80 border border-purple-500/25 rounded-2xl p-4.5 flex items-center space-x-4 shadow-lg backdrop-blur-md">
+        <div class="p-3 bg-emerald-500/10 text-emerald-400 rounded-xl border border-emerald-500/20">
+          <i data-lucide="crosshair" class="w-6 h-6"></i>
         </div>
         <div>
-          <div class="text-2xl font-black text-cyan-400" id="statEarly">3</div>
-          <div class="text-xs text-slate-400 font-medium">Erken / Fırsat Havuzu</div>
+          <div class="text-2xl font-orbitron font-black text-emerald-400" id="statEarly">2</div>
+          <div class="text-xs font-mono text-emerald-300/60 uppercase">Erken Alpha Sektörü</div>
         </div>
       </div>
     </div>
 
     <!-- Filters & Search Toolbar -->
-    <div class="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4 bg-surface-800/50 p-3 rounded-2xl border border-surface-700/50">
+    <div class="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4 bg-[#100924]/70 p-3.5 rounded-2xl border border-purple-500/25 backdrop-blur-md">
       
       <!-- Filter Badges -->
       <div class="flex items-center space-x-2 overflow-x-auto pb-2 md:pb-0 scrollbar-none" id="filterContainer">
-        <button class="filter-btn active px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-brand-500 text-black shadow-sm" data-filter="all">Tümü</button>
-        <button class="filter-btn px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-surface-700 text-slate-300 hover:text-white" data-filter="Aktif Puan Kasma">Aktif Puan Kasma</button>
-        <button class="filter-btn px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-surface-700 text-slate-300 hover:text-white" data-filter="TGE">TGE Eşiğinde</button>
-        <button class="filter-btn px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-surface-700 text-slate-300 hover:text-white" data-filter="Erken">Erken Aşama</button>
-        <button class="filter-btn px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-surface-700 text-slate-300 hover:text-white" data-filter="Geç">Geç / Dikkat</button>
+        <button class="filter-btn active px-4 py-1.5 rounded-xl text-xs font-bold" data-filter="all">TÜMÜ</button>
+        <button class="filter-btn px-4 py-1.5 rounded-xl text-xs font-bold text-purple-200" data-filter="Aktif Puan Kasma">AKTİF PUAN</button>
+        <button class="filter-btn px-4 py-1.5 rounded-xl text-xs font-bold text-purple-200" data-filter="TGE">TGE SON DÜZLÜK</button>
+        <button class="filter-btn px-4 py-1.5 rounded-xl text-xs font-bold text-purple-200" data-filter="Erken">ERKEN ALPHA</button>
       </div>
 
       <!-- Search Input -->
-      <div class="relative w-full md:w-72">
-        <i data-lucide="search" class="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400"></i>
+      <div class="relative w-full md:w-80">
+        <i data-lucide="search" class="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-purple-400"></i>
         <input 
           type="text" 
           id="searchInput" 
-          placeholder="Proje veya sembol ara (örn: STK)..." 
-          class="w-full bg-surface-700/60 border border-surface-600/50 rounded-xl pl-10 pr-4 py-2 text-sm text-slate-100 placeholder-slate-400 focus:outline-none focus:border-brand-500/80 focus:ring-1 focus:ring-brand-500"
+          placeholder="HEDEF VEYA TICKER ARA (ÖRN: STK)..." 
+          class="w-full bg-[#150c30]/80 border border-purple-500/30 rounded-xl pl-10 pr-4 py-2 text-xs font-mono text-slate-100 placeholder-purple-400/50 focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400"
         />
       </div>
     </div>
@@ -148,41 +166,41 @@
     </div>
 
     <!-- Empty State -->
-    <div id="emptyState" class="hidden text-center py-16 bg-surface-800/30 rounded-3xl border border-dashed border-surface-700">
-      <div class="w-14 h-14 mx-auto mb-4 bg-surface-700 rounded-2xl flex items-center justify-center text-slate-400">
-        <i data-lucide="inbox" class="w-7 h-7"></i>
+    <div id="emptyState" class="hidden text-center py-16 bg-[#120a28]/40 rounded-3xl border border-dashed border-purple-500/30">
+      <div class="w-14 h-14 mx-auto mb-4 bg-purple-500/10 border border-purple-500/20 rounded-2xl flex items-center justify-center text-purple-400">
+        <i data-lucide="radar" class="w-7 h-7"></i>
       </div>
-      <h3 class="text-lg font-bold text-slate-200">Aradığınız kriterde proje bulunamadı</h3>
-      <p class="text-sm text-slate-400 mt-1">Arama kelimenizi değiştirin veya yeni bir proje ekleyin.</p>
+      <h3 class="text-lg font-orbitron font-bold text-slate-200">RADARDA HEDEF BULUNAMADI</h3>
+      <p class="text-xs font-mono text-purple-300/60 mt-1">Kriterlerinizi değiştirin veya yeni bir proje protokolü ekleyin.</p>
     </div>
 
   </main>
 
-  <!-- Project Detail Modal (Rich View & Alpha) -->
-  <div id="detailModal" class="fixed inset-0 z-50 hidden bg-black/80 backdrop-blur-md overflow-y-auto p-4 sm:p-6 lg:p-8 flex items-center justify-center">
-    <div class="relative bg-surface-800 border border-surface-700 rounded-3xl max-w-4xl w-full max-h-[90vh] flex flex-col shadow-2xl overflow-hidden animate-in fade-in zoom-in-95 duration-150">
+  <!-- Project Detail Modal (Blade Runner Cyber View) -->
+  <div id="detailModal" class="fixed inset-0 z-50 hidden bg-black/85 backdrop-blur-xl overflow-y-auto p-4 sm:p-6 lg:p-8 flex items-center justify-center">
+    <div class="relative bg-[#0d0722] border border-purple-500/40 rounded-3xl max-w-4xl w-full max-h-[92vh] flex flex-col shadow-2xl shadow-purple-950/80 overflow-hidden animate-in fade-in zoom-in-95 duration-150">
       
       <!-- Modal Header -->
-      <div class="p-6 border-b border-surface-700/80 bg-surface-800/90 sticky top-0 z-10 flex items-start justify-between">
+      <div class="p-6 border-b border-purple-500/30 bg-[#0f0827]/95 sticky top-0 z-10 flex items-start justify-between backdrop-blur-md">
         <div class="flex items-center space-x-4">
-          <div id="detailSymbolBadge" class="w-14 h-14 rounded-2xl bg-gradient-to-tr from-brand-500 to-cyan-500 flex items-center justify-center text-black font-black text-xl shadow-lg shadow-brand-500/20">
+          <div id="detailSymbolBadge" class="w-14 h-14 rounded-2xl bg-gradient-to-tr from-fuchsia-600 via-purple-600 to-cyan-400 flex items-center justify-center text-black font-orbitron font-black text-xl shadow-lg shadow-purple-500/30">
             STK
           </div>
           <div>
             <div class="flex items-center space-x-3">
-              <h2 id="detailTitle" class="text-2xl font-black text-white">StableStock</h2>
-              <span id="detailSymbol" class="px-2.5 py-0.5 rounded-lg text-xs font-black bg-surface-700 text-brand-400 border border-surface-600">STK</span>
-              <span id="detailStatusBadge" class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">Aktif Puan Kasma</span>
+              <h2 id="detailTitle" class="text-2xl font-orbitron font-black text-white tracking-wide">StableStock</h2>
+              <span id="detailSymbol" class="px-2.5 py-0.5 rounded-lg text-xs font-mono font-black bg-purple-500/20 text-cyan-300 border border-purple-500/40">// STK</span>
+              <span id="detailStatusBadge" class="px-2.5 py-0.5 rounded-full text-xs font-mono font-bold bg-cyan-500/10 text-cyan-400 border border-cyan-500/30">Aktif Puan Kasma</span>
             </div>
-            <p id="detailCategory" class="text-xs text-slate-400 font-medium mt-1">RWA & Tokenized Equities</p>
+            <p id="detailCategory" class="text-xs font-mono text-purple-300/70 mt-1 tracking-wider uppercase">RWA & Tokenized Equities</p>
           </div>
         </div>
 
         <div class="flex items-center space-x-2">
-          <button id="btnEditFromDetail" class="p-2 rounded-xl bg-surface-700 hover:bg-surface-600 text-slate-300 hover:text-white transition" title="Projeyi Düzenle">
+          <button id="btnEditFromDetail" class="p-2 rounded-xl bg-purple-900/30 border border-purple-500/30 hover:border-cyan-400/50 text-purple-200 hover:text-cyan-300 transition" title="Projeyi Düzenle">
             <i data-lucide="edit-3" class="w-5 h-5"></i>
           </button>
-          <button id="btnCloseDetail" class="p-2 rounded-xl bg-surface-700 hover:bg-surface-600 text-slate-300 hover:text-white transition" title="Kapat">
+          <button id="btnCloseDetail" class="p-2 rounded-xl bg-purple-900/30 border border-purple-500/30 hover:border-fuchsia-500 text-purple-200 hover:text-white transition" title="Kapat">
             <i data-lucide="x" class="w-5 h-5"></i>
           </button>
         </div>
@@ -192,42 +210,42 @@
       <div class="p-6 sm:p-8 overflow-y-auto space-y-6 text-slate-200">
         
         <!-- Quick Meta Info Cards -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 text-xs">
-          <div class="bg-surface-700/40 p-3.5 rounded-xl border border-surface-700">
-            <div class="text-slate-400 font-semibold mb-1">Fonlama / Değerleme</div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 text-xs font-mono">
+          <div class="bg-[#150c33]/70 p-3.5 rounded-xl border border-purple-500/25">
+            <div class="text-purple-400/80 font-bold mb-1">// DEĞERLEME</div>
             <div id="detailFunding" class="font-bold text-white text-sm">-</div>
           </div>
-          <div class="bg-surface-700/40 p-3.5 rounded-xl border border-surface-700">
-            <div class="text-slate-400 font-semibold mb-1">Risk / Güvenilirlik</div>
-            <div id="detailRisk" class="font-bold text-amber-400 text-sm">-</div>
+          <div class="bg-[#150c33]/70 p-3.5 rounded-xl border border-purple-500/25">
+            <div class="text-purple-400/80 font-bold mb-1">// GÜVENİLİRLİK NOTU</div>
+            <div id="detailRisk" class="font-bold text-amber-300 text-sm">-</div>
           </div>
-          <div class="bg-surface-700/40 p-3.5 rounded-xl border border-surface-700">
-            <div class="text-slate-400 font-semibold mb-1">Kurucu & Çekirdek Ekip</div>
+          <div class="bg-[#150c33]/70 p-3.5 rounded-xl border border-purple-500/25">
+            <div class="text-purple-400/80 font-bold mb-1">// KURUCU EKİP</div>
             <div id="detailFounders" class="font-bold text-white truncate text-sm">-</div>
           </div>
-          <div class="bg-surface-700/40 p-3.5 rounded-xl border border-surface-700">
-            <div class="text-slate-400 font-semibold mb-1">Yatırımcılar (VC'ler)</div>
+          <div class="bg-[#150c33]/70 p-3.5 rounded-xl border border-purple-500/25">
+            <div class="text-purple-400/80 font-bold mb-1">// YATIRIMCILAR</div>
             <div id="detailBackers" class="font-bold text-white truncate text-sm">-</div>
           </div>
         </div>
 
         <!-- Links Toolbar -->
-        <div class="flex flex-wrap gap-2 pt-1 pb-2 border-b border-surface-700/60" id="detailLinksBar">
+        <div class="flex flex-wrap gap-2 pt-1 pb-2 border-b border-purple-500/25" id="detailLinksBar">
           <!-- Links will be injected here -->
         </div>
 
         <!-- Markdown Body Container -->
-        <div id="detailMarkdownContent" class="prose prose-invert max-w-none prose-headings:font-black prose-headings:text-slate-100 prose-p:text-slate-300 prose-strong:text-brand-400 prose-ul:text-slate-300">
+        <div id="detailMarkdownContent" class="prose prose-invert max-w-none">
           <!-- Markdown HTML rendered here -->
         </div>
 
       </div>
 
       <!-- Modal Footer -->
-      <div class="p-4 bg-surface-900 border-t border-surface-700 flex items-center justify-between text-xs text-slate-400">
-        <span>Airdrop Farm Terminal • Sürekli Güncellenen Alpha Kaydı</span>
-        <button id="btnCloseDetailFooter" class="px-4 py-2 rounded-xl bg-surface-700 hover:bg-surface-600 text-white font-semibold transition">
-          Kapat
+      <div class="p-4 bg-[#080415] border-t border-purple-500/25 flex items-center justify-between text-xs font-mono text-purple-300/60">
+        <span>// CYBERNETIC ALPHA LOG • CONTINUOUS REAL-TIME FEED</span>
+        <button id="btnCloseDetailFooter" class="px-4 py-2 rounded-xl bg-purple-900/40 border border-purple-500/30 hover:border-cyan-400 text-white font-bold transition">
+          KAPAT
         </button>
       </div>
 
@@ -235,13 +253,13 @@
   </div>
 
   <!-- Project Add / Edit Modal -->
-  <div id="formModal" class="fixed inset-0 z-50 hidden bg-black/80 backdrop-blur-md overflow-y-auto p-4 sm:p-6 lg:p-8 flex items-center justify-center">
-    <div class="relative bg-surface-800 border border-surface-700 rounded-3xl max-w-3xl w-full max-h-[90vh] flex flex-col shadow-2xl overflow-hidden animate-in fade-in zoom-in-95 duration-150">
+  <div id="formModal" class="fixed inset-0 z-50 hidden bg-black/85 backdrop-blur-xl overflow-y-auto p-4 sm:p-6 lg:p-8 flex items-center justify-center">
+    <div class="relative bg-[#0d0722] border border-purple-500/40 rounded-3xl max-w-3xl w-full max-h-[90vh] flex flex-col shadow-2xl overflow-hidden animate-in fade-in zoom-in-95 duration-150">
       
       <!-- Form Header -->
-      <div class="p-6 border-b border-surface-700 bg-surface-800 sticky top-0 z-10 flex items-center justify-between">
-        <h3 id="formModalTitle" class="text-xl font-black text-white">Yeni Proje Ekle</h3>
-        <button id="btnCloseForm" class="p-2 rounded-xl bg-surface-700 hover:bg-surface-600 text-slate-300 hover:text-white transition">
+      <div class="p-6 border-b border-purple-500/30 bg-[#0f0827] sticky top-0 z-10 flex items-center justify-between">
+        <h3 id="formModalTitle" class="text-xl font-orbitron font-black text-white tracking-wider">YENİ PROTOKOL EKLE</h3>
+        <button id="btnCloseForm" class="p-2 rounded-xl bg-purple-900/30 border border-purple-500/30 hover:border-fuchsia-500 text-slate-300 hover:text-white transition">
           <i data-lucide="x" class="w-5 h-5"></i>
         </button>
       </div>
@@ -252,86 +270,85 @@
 
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
-            <label class="block text-xs font-semibold text-slate-300 mb-1.5">Proje Adı *</label>
+            <label class="block text-xs font-mono font-semibold text-purple-300 mb-1.5">// PROJE ADI *</label>
             <input type="text" id="formName" required placeholder="Örn: StableStock" class="form-input" />
           </div>
           <div>
-            <label class="block text-xs font-semibold text-slate-300 mb-1.5">Sembol / Ticker *</label>
+            <label class="block text-xs font-mono font-semibold text-purple-300 mb-1.5">// TICKER / SEMBOL *</label>
             <input type="text" id="formSymbol" required placeholder="Örn: STK" class="form-input" />
           </div>
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <div>
-            <label class="block text-xs font-semibold text-slate-300 mb-1.5">Kategori</label>
+            <label class="block text-xs font-mono font-semibold text-purple-300 mb-1.5">// KATEGORİ</label>
             <input type="text" id="formCategory" placeholder="Örn: RWA & Perps" class="form-input" />
           </div>
           <div>
-            <label class="block text-xs font-semibold text-slate-300 mb-1.5">Aşama / Durum</label>
+            <label class="block text-xs font-mono font-semibold text-purple-300 mb-1.5">// DURUM / AŞAMA</label>
             <select id="formStatus" class="form-input">
               <option value="Aktif Puan Kasma">Aktif Puan Kasma</option>
               <option value="TGE Öncesi Son Düzlük">TGE Öncesi Son Düzlük</option>
               <option value="Erken Test / Spekülatif">Erken Test / Spekülatif</option>
-              <option value="TGE & Claim Eşiğinde">TGE & Claim Eşiğinde</option>
-              <option value="Geç Aşama / Seyrelme Yüksek">Geç Aşama / Seyrelme Yüksek</option>
+              <option value="Çok Erken / Puan Sistemi Kapıda">Çok Erken / Puan Sistemi Kapıda</option>
             </select>
           </div>
           <div>
-            <label class="block text-xs font-semibold text-slate-300 mb-1.5">Risk / Not Seviyesi</label>
+            <label class="block text-xs font-mono font-semibold text-purple-300 mb-1.5">// RİSK DERECESİ</label>
             <input type="text" id="formRiskTier" placeholder="Örn: B+ / Orta Risk" class="form-input" />
           </div>
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
-            <label class="block text-xs font-semibold text-slate-300 mb-1.5">Fonlama & Değerleme</label>
+            <label class="block text-xs font-mono font-semibold text-purple-300 mb-1.5">// FONLAMA / DEĞERLEME</label>
             <input type="text" id="formFunding" placeholder="Örn: $75M Değerleme" class="form-input" />
           </div>
           <div>
-            <label class="block text-xs font-semibold text-slate-300 mb-1.5">Kurucu Ekip</label>
+            <label class="block text-xs font-mono font-semibold text-purple-300 mb-1.5">// KURUCU EKİP</label>
             <input type="text" id="formFounders" placeholder="Örn: Zixi Zhu, Zac" class="form-input" />
           </div>
         </div>
 
         <div>
-          <label class="block text-xs font-semibold text-slate-300 mb-1.5">Yatırımcılar & VC'ler</label>
+          <label class="block text-xs font-mono font-semibold text-purple-300 mb-1.5">// YATIRIMCILAR & VC'LER</label>
           <input type="text" id="formBackers" placeholder="Örn: YZi Labs, Matrix Partners, Amber Group" class="form-input" />
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <div>
-            <label class="block text-xs font-semibold text-slate-300 mb-1.5">Web Sitesi</label>
+            <label class="block text-xs font-mono font-semibold text-purple-300 mb-1.5">// WEB SİTESİ</label>
             <input type="url" id="formWebsite" placeholder="https://..." class="form-input" />
           </div>
           <div>
-            <label class="block text-xs font-semibold text-slate-300 mb-1.5">DApp / Görev Linki</label>
+            <label class="block text-xs font-mono font-semibold text-purple-300 mb-1.5">// DAPP / GÖREV LİNKİ</label>
             <input type="url" id="formAppUrl" placeholder="https://app..." class="form-input" />
           </div>
           <div>
-            <label class="block text-xs font-semibold text-slate-300 mb-1.5">X (Twitter) Linki</label>
+            <label class="block text-xs font-mono font-semibold text-purple-300 mb-1.5">// X (TWITTER) LİNKİ</label>
             <input type="url" id="formTwitter" placeholder="https://x.com/..." class="form-input" />
           </div>
         </div>
 
         <div>
-          <label class="block text-xs font-semibold text-slate-300 mb-1.5">Kısa Özet (Kartta Gözükecek)</label>
-          <textarea id="formSummary" rows="2" placeholder="Projenin 1-2 cümlelik temel mantığı ve strateji özeti..." class="form-input"></textarea>
+          <label class="block text-xs font-mono font-semibold text-purple-300 mb-1.5">// KISA ÖZET (KARTTA GÖRÜNECEK)</label>
+          <textarea id="formSummary" rows="2" placeholder="Protokolün temel mantığı ve airdrop strateji özeti..." class="form-input"></textarea>
         </div>
 
         <div>
-          <label class="block text-xs font-semibold text-slate-300 mb-1.5">
-            Detaylı Alpha & Airdrop Analiz Raporu (Markdown Destekli)
+          <label class="block text-xs font-mono font-semibold text-purple-300 mb-1.5">
+            // DETAYLI ALPHA & AİRDROP RAPORU (MARKDOWN)
           </label>
           <textarea id="formContent" rows="10" placeholder="Puan kasma taktikleri, wash trading uyarıları, VC sicili ve adım adım kılavuz..." class="form-input font-mono text-xs"></textarea>
         </div>
 
         <!-- Form Submit / Cancel -->
-        <div class="pt-4 border-t border-surface-700 flex items-center justify-end space-x-3">
-          <button type="button" id="btnCancelForm" class="px-4 py-2.5 rounded-xl bg-surface-700 hover:bg-surface-600 text-slate-300 font-semibold transition">
-            İptal
+        <div class="pt-4 border-t border-purple-500/30 flex items-center justify-end space-x-3">
+          <button type="button" id="btnCancelForm" class="px-4 py-2.5 rounded-xl bg-purple-900/30 border border-purple-500/30 hover:border-purple-400 text-slate-300 font-mono font-semibold transition">
+            İPTAL
           </button>
-          <button type="submit" class="px-5 py-2.5 rounded-xl bg-brand-500 hover:bg-brand-400 text-black font-bold transition shadow-lg shadow-brand-500/20">
-            Kaydet
+          <button type="submit" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-fuchsia-600 to-cyan-500 hover:from-fuchsia-500 hover:to-cyan-400 text-white font-orbitron font-bold transition shadow-lg shadow-purple-500/30">
+            KAYDET // ONAYLA
           </button>
         </div>
       </form>
@@ -340,13 +357,13 @@
   </div>
 
   <!-- Toast Notification Container -->
-  <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none px-4 py-3 rounded-2xl bg-surface-700 border border-surface-600 shadow-2xl flex items-center space-x-3 text-sm font-medium">
+  <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none px-4 py-3 rounded-2xl bg-[#140b2e] border border-purple-500/40 shadow-2xl flex items-center space-x-3 text-sm font-mono font-medium">
     <div id="toastIcon"></div>
     <div id="toastMessage" class="text-white"></div>
   </div>
 
-  <footer class="py-6 border-t border-surface-800 text-center text-xs text-slate-500">
-    Airdrop Farm Terminal • Otomatik Senkronize JSON Veri Tabanı • Node.js Backend
+  <footer class="py-6 border-t border-purple-500/20 text-center text-xs font-mono text-purple-400/50">
+    AIRDROP FARM // BLADE RUNNER TERMINAL EDITION • PROTOCOL VERSION 2026-ALPHA
   </footer>
 
   <script src="app.js"></script>

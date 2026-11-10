@@ -138,69 +138,69 @@ function renderProjects() {
 
 // Generate Card HTML
 function createCardHTML(p) {
-  let statusBadgeClass = 'bg-surface-700 text-slate-300 border-surface-600';
+  let statusBadgeClass = 'bg-purple-950/50 text-purple-300 border-purple-500/30';
   if (p.status && p.status.includes('Aktif')) {
-    statusBadgeClass = 'bg-emerald-500/10 text-emerald-400 border-emerald-500/30';
+    statusBadgeClass = 'bg-cyan-500/10 text-cyan-300 border-cyan-400/40 shadow-sm shadow-cyan-500/20';
   } else if (p.status && (p.status.includes('TGE') || p.status.includes('Donduruluyor'))) {
-    statusBadgeClass = 'bg-amber-500/10 text-amber-400 border-amber-500/30';
+    statusBadgeClass = 'bg-fuchsia-500/10 text-fuchsia-300 border-fuchsia-400/40 shadow-sm shadow-fuchsia-500/20';
   } else if (p.status && p.status.includes('Erken')) {
-    statusBadgeClass = 'bg-cyan-500/10 text-cyan-400 border-cyan-500/30';
-  } else if (p.status && p.status.includes('Geç')) {
-    statusBadgeClass = 'bg-rose-500/10 text-rose-400 border-rose-500/30';
+    statusBadgeClass = 'bg-emerald-500/10 text-emerald-300 border-emerald-400/40 shadow-sm shadow-emerald-500/20';
   }
 
   const isStableStock = p.id === 'stablestock';
 
   return `
-    <div class="project-card relative bg-surface-800/90 border ${isStableStock ? 'border-brand-500/50 shadow-brand-500/10' : 'border-surface-700/70'} rounded-3xl p-6 flex flex-col justify-between cursor-pointer group" onclick="openDetailModal('${p.id}')">
+    <div class="project-card relative rounded-3xl p-6 flex flex-col justify-between cursor-pointer group ${isStableStock ? 'border-purple-400/60 shadow-purple-500/20' : ''}" onclick="openDetailModal('${p.id}')">
       
       ${isStableStock ? `
-        <div class="absolute -top-3 right-6 bg-gradient-to-r from-brand-500 to-cyan-500 text-black text-[10px] font-black uppercase px-3 py-0.5 rounded-full shadow-md tracking-wider">
-          🔥 Özel Analiz
+        <div class="absolute -top-3 right-6 bg-gradient-to-r from-fuchsia-600 via-purple-600 to-cyan-400 text-white text-[9px] font-orbitron font-black uppercase px-3 py-0.5 rounded-full shadow-lg shadow-fuchsia-500/30 tracking-widest">
+          ⚡ YÜKSEK ALPHA
         </div>
       ` : ''}
 
       <div>
         <div class="flex items-start justify-between mb-4">
           <div class="flex items-center space-x-3.5">
-            <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr ${isStableStock ? 'from-brand-500 via-emerald-400 to-cyan-400 text-black' : 'from-surface-700 to-surface-600 text-brand-400'} flex items-center justify-center font-black text-base shadow-md">
-              ${(p.symbol || 'PRJ').slice(0, 4)}
+            <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-fuchsia-600 via-purple-600 to-cyan-400 p-[1.5px] shadow-lg shadow-purple-950/60 flex-shrink-0">
+              <div class="w-full h-full bg-[#0b061c] rounded-[14px] flex items-center justify-center font-orbitron font-black text-cyan-300 text-sm tracking-wider">
+                ${(p.symbol || 'PRJ').slice(0, 4)}
+              </div>
             </div>
             <div>
               <div class="flex items-center space-x-2">
-                <h3 class="text-lg font-black text-white group-hover:text-brand-400 transition-colors">${p.name}</h3>
-                <span class="text-xs font-bold px-2 py-0.5 rounded bg-surface-700/80 text-slate-300">${p.symbol}</span>
+                <h3 class="text-base font-orbitron font-bold text-white group-hover:text-cyan-300 transition-colors tracking-wide">${p.name}</h3>
+                <span class="text-[11px] font-mono font-bold px-2 py-0.5 rounded bg-purple-950/60 text-purple-300 border border-purple-500/30">// ${p.symbol}</span>
               </div>
-              <p class="text-xs text-slate-400 mt-0.5">${p.category || 'DeFi / Airdrop'}</p>
+              <p class="text-xs font-mono text-purple-300/60 mt-0.5 uppercase tracking-wider">${p.category || 'DeFi / Airdrop'}</p>
             </div>
           </div>
 
-          <span class="inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-bold border ${statusBadgeClass}">
+          <span class="inline-flex items-center px-2.5 py-1 rounded-full text-[10px] font-mono font-bold border ${statusBadgeClass}">
             ${p.status || 'Aktif'}
           </span>
         </div>
 
-        <p class="text-xs text-slate-300 leading-relaxed mb-4 line-clamp-3">
+        <p class="text-xs text-slate-300 leading-relaxed mb-4 line-clamp-3 font-sans">
           ${p.summary || 'Proje hakkında detaylar ve airdrop puan kasma kılavuzu için tıklayın.'}
         </p>
 
-        <div class="flex flex-wrap gap-1.5 mb-5 text-[11px]">
-          ${p.funding ? `<span class="px-2 py-0.5 rounded-md bg-surface-700/70 text-slate-300 border border-surface-600/50">💰 ${p.funding}</span>` : ''}
-          ${p.riskTier ? `<span class="px-2 py-0.5 rounded-md bg-surface-700/70 text-amber-300/90 border border-surface-600/50">🛡️ ${p.riskTier}</span>` : ''}
+        <div class="flex flex-wrap gap-1.5 mb-5 text-[10px] font-mono">
+          ${p.funding ? `<span class="px-2 py-0.5 rounded-md bg-[#180d38] text-purple-200 border border-purple-500/25">💰 ${p.funding}</span>` : ''}
+          ${p.riskTier ? `<span class="px-2 py-0.5 rounded-md bg-[#180d38] text-amber-300 border border-amber-500/30">🛡️ ${p.riskTier}</span>` : ''}
         </div>
       </div>
 
-      <div class="pt-4 border-t border-surface-700/60 flex items-center justify-between" onclick="event.stopPropagation()">
-        <button onclick="openDetailModal('${p.id}')" class="inline-flex items-center space-x-1.5 text-xs font-bold text-brand-400 hover:text-brand-300 group-hover:underline">
-          <span>İncele & Alpha Oku</span>
-          <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+      <div class="pt-4 border-t border-purple-500/20 flex items-center justify-between" onclick="event.stopPropagation()">
+        <button onclick="openDetailModal('${p.id}')" class="inline-flex items-center space-x-1.5 text-xs font-orbitron font-bold text-cyan-400 hover:text-cyan-300 group-hover:translate-x-1 transition-all">
+          <span>İNCELE & ALPHA OKU</span>
+          <i data-lucide="arrow-right" class="w-3.5 h-3.5 text-cyan-400"></i>
         </button>
 
-        <div class="flex items-center space-x-1">
-          <button onclick="openEditModal('${p.id}')" class="p-1.5 rounded-lg bg-surface-700/70 hover:bg-surface-600 text-slate-400 hover:text-white transition" title="Düzenle">
+        <div class="flex items-center space-x-1.5">
+          <button onclick="openEditModal('${p.id}')" class="p-1.5 rounded-lg bg-purple-950/50 hover:bg-purple-800/40 border border-purple-500/25 text-purple-300 hover:text-white transition" title="Düzenle">
             <i data-lucide="edit-2" class="w-3.5 h-3.5"></i>
           </button>
-          <button onclick="deleteProject('${p.id}', '${p.name}')" class="p-1.5 rounded-lg bg-surface-700/70 hover:bg-rose-500/20 text-slate-400 hover:text-rose-400 transition" title="Sil">
+          <button onclick="deleteProject('${p.id}', '${p.name}')" class="p-1.5 rounded-lg bg-purple-950/50 hover:bg-rose-500/20 border border-purple-500/25 text-purple-300 hover:text-rose-400 transition" title="Sil">
             <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
           </button>
         </div>
