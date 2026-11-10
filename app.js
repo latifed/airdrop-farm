@@ -261,7 +261,17 @@ function applyLocalOverrides(serverProjects) {
   let result = serverProjects.filter(p => !deletedIds.includes(p.id));
 
   // 2. Apply locally saved user edits
-  result = result.map(p => editedMap[p.id] ? { ...p, ...editedMap[p.id] } : p);
+  result = result.map(p => {
+    if (editedMap[p.id]) {
+      const merged = { ...p, ...editedMap[p.id] };
+      // If server data has updated accordion content, prioritize the latest report
+      if (p.content && p.content.includes('<details>') && (!editedMap[p.id].content || !editedMap[p.id].content.includes('<details>'))) {
+        merged.content = p.content;
+      }
+      return merged;
+    }
+    return p;
+  });
 
   // 3. Merge user added projects
   customProjects.forEach(cp => {

@@ -197,6 +197,81 @@ input[type="range"]::-webkit-slider-thumb {
   font-size: 1.15rem !important; /* ~20px */
   line-height: 1.9 !important;
 }
+
+/* Collapsible Accordion Sections in Markdown */
+#detailMarkdownContent details {
+  background: linear-gradient(180deg, #170732 0%, #0e041f 100%) !important;
+  border: 2px solid rgba(255, 0, 127, 0.45) !important;
+  border-radius: 1.25rem !important;
+  margin-top: 1.25rem !important;
+  margin-bottom: 1.25rem !important;
+  overflow: hidden !important;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6) !important;
+}
+
+#detailMarkdownContent details[open] {
+  border-color: #00f0ff !important;
+  background: linear-gradient(180deg, #200945 0%, #100424 100%) !important;
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.8), 0 0 25px rgba(0, 240, 255, 0.25) !important;
+}
+
+#detailMarkdownContent details summary {
+  list-style: none !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  padding: 1.25rem 1.6rem !important;
+  font-family: 'Inter', system-ui, sans-serif !important;
+  font-size: 1.3rem !important;
+  font-weight: 800 !important;
+  color: #ffffff !important;
+  cursor: pointer !important;
+  user-select: none !important;
+  transition: all 0.2s ease !important;
+  background: rgba(255, 0, 127, 0.1) !important;
+}
+
+#detailMarkdownContent details summary::-webkit-details-marker {
+  display: none !important;
+}
+
+/* Right-aligned ">" indicator */
+#detailMarkdownContent details summary::after {
+  content: '>' !important;
+  font-family: 'Inter', system-ui, monospace !important;
+  font-size: 1.6rem !important;
+  font-weight: 900 !important;
+  color: #00f0ff !important;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), color 0.25s ease !important;
+  margin-left: 1rem !important;
+  display: inline-block !important;
+  transform: rotate(0deg);
+}
+
+#detailMarkdownContent details[open] summary {
+  background: rgba(0, 240, 255, 0.12) !important;
+  color: #00f0ff !important;
+  border-bottom: 2px solid rgba(255, 0, 127, 0.35) !important;
+}
+
+#detailMarkdownContent details[open] summary::after {
+  transform: rotate(90deg) !important;
+  color: #ffbe0b !important;
+}
+
+#detailMarkdownContent details summary:hover {
+  background: rgba(255, 0, 127, 0.22) !important;
+  color: #00f0ff !important;
+}
+
+#detailMarkdownContent details .accordion-body {
+  padding: 1.4rem 1.6rem 1.6rem 1.6rem !important;
+}
+
+#detailMarkdownContent details .accordion-body > *:first-child {
+  margin-top: 0.25rem !important;
+}
 #detailMarkdownContent h3 {
   font-family: 'Inter', system-ui, sans-serif !important;
   color: #00f0ff !important;
