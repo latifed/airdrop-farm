@@ -55,7 +55,7 @@
   <script src="https://unpkg.com/lucide@latest"></script>
   <!-- YouTube IFrame API -->
   <script src="https://www.youtube.com/iframe_api"></script>
-  <link rel="stylesheet" href="style.css?v=20261110_wide_v7">
+  <link rel="stylesheet" href="style.css?v=20261110_persist_v8">
 </head>
 <body class="min-h-screen flex flex-col font-sans selection:bg-pink-500 selection:text-white pb-36" style="background-color: #07020e !important; color: #ffffff !important;">
 
@@ -92,7 +92,11 @@
       </div>
 
       <!-- Action Buttons -->
-      <div class="flex items-center space-x-3 sm:space-x-4">
+      <div class="flex items-center space-x-2.5 sm:space-x-3">
+        <button id="btnResetDefault" class="hidden sm:inline-flex items-center space-x-1.5 px-3.5 py-2.5 rounded-2xl bg-[#180733] hover:bg-rose-950/70 text-slate-300 hover:text-rose-300 border border-pink-500/35 text-xs font-bold transition shadow" title="Silinen projeleri sıfırla / varsayılanları geri yükle">
+          <i data-lucide="rotate-ccw" class="w-4 h-4"></i>
+          <span>SIFIRLA</span>
+        </button>
         <button id="btnExportJSON" class="hidden sm:inline-flex items-center space-x-2 px-4 py-2.5 rounded-2xl bg-[#180733] hover:bg-[#280c4f] text-white hover:text-cyan-300 border-2 border-pink-500/50 hover:border-cyan-400 text-sm font-bold transition-all shadow-lg" title="Mevcut listeyi projects.json olarak indir">
           <i data-lucide="download" class="w-4 h-4 text-cyan-400"></i>
           <span>JSON İNDİR</span>
@@ -432,6 +436,6 @@
     AIRDROP FARM VI // VICE CITY EDITION • LEONIDA COUNTY
   </footer>
 
-  <script src="app.js?v=20261110_wide_v7"></script>
+  <script src="app.js?v=20261110_persist_v8"></script>
 </body>
 </html>

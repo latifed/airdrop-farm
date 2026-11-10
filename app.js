@@ -1,6 +1,6 @@
 // ==========================================================================
 // AIRDROP FARM VI // VICE CITY ALPHA TERMINAL - APP LOGIC
-// WIDE SCREEN & COMPACT CARDS WITH LARGE BULLETINS
+// WIDE SCREEN & COMPACT CARDS WITH LARGE BULLETINS & PERSISTENT DELETION
 // ==========================================================================
 
 // Global state
@@ -224,6 +224,56 @@ function setupFirstUserGestureAudioUnlock() {
 }
 
 // ==========================================================================
+// LOCAL PERSISTENCE HELPERS (Bulletproof deletion & custom edits)
+// ==========================================================================
+
+function getDeletedProjectIds() {
+  try {
+    return JSON.parse(localStorage.getItem('airdrop_deleted_ids') || '[]');
+  } catch (e) {
+    return [];
+  }
+}
+
+function getEditedMap() {
+  try {
+    return JSON.parse(localStorage.getItem('airdrop_edited_map') || '{}');
+  } catch (e) {
+    return {};
+  }
+}
+
+function getCustomProjects() {
+  try {
+    return JSON.parse(localStorage.getItem('airdrop_custom_projects') || '[]');
+  } catch (e) {
+    return [];
+  }
+}
+
+// Apply user deletions, edits, and custom additions on top of server data
+function applyLocalOverrides(serverProjects) {
+  const deletedIds = getDeletedProjectIds();
+  const editedMap = getEditedMap();
+  const customProjects = getCustomProjects();
+
+  // 1. Filter out permanently deleted IDs (Never resurrect them on reload!)
+  let result = serverProjects.filter(p => !deletedIds.includes(p.id));
+
+  // 2. Apply locally saved user edits
+  result = result.map(p => editedMap[p.id] ? { ...p, ...editedMap[p.id] } : p);
+
+  // 3. Merge user added projects
+  customProjects.forEach(cp => {
+    if (!deletedIds.includes(cp.id) && !result.some(p => p.id === cp.id)) {
+      result.push(cp);
+    }
+  });
+
+  return result;
+}
+
+// ==========================================================================
 // DATA FETCHING & SYNCHRONIZATION
 // ==========================================================================
 
@@ -233,8 +283,9 @@ async function fetchProjects() {
       try {
         const res = await fetch('/api/projects');
         if (res.ok) {
-          projects = await res.json();
-          localStorage.setItem('airdrop_projects_backup', JSON.stringify(projects));
+          const serverData = await res.json();
+          projects = applyLocalOverrides(serverData);
+          saveLocalProjects();
           updateStats();
           renderProjects();
           checkHashRoute();
@@ -246,12 +297,13 @@ async function fetchProjects() {
       }
     }
 
-    // Static / GitHub Pages Mode: Always fetch latest data from projects.json first (bypass cache)
+    // Static / GitHub Pages Mode: Fetch latest data from projects.json AND apply user deletions/edits
     try {
       const res = await fetch('data/projects.json?v=' + Date.now());
       if (res.ok) {
-        projects = await res.json();
-        localStorage.setItem('airdrop_projects_data', JSON.stringify(projects));
+        const serverData = await res.json();
+        projects = applyLocalOverrides(serverData);
+        saveLocalProjects();
         updateStats();
         renderProjects();
         checkHashRoute();
@@ -265,7 +317,8 @@ async function fetchProjects() {
     const localSaved = localStorage.getItem('airdrop_projects_data');
     if (localSaved) {
       try {
-        projects = JSON.parse(localSaved);
+        const cached = JSON.parse(localSaved);
+        projects = applyLocalOverrides(cached);
         updateStats();
         renderProjects();
         checkHashRoute();
@@ -561,26 +614,38 @@ async function handleFormSubmit(e) {
           return;
         }
       } catch (err) {
-        console.warn('Backend call failed, using local storage update...');
+        console.warn('Backend call failed, using local persistent update...');
       }
     }
 
-    // Static / GitHub Pages mode fallback:
+    // Static / GitHub Pages mode fallback with persistent overrides:
     if (id) {
       const idx = projects.findIndex(p => p.id === id);
       if (idx !== -1) {
         projects[idx] = { ...projects[idx], ...projectData, id };
       }
+      const editedMap = getEditedMap();
+      editedMap[id] = { ...projectData, id };
+      localStorage.setItem('airdrop_edited_map', JSON.stringify(editedMap));
     } else {
       const newId = projectData.name.toLowerCase().replace(/[^a-z0-9]/g, '-').replace(/-+/g, '-').replace(/^-|-$/g, '') || `proj-${Date.now()}`;
-      projects.push({ ...projectData, id: newId });
+      const newProj = { ...projectData, id: newId };
+      projects.push(newProj);
+
+      // Un-delete if this ID was previously marked deleted
+      const deletedIds = getDeletedProjectIds().filter(dId => dId !== newId);
+      localStorage.setItem('airdrop_deleted_ids', JSON.stringify(deletedIds));
+
+      const customProjects = getCustomProjects();
+      customProjects.push(newProj);
+      localStorage.setItem('airdrop_custom_projects', JSON.stringify(customProjects));
     }
 
     saveLocalProjects();
     updateStats();
     renderProjects();
     closeFormModal();
-    showToast(id ? 'Proje tarayıcı hafızasında güncellendi!' : 'Yeni proje tarayıcı hafızasına eklendi!', 'success');
+    showToast(id ? 'Proje güncellendi ve kaydedildi!' : 'Yeni proje kaydedildi!', 'success');
 
   } catch (err) {
     console.error('Submit error:', err);
@@ -588,29 +653,43 @@ async function handleFormSubmit(e) {
   }
 }
 
+// PERMANENT DELETION: Never resurrect deleted projects on page reload!
 async function deleteProject(id, name) {
-  const confirmDelete = confirm(`"${name}" projesini ve tüm analiz verilerini silmek istediğinize emin misiniz?`);
+  const confirmDelete = confirm(`"${name}" projesini tablodan silmek istediğinize emin misiniz?`);
   if (!confirmDelete) return;
 
   try {
+    // 1. Permanently record deletion ID so fetchProjects() NEVER resurrects it
+    const deletedIds = getDeletedProjectIds();
+    if (!deletedIds.includes(id)) {
+      deletedIds.push(id);
+      localStorage.setItem('airdrop_deleted_ids', JSON.stringify(deletedIds));
+    }
+
+    // 2. Remove from custom projects if locally added
+    let customProjects = getCustomProjects().filter(cp => cp.id !== id);
+    localStorage.setItem('airdrop_custom_projects', JSON.stringify(customProjects));
+
+    // 3. Remove from edited map
+    let editedMap = getEditedMap();
+    delete editedMap[id];
+    localStorage.setItem('airdrop_edited_map', JSON.stringify(editedMap));
+
+    // 4. Try backend deletion if available
     if (!isStaticHost) {
       try {
-        const res = await fetch(`/api/projects/${id}`, { method: 'DELETE' });
-        if (res.ok) {
-          showToast(`"${name}" başarıyla silindi.`, 'success');
-          await fetchProjects();
-          return;
-        }
+        await fetch(`/api/projects/${id}`, { method: 'DELETE' });
       } catch (err) {
-        console.warn('Backend delete failed, falling back to local storage...');
+        console.warn('Backend delete failed, persistent local deletion applied.');
       }
     }
 
+    // 5. Update active memory and local cache
     projects = projects.filter(p => p.id !== id);
     saveLocalProjects();
     updateStats();
     renderProjects();
-    showToast(`"${name}" başarıyla silindi.`, 'success');
+    showToast(`"${name}" silindi ve kalıcı olarak kaldırıldı!`, 'success');
 
   } catch (err) {
     console.error('Delete error:', err);
@@ -636,7 +715,23 @@ function exportJSON() {
   document.body.appendChild(downloadAnchor);
   downloadAnchor.click();
   downloadAnchor.remove();
-  showToast('projects.json indirildi! GitHub reponuza yükleyebilirsiniz.', 'success');
+  showToast('projects.json indirildi! Güncel listenizi saklayabilirsiniz.', 'success');
+}
+
+// Reset data to default data/projects.json (Clears all user deletions)
+async function resetToDefaults() {
+  if (!confirm('Silinen tüm varsayılan projeler geri yüklenip sıfırlansın mı?')) return;
+  try {
+    localStorage.removeItem('airdrop_deleted_ids');
+    localStorage.removeItem('airdrop_edited_map');
+    localStorage.removeItem('airdrop_custom_projects');
+    localStorage.removeItem('airdrop_projects_data');
+    showToast('Varsayılan projeler geri yükleniyor...', 'info');
+    await fetchProjects();
+    showToast('Tüm varsayılan projeler başarıyla geri yüklendi!', 'success');
+  } catch (e) {
+    showToast('Sıfırlama başarısız oldu: ' + e.message, 'error');
+  }
 }
 
 function setupEventListeners() {
@@ -707,6 +802,9 @@ function setupEventListeners() {
 
   const btnExport = document.getElementById('btnExportJSON');
   if (btnExport) btnExport.addEventListener('click', exportJSON);
+
+  const btnReset = document.getElementById('btnResetDefault');
+  if (btnReset) btnReset.addEventListener('click', resetToDefaults);
 }
 
 function showToast(message, type = 'info') {
