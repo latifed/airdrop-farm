@@ -1,6 +1,6 @@
 // ==========================================================================
 // AIRDROP FARM VI // VICE CITY ALPHA TERMINAL - APP LOGIC
-// SENIOR & HIGH-ACCESSIBILITY ULTRA-LEGIBLE EDITION
+// WIDE SCREEN & COMPACT CARDS WITH LARGE BULLETINS
 // ==========================================================================
 
 // Global state
@@ -123,13 +123,13 @@ function setRadioUIState(playing) {
     iconPlay.classList.add('hidden');
     iconPause.classList.remove('hidden');
     radioStatusText.textContent = 'CANLI';
-    radioStatusText.className = 'text-xs font-bold px-2.5 py-0.5 rounded bg-pink-500/30 text-pink-200 border border-pink-400';
+    radioStatusText.className = 'text-xs font-bold px-2 py-0.5 rounded bg-pink-500/30 text-pink-200 border border-pink-400';
     setEqualizerAnimation(true);
   } else {
     iconPlay.classList.remove('hidden');
     iconPause.classList.add('hidden');
     radioStatusText.textContent = 'DURAKLATILDI';
-    radioStatusText.className = 'text-xs font-bold px-2.5 py-0.5 rounded bg-[#240a4a] text-slate-300 border border-pink-500/30';
+    radioStatusText.className = 'text-xs font-bold px-2 py-0.5 rounded bg-[#240a4a] text-slate-300 border border-pink-500/30';
     setEqualizerAnimation(false);
   }
 }
@@ -295,7 +295,7 @@ function updateStats() {
 }
 
 // ==========================================================================
-// CARD RENDERING (Ultra-High Contrast, Large, Clean Typography)
+// CARD RENDERING (Compact Box, Stretched Wide, Large Bulletins)
 // ==========================================================================
 
 function renderProjects() {
@@ -341,66 +341,84 @@ function createCardHTML(p) {
 
   const isStableStock = p.id === 'stablestock';
 
+  // Render Large High-Contrast Bulletins
+  let bulletinsHTML = '';
+  if (p.bulletins && p.bulletins.length > 0) {
+    bulletinsHTML = `
+      <div class="space-y-2.5 my-3.5">
+        ${p.bulletins.map(b => `
+          <div class="text-[15px] sm:text-[16px] text-white leading-snug bg-[#1d093d]/85 border border-pink-500/35 rounded-xl px-3.5 py-2.5 shadow-sm">
+            ${b}
+          </div>
+        `).join('')}
+      </div>
+    `;
+  } else {
+    bulletinsHTML = `
+      <div class="space-y-2.5 my-3.5">
+        <div class="text-[15px] sm:text-[16px] text-white leading-snug bg-[#1d093d]/85 border border-pink-500/35 rounded-xl px-3.5 py-2.5 shadow-sm">
+          🎯 <b>Strateji & Özet:</b> ${p.summary || 'Proje detayları için tıklayın.'}
+        </div>
+        ${p.funding ? `
+          <div class="text-[15px] sm:text-[16px] text-white leading-snug bg-[#1d093d]/85 border border-pink-500/35 rounded-xl px-3.5 py-2.5 shadow-sm">
+            💰 <b>Değerleme:</b> ${p.funding}
+          </div>
+        ` : ''}
+      </div>
+    `;
+  }
+
   return `
-    <div class="project-card relative rounded-[1.75rem] p-7 sm:p-9 flex flex-col justify-between cursor-pointer group min-h-[420px]"
+    <div class="project-card relative rounded-2xl p-5 sm:p-6 flex flex-col justify-between cursor-pointer group"
          style="background: linear-gradient(180deg, #15072e 0%, #0d041c 100%) !important; border: 2px solid rgba(255, 0, 127, 0.55) !important; color: #ffffff !important;"
          onclick="openDetailModal('${p.id}')">
       
       ${isStableStock ? `
-        <div class="absolute -top-4 right-8 bg-gradient-to-r from-[#ff007f] via-[#ff5500] to-[#ffbe0b] text-white text-xs sm:text-sm font-black uppercase px-4 py-1.5 rounded-full shadow-xl shadow-pink-500/60 tracking-wider flex items-center space-x-1.5 border border-white/30">
+        <div class="absolute -top-3.5 right-6 bg-gradient-to-r from-[#ff007f] via-[#ff5500] to-[#ffbe0b] text-white text-[11px] font-black uppercase px-3.5 py-1 rounded-full shadow-lg shadow-pink-500/60 tracking-wider flex items-center space-x-1.5 border border-white/30">
           <span>🌴 ÖZEL DERİN ANALİZ</span>
         </div>
       ` : ''}
 
       <div>
-        <!-- Card Header: Large Avatar & Headings -->
-        <div class="flex items-start justify-between gap-4 mb-5">
-          <div class="flex items-center space-x-4 sm:space-x-5">
-            <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-gradient-to-tr from-[#ff007f] via-[#ff5500] to-[#ffbe0b] p-[2px] shadow-xl flex-shrink-0">
-              <div class="w-full h-full bg-[#0d041c] rounded-[14px] flex items-center justify-center font-black text-cyan-300 text-xl tracking-wider">
+        <!-- Card Header: Compact & Clear -->
+        <div class="flex items-start justify-between gap-3 mb-2">
+          <div class="flex items-center space-x-3.5">
+            <div class="w-13 h-13 sm:w-14 sm:h-14 rounded-xl bg-gradient-to-tr from-[#ff007f] via-[#ff5500] to-[#ffbe0b] p-[2px] shadow-lg flex-shrink-0">
+              <div class="w-full h-full bg-[#0d041c] rounded-[10px] flex items-center justify-center font-black text-cyan-300 text-lg sm:text-xl tracking-wider">
                 ${(p.symbol || 'PRJ').slice(0, 4)}
               </div>
             </div>
             <div>
-              <div class="flex flex-wrap items-center gap-2.5 sm:gap-3">
-                <h3 class="text-2xl sm:text-3xl font-black text-white group-hover:text-cyan-300 transition-colors tracking-tight">${p.name}</h3>
-                <span class="text-sm sm:text-base font-extrabold px-3 py-1 rounded-xl bg-pink-500/25 text-cyan-300 border-2 border-pink-500/50">// ${p.symbol}</span>
+              <div class="flex flex-wrap items-center gap-2">
+                <h3 class="text-xl sm:text-2xl font-black text-white group-hover:text-cyan-300 transition-colors tracking-tight">${p.name}</h3>
+                <span class="text-xs sm:text-sm font-extrabold px-2.5 py-0.5 rounded-lg bg-pink-500/25 text-cyan-300 border border-pink-500/50">// ${p.symbol}</span>
               </div>
-              <p class="text-sm sm:text-base font-bold text-pink-300 mt-1.5 tracking-wide">${p.category || 'DeFi & Airdrop'}</p>
+              <p class="text-xs sm:text-sm font-bold text-pink-300 mt-0.5">${p.category || 'DeFi & Airdrop'}</p>
             </div>
           </div>
 
-          <span class="inline-flex items-center px-4 py-1.5 rounded-full text-xs sm:text-sm font-extrabold border ${statusBadgeClass} flex-shrink-0">
+          <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold border ${statusBadgeClass} flex-shrink-0">
             ${p.status || 'Aktif'}
           </span>
         </div>
 
-        <!-- Card Body: Large, Crystal-Clear, Pure-White Summary -->
-        <p class="text-base sm:text-lg text-white leading-relaxed my-5 font-normal">
-          ${p.summary || 'Proje hakkında detaylar ve airdrop puan kasma kılavuzu için tıklayın.'}
-        </p>
-
-        <!-- Meta Badges: Large, High-Contrast & Solid Backgrounds -->
-        <div class="flex flex-wrap gap-2.5 mb-6 text-sm sm:text-base">
-          ${p.funding ? `<span class="px-4 py-2 rounded-xl bg-[#240a4a] text-white border-2 border-pink-400 font-bold shadow-sm">💰 ${p.funding}</span>` : ''}
-          ${p.riskTier ? `<span class="px-4 py-2 rounded-xl bg-[#2e1d00] text-amber-200 border-2 border-amber-400 font-bold shadow-sm">🛡️ ${p.riskTier}</span>` : ''}
-          ${p.founders ? `<span class="px-4 py-2 rounded-xl bg-[#0e273c] text-cyan-200 border-2 border-cyan-400 font-semibold truncate max-w-full shadow-sm">👥 ${p.founders}</span>` : ''}
-        </div>
+        <!-- Card Body: Large, Readable Bulletins -->
+        ${bulletinsHTML}
       </div>
 
-      <!-- Card Action Footer: Solid High-Contrast Button (Black text on Bright Cyan) -->
-      <div class="pt-5 border-t-2 border-pink-500/30 flex items-center justify-between" onclick="event.stopPropagation()">
-        <button onclick="openDetailModal('${p.id}')" class="inline-flex items-center space-x-2.5 text-base sm:text-lg font-black text-black bg-cyan-400 hover:bg-cyan-300 py-3 px-6 rounded-xl transition-all shadow-lg shadow-cyan-400/30 transform hover:scale-[1.02]">
+      <!-- Card Action Footer: Compact & High Contrast -->
+      <div class="pt-3.5 border-t-2 border-pink-500/25 flex items-center justify-between" onclick="event.stopPropagation()">
+        <button onclick="openDetailModal('${p.id}')" class="inline-flex items-center space-x-2 text-sm sm:text-base font-black text-black bg-cyan-400 hover:bg-cyan-300 py-2.5 px-5 rounded-xl transition-all shadow-md shadow-cyan-400/30 transform hover:scale-[1.02]">
           <span>İNCELE & ALPHA OKU</span>
-          <i data-lucide="arrow-right" class="w-5 h-5 text-black stroke-[3]"></i>
+          <i data-lucide="arrow-right" class="w-4 h-4 text-black stroke-[3]"></i>
         </button>
 
         <div class="flex items-center space-x-2">
-          <button onclick="openEditModal('${p.id}')" class="p-3 rounded-xl bg-[#240a4a] hover:bg-[#381073] border-2 border-pink-400 text-pink-200 hover:text-white transition" title="Düzenle">
-            <i data-lucide="edit-2" class="w-5 h-5"></i>
+          <button onclick="openEditModal('${p.id}')" class="p-2.5 rounded-xl bg-[#240a4a] hover:bg-[#381073] border border-pink-400 text-pink-200 hover:text-white transition" title="Düzenle">
+            <i data-lucide="edit-2" class="w-4 h-4 sm:w-5 sm:h-5"></i>
           </button>
-          <button onclick="deleteProject('${p.id}', '${p.name}')" class="p-3 rounded-xl bg-[#240a4a] hover:bg-rose-900 border-2 border-pink-400 text-pink-200 hover:text-rose-300 transition" title="Sil">
-            <i data-lucide="trash-2" class="w-5 h-5"></i>
+          <button onclick="deleteProject('${p.id}', '${p.name}')" class="p-2.5 rounded-xl bg-[#240a4a] hover:bg-rose-900 border border-pink-400 text-pink-200 hover:text-rose-300 transition" title="Sil">
+            <i data-lucide="trash-2" class="w-4 h-4 sm:w-5 sm:h-5"></i>
           </button>
         </div>
       </div>

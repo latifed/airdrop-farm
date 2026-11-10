@@ -13,20 +13,20 @@
       margin: 0;
       padding: 0;
       min-height: 100vh;
-      font-size: 18px;
+      font-size: 17px;
       font-family: 'Inter', system-ui, -apple-system, sans-serif !important;
     }
     .project-card {
       background: linear-gradient(180deg, #15072e 0%, #0d041c 100%) !important;
       border: 2px solid rgba(255, 0, 127, 0.55) !important;
       color: #ffffff !important;
-      border-radius: 1.75rem !important;
-      box-shadow: 0 18px 45px rgba(0, 0, 0, 0.9) !important;
+      border-radius: 1.5rem !important;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.9) !important;
     }
     .project-card:hover {
       border-color: #00f0ff !important;
-      background: linear-gradient(180deg, #200a45 0%, #110526 100%) !important;
-      box-shadow: 0 0 32px rgba(255, 0, 127, 0.55), 0 0 65px rgba(0, 240, 255, 0.35) !important;
+      background: linear-gradient(180deg, #1f0a44 0%, #110526 100%) !important;
+      box-shadow: 0 0 30px rgba(255, 0, 127, 0.55), 0 0 60px rgba(0, 240, 255, 0.35) !important;
     }
   </style>
 
@@ -55,37 +55,37 @@
   <script src="https://unpkg.com/lucide@latest"></script>
   <!-- YouTube IFrame API -->
   <script src="https://www.youtube.com/iframe_api"></script>
-  <link rel="stylesheet" href="style.css?v=20261110_legible_v6">
+  <link rel="stylesheet" href="style.css?v=20261110_wide_v7">
 </head>
-<body class="min-h-screen flex flex-col font-sans selection:bg-pink-500 selection:text-white pb-40" style="background-color: #07020e !important; color: #ffffff !important;">
+<body class="min-h-screen flex flex-col font-sans selection:bg-pink-500 selection:text-white pb-36" style="background-color: #07020e !important; color: #ffffff !important;">
 
   <!-- Invisible YouTube Audio Player Container -->
   <div id="youtubePlayerContainer" style="position: absolute; left: -9999px; top: -9999px; width: 1px; height: 1px; overflow: hidden;">
     <div id="ytPlayer"></div>
   </div>
 
-  <!-- GTA VI Top Navigation Header (Spacious, Large, High-Contrast) -->
+  <!-- GTA VI Top Navigation Header (Wide Screen Layout) -->
   <header class="sticky top-0 z-40 bg-[#090314]/98 backdrop-blur-2xl border-b-2 border-pink-500/40 shadow-2xl shadow-pink-950/80">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-24 flex items-center justify-between">
+    <div class="max-w-[1840px] w-full mx-auto px-4 sm:px-8 lg:px-12 h-24 flex items-center justify-between">
       
       <!-- Logo / Title with GTA VI Aesthetic -->
       <div class="flex items-center space-x-5">
-        <div class="relative w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-gradient-to-tr from-[#ff007f] via-[#ff5500] to-[#ffbe0b] p-[2px] shadow-xl shadow-pink-500/40 flex-shrink-0">
-          <div class="w-full h-full bg-[#0d041c] rounded-[14px] flex items-center justify-center font-orbitron font-black text-transparent bg-clip-text bg-gradient-to-tr from-pink-500 to-amber-400 text-2xl sm:text-3xl tracking-tighter">
+        <div class="relative w-14 h-14 rounded-2xl bg-gradient-to-tr from-[#ff007f] via-[#ff5500] to-[#ffbe0b] p-[2px] shadow-xl shadow-pink-500/40 flex-shrink-0">
+          <div class="w-full h-full bg-[#0d041c] rounded-[14px] flex items-center justify-center font-orbitron font-black text-transparent bg-clip-text bg-gradient-to-tr from-pink-500 to-amber-400 text-2xl tracking-tighter">
             VI
           </div>
         </div>
         <div>
           <div class="flex items-center space-x-3">
-            <h1 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight gta-title-gradient">
+            <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight gta-title-gradient">
               AIRDROP FARM <span class="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-pink-500 gta-glow-vi font-orbitron">VI</span>
             </h1>
-            <span class="inline-flex items-center space-x-2 px-3.5 py-1 rounded-full text-xs sm:text-sm font-bold bg-pink-500/25 text-pink-200 border border-pink-400 shadow-sm">
-              <span class="w-2.5 h-2.5 rounded-full bg-cyan-400 animate-ping"></span>
+            <span class="inline-flex items-center space-x-2 px-3 py-0.5 rounded-full text-xs font-bold bg-pink-500/25 text-pink-200 border border-pink-400 shadow-sm">
+              <span class="w-2 h-2 rounded-full bg-cyan-400 animate-ping"></span>
               <span>VICE CITY // 2026</span>
             </span>
           </div>
-          <p class="text-xs sm:text-sm font-semibold text-slate-300 mt-1 tracking-wider">
+          <p class="text-xs sm:text-sm font-semibold text-slate-300 mt-0.5 tracking-wider">
             🌴 LEONIDA COUNTY // VICE CITY ALPHA TERMINAL
           </p>
         </div>
@@ -93,11 +93,11 @@
 
       <!-- Action Buttons -->
       <div class="flex items-center space-x-3 sm:space-x-4">
-        <button id="btnExportJSON" class="hidden sm:inline-flex items-center space-x-2 px-5 py-3 rounded-2xl bg-[#180733] hover:bg-[#280c4f] text-white hover:text-cyan-300 border-2 border-pink-500/50 hover:border-cyan-400 text-sm font-bold transition-all shadow-lg" title="Mevcut listeyi projects.json olarak indir">
-          <i data-lucide="download" class="w-5 h-5 text-cyan-400"></i>
+        <button id="btnExportJSON" class="hidden sm:inline-flex items-center space-x-2 px-4 py-2.5 rounded-2xl bg-[#180733] hover:bg-[#280c4f] text-white hover:text-cyan-300 border-2 border-pink-500/50 hover:border-cyan-400 text-sm font-bold transition-all shadow-lg" title="Mevcut listeyi projects.json olarak indir">
+          <i data-lucide="download" class="w-4 h-4 text-cyan-400"></i>
           <span>JSON İNDİR</span>
         </button>
-        <button id="btnNewProject" class="inline-flex items-center space-x-2 px-6 py-3.5 rounded-2xl bg-gradient-to-r from-[#ff007f] via-[#ff5500] to-[#ffbe0b] hover:from-pink-500 hover:to-orange-400 text-white font-extrabold text-sm sm:text-base tracking-wide shadow-xl shadow-pink-600/40 transition-all transform hover:-translate-y-0.5 active:translate-y-0">
+        <button id="btnNewProject" class="inline-flex items-center space-x-2 px-5 py-3 rounded-2xl bg-gradient-to-r from-[#ff007f] via-[#ff5500] to-[#ffbe0b] hover:from-pink-500 hover:to-orange-400 text-white font-extrabold text-sm sm:text-base tracking-wide shadow-xl shadow-pink-600/40 transition-all transform hover:-translate-y-0.5 active:translate-y-0">
           <i data-lucide="plus-circle" class="w-5 h-5 text-white"></i>
           <span>YENİ HEDEF EKLE</span>
         </button>
@@ -105,56 +105,56 @@
     </div>
   </header>
 
-  <!-- Main Content Container -->
-  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-10" style="background-color: transparent !important;">
+  <!-- Main Content Container (Wide Screen max-w-[1840px]) -->
+  <main class="flex-1 max-w-[1840px] w-full mx-auto px-4 sm:px-8 lg:px-12 py-8 space-y-8" style="background-color: transparent !important;">
 
-    <!-- GTA VI Sunset Large High-Contrast Stats Bar -->
-    <div class="grid grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6">
+    <!-- GTA VI Sunset Stats Bar (Stretched Wide) -->
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
       
-      <div class="bg-[#14072b] border-2 border-pink-500/40 rounded-3xl p-6 flex items-center space-x-5 shadow-2xl">
-        <div class="p-4 bg-pink-500/20 text-pink-300 rounded-2xl border border-pink-400 flex-shrink-0">
-          <i data-lucide="layers" class="w-9 h-9"></i>
+      <div class="bg-[#14072b] border-2 border-pink-500/40 rounded-2xl p-5 flex items-center space-x-4 shadow-xl">
+        <div class="p-3.5 bg-pink-500/20 text-pink-300 rounded-xl border border-pink-400 flex-shrink-0">
+          <i data-lucide="layers" class="w-7 h-7"></i>
         </div>
         <div>
-          <div class="text-4xl sm:text-5xl font-black text-white" id="statTotal">5</div>
-          <div class="text-sm sm:text-base text-slate-200 font-bold tracking-wide mt-1">Aktif Havuz</div>
+          <div class="text-3xl sm:text-4xl font-black text-white" id="statTotal">5</div>
+          <div class="text-xs sm:text-sm text-slate-200 font-bold tracking-wide mt-0.5">Aktif Havuz</div>
         </div>
       </div>
 
-      <div class="bg-[#14072b] border-2 border-pink-500/40 rounded-3xl p-6 flex items-center space-x-5 shadow-2xl">
-        <div class="p-4 bg-cyan-500/20 text-cyan-300 rounded-2xl border border-cyan-400 flex-shrink-0">
-          <i data-lucide="flame" class="w-9 h-9"></i>
+      <div class="bg-[#14072b] border-2 border-pink-500/40 rounded-2xl p-5 flex items-center space-x-4 shadow-xl">
+        <div class="p-3.5 bg-cyan-500/20 text-cyan-300 rounded-xl border border-cyan-400 flex-shrink-0">
+          <i data-lucide="flame" class="w-7 h-7"></i>
         </div>
         <div>
-          <div class="text-4xl sm:text-5xl font-black text-cyan-300" id="statActive">2</div>
-          <div class="text-sm sm:text-base text-cyan-200 font-bold tracking-wide mt-1">Aktif Puan Kasımı</div>
+          <div class="text-3xl sm:text-4xl font-black text-cyan-300" id="statActive">2</div>
+          <div class="text-xs sm:text-sm text-cyan-200 font-bold tracking-wide mt-0.5">Aktif Puan Kasımı</div>
         </div>
       </div>
 
-      <div class="bg-[#14072b] border-2 border-pink-500/40 rounded-3xl p-6 flex items-center space-x-5 shadow-2xl">
-        <div class="p-4 bg-amber-500/20 text-amber-300 rounded-2xl border border-amber-400 flex-shrink-0">
-          <i data-lucide="clock" class="w-9 h-9"></i>
+      <div class="bg-[#14072b] border-2 border-pink-500/40 rounded-2xl p-5 flex items-center space-x-4 shadow-xl">
+        <div class="p-3.5 bg-amber-500/20 text-amber-300 rounded-xl border border-amber-400 flex-shrink-0">
+          <i data-lucide="clock" class="w-7 h-7"></i>
         </div>
         <div>
-          <div class="text-4xl sm:text-5xl font-black text-amber-300" id="statTge">1</div>
-          <div class="text-sm sm:text-base text-amber-200 font-bold tracking-wide mt-1">TGE Yaklaşan</div>
+          <div class="text-3xl sm:text-4xl font-black text-amber-300" id="statTge">1</div>
+          <div class="text-xs sm:text-sm text-amber-200 font-bold tracking-wide mt-0.5">TGE Yaklaşan</div>
         </div>
       </div>
 
-      <div class="bg-[#14072b] border-2 border-pink-500/40 rounded-3xl p-6 flex items-center space-x-5 shadow-2xl">
-        <div class="p-4 bg-orange-500/20 text-orange-300 rounded-2xl border border-orange-400 flex-shrink-0">
-          <i data-lucide="crosshair" class="w-9 h-9"></i>
+      <div class="bg-[#14072b] border-2 border-pink-500/40 rounded-2xl p-5 flex items-center space-x-4 shadow-xl">
+        <div class="p-3.5 bg-orange-500/20 text-orange-300 rounded-xl border border-orange-400 flex-shrink-0">
+          <i data-lucide="crosshair" class="w-7 h-7"></i>
         </div>
         <div>
-          <div class="text-4xl sm:text-5xl font-black text-orange-300" id="statEarly">2</div>
-          <div class="text-sm sm:text-base text-orange-200 font-bold tracking-wide mt-1">Erken Alpha Sektörü</div>
+          <div class="text-3xl sm:text-4xl font-black text-orange-300" id="statEarly">2</div>
+          <div class="text-xs sm:text-sm text-orange-200 font-bold tracking-wide mt-0.5">Erken Alpha Sektörü</div>
         </div>
       </div>
 
     </div>
 
-    <!-- Filters & Search Toolbar (Large & High Visibility) -->
-    <div class="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-5 bg-[#120524] p-5 rounded-3xl border-2 border-pink-500/40 shadow-xl">
+    <!-- Filters & Search Toolbar (Wide Stretched) -->
+    <div class="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4 bg-[#120524] p-4 rounded-2xl border-2 border-pink-500/40 shadow-lg">
       
       <!-- Filter Badges -->
       <div class="flex items-center space-x-3 overflow-x-auto pb-2 md:pb-0 scrollbar-none" id="filterContainer">
@@ -166,40 +166,40 @@
 
       <!-- Search Input -->
       <div class="relative w-full md:w-96">
-        <i data-lucide="search" class="w-6 h-6 absolute left-4 top-1/2 -translate-y-1/2 text-pink-400"></i>
+        <i data-lucide="search" class="w-5 h-5 absolute left-4 top-1/2 -translate-y-1/2 text-pink-400"></i>
         <input 
           type="text" 
           id="searchInput" 
           placeholder="Hedef veya Ticker ara (Örn: STK)..." 
-          class="w-full bg-[#090314] border-2 border-pink-500/50 rounded-2xl pl-14 pr-5 py-3.5 text-base sm:text-lg font-medium text-white placeholder-slate-400 focus:outline-none focus:border-cyan-400 focus:ring-4 focus:ring-cyan-400/30"
+          class="w-full bg-[#090314] border-2 border-pink-500/50 rounded-xl pl-12 pr-4 py-2.5 text-base font-medium text-white placeholder-slate-400 focus:outline-none focus:border-cyan-400 focus:ring-4 focus:ring-cyan-400/30"
         />
       </div>
     </div>
 
-    <!-- Projects Grid: Strictly 2 Columns on Desktop for Maximum Width and Zero Cramping -->
-    <div id="projectsGrid" class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10">
+    <!-- Projects Grid: Wide 3 Columns on Desktops (Fills screen, compact height, massive bulletins) -->
+    <div id="projectsGrid" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 lg:gap-7">
       <!-- Injected via JavaScript -->
     </div>
 
     <!-- Empty State -->
-    <div id="emptyState" class="hidden text-center py-24 bg-[#14072b]/60 rounded-3xl border-2 border-dashed border-pink-500/40">
-      <div class="w-20 h-20 mx-auto mb-4 bg-pink-500/20 border-2 border-pink-400 rounded-3xl flex items-center justify-center text-pink-300">
-        <i data-lucide="radar" class="w-10 h-10"></i>
+    <div id="emptyState" class="hidden text-center py-20 bg-[#14072b]/60 rounded-3xl border-2 border-dashed border-pink-500/40">
+      <div class="w-16 h-16 mx-auto mb-3 bg-pink-500/20 border-2 border-pink-400 rounded-2xl flex items-center justify-center text-pink-300">
+        <i data-lucide="radar" class="w-8 h-8"></i>
       </div>
-      <h3 class="text-2xl font-extrabold text-white">RADARDA HEDEF BULUNAMADI</h3>
-      <p class="text-base text-slate-300 mt-2 font-medium">Kriterlerinizi değiştirin veya yeni bir proje protokolü ekleyin.</p>
+      <h3 class="text-xl font-extrabold text-white">RADARDA HEDEF BULUNAMADI</h3>
+      <p class="text-sm text-slate-300 mt-1 font-medium">Kriterlerinizi değiştirin veya yeni bir proje protokolü ekleyin.</p>
     </div>
 
   </main>
 
-  <!-- Project Detail Modal (Vice City Sunset Cyber View - Large Width & Crystal Clear) -->
+  <!-- Project Detail Modal -->
   <div id="detailModal" class="fixed inset-0 z-50 hidden bg-black/92 backdrop-blur-2xl overflow-y-auto p-4 sm:p-6 lg:p-10 flex items-center justify-center">
     <div class="relative bg-[#0d041c] border-2 border-pink-500/55 rounded-[2.5rem] max-w-5xl w-full max-h-[92vh] flex flex-col shadow-2xl shadow-pink-950/95 overflow-hidden animate-in fade-in zoom-in-95 duration-150">
       
       <!-- Modal Header -->
       <div class="p-6 sm:p-8 border-b-2 border-pink-500/40 bg-[#15072e] sticky top-0 z-10 flex items-start justify-between">
         <div class="flex items-center space-x-5">
-          <div id="detailSymbolBadge" class="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-gradient-to-tr from-[#ff007f] via-[#ff5500] to-[#ffbe0b] flex items-center justify-center text-black font-extrabold text-2xl sm:text-3xl shadow-xl shadow-pink-500/40 flex-shrink-0">
+          <div id="detailSymbolBadge" class="w-16 h-16 rounded-2xl bg-gradient-to-tr from-[#ff007f] via-[#ff5500] to-[#ffbe0b] flex items-center justify-center text-black font-extrabold text-2xl shadow-xl shadow-pink-500/40 flex-shrink-0">
             STK
           </div>
           <div>
@@ -208,21 +208,21 @@
               <span id="detailSymbol" class="px-3.5 py-1.5 rounded-xl text-sm sm:text-base font-extrabold bg-pink-500/30 text-cyan-300 border-2 border-pink-500/50">// STK</span>
               <span id="detailStatusBadge" class="px-4 py-1.5 rounded-full text-sm font-bold bg-cyan-500/20 text-cyan-300 border-2 border-cyan-400">Aktif Puan Kasma</span>
             </div>
-            <p id="detailCategory" class="text-sm sm:text-base text-pink-300 mt-2 font-bold">RWA & Tokenized Equities</p>
+            <p id="detailCategory" class="text-sm sm:text-base text-pink-300 mt-1.5 font-bold">RWA & Tokenized Equities</p>
           </div>
         </div>
 
         <div class="flex items-center space-x-3">
-          <button id="btnEditFromDetail" class="p-3.5 rounded-2xl bg-[#25094d] border-2 border-pink-400 text-pink-200 hover:text-white transition" title="Projeyi Düzenle">
+          <button id="btnEditFromDetail" class="p-3 rounded-2xl bg-[#25094d] border-2 border-pink-400 text-pink-200 hover:text-white transition" title="Projeyi Düzenle">
             <i data-lucide="edit-3" class="w-6 h-6"></i>
           </button>
-          <button id="btnCloseDetail" class="p-3.5 rounded-2xl bg-[#25094d] border-2 border-pink-400 hover:border-pink-500 text-pink-200 hover:text-white transition" title="Kapat">
+          <button id="btnCloseDetail" class="p-3 rounded-2xl bg-[#25094d] border-2 border-pink-400 hover:border-pink-500 text-pink-200 hover:text-white transition" title="Kapat">
             <i data-lucide="x" class="w-6 h-6"></i>
           </button>
         </div>
       </div>
 
-      <!-- Modal Body (Scrollable, Generous Font Size & Spacing) -->
+      <!-- Modal Body -->
       <div class="p-6 sm:p-10 overflow-y-auto space-y-8 text-slate-100">
         
         <!-- Quick Meta Info Cards -->
@@ -250,7 +250,7 @@
           <!-- Links will be injected here -->
         </div>
 
-        <!-- Markdown Body Container (Large, Clear, High-Contrast) -->
+        <!-- Markdown Body Container -->
         <div id="detailMarkdownContent" class="prose prose-invert max-w-none">
           <!-- Markdown HTML rendered here -->
         </div>
@@ -258,9 +258,9 @@
       </div>
 
       <!-- Modal Footer -->
-      <div class="p-6 bg-[#080214] border-t-2 border-pink-500/30 flex items-center justify-between text-sm sm:text-base font-semibold text-slate-300">
+      <div class="p-5 bg-[#080214] border-t-2 border-pink-500/30 flex items-center justify-between text-sm sm:text-base font-semibold text-slate-300">
         <span>🌴 VICE CITY ALPHA DOSYASI // REAL-TIME RECORD</span>
-        <button id="btnCloseDetailFooter" class="px-7 py-3 rounded-2xl bg-pink-950 border-2 border-pink-400 hover:border-cyan-400 text-white font-bold transition">
+        <button id="btnCloseDetailFooter" class="px-6 py-2.5 rounded-2xl bg-pink-950 border-2 border-pink-400 hover:border-cyan-400 text-white font-bold transition">
           KAPAT
         </button>
       </div>
@@ -281,7 +281,7 @@
       </div>
 
       <!-- Form Body (Scrollable) -->
-      <form id="projectForm" class="p-6 sm:p-8 overflow-y-auto space-y-6 text-base">
+      <form id="projectForm" class="p-6 sm:p-8 overflow-y-auto space-y-5 text-base">
         <input type="hidden" id="formProjectId" />
 
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
@@ -359,11 +359,11 @@
         </div>
 
         <!-- Form Submit / Cancel -->
-        <div class="pt-6 border-t-2 border-pink-500/40 flex items-center justify-end space-x-4">
-          <button type="button" id="btnCancelForm" class="px-6 py-3 rounded-2xl bg-pink-950 border-2 border-pink-400 hover:border-pink-300 text-slate-200 font-bold transition">
+        <div class="pt-5 border-t-2 border-pink-500/40 flex items-center justify-end space-x-4">
+          <button type="button" id="btnCancelForm" class="px-5 py-3 rounded-2xl bg-pink-950 border-2 border-pink-400 hover:border-pink-300 text-slate-200 font-bold transition">
             İPTAL
           </button>
-          <button type="submit" class="px-8 py-3.5 rounded-2xl bg-gradient-to-r from-[#ff007f] via-[#ff5500] to-[#ffbe0b] hover:from-pink-500 hover:to-orange-400 text-white font-extrabold transition shadow-xl shadow-pink-500/40">
+          <button type="submit" class="px-7 py-3 rounded-2xl bg-gradient-to-r from-[#ff007f] via-[#ff5500] to-[#ffbe0b] hover:from-pink-500 hover:to-orange-400 text-white font-extrabold transition shadow-xl shadow-pink-500/40">
             KAYDET // ONAYLA
           </button>
         </div>
@@ -372,12 +372,12 @@
     </div>
   </div>
 
-  <!-- VICE CITY FM // GTA VI FLOATING RADIO PLAYER DOCK (Large & Clear) -->
-  <div class="fixed bottom-6 left-4 right-4 sm:left-auto sm:right-8 sm:w-[520px] z-50 radio-dock rounded-3xl p-4 sm:p-5 flex flex-col space-y-3.5 transition-all">
+  <!-- VICE CITY FM // GTA VI FLOATING RADIO PLAYER DOCK -->
+  <div class="fixed bottom-6 left-4 right-4 sm:left-auto sm:right-8 sm:w-[500px] z-50 radio-dock rounded-3xl p-4 flex flex-col space-y-3 transition-all">
     <div class="flex items-center justify-between">
-      <div class="flex items-center space-x-4 truncate">
+      <div class="flex items-center space-x-3.5 truncate">
         <!-- Radio Animated Indicator -->
-        <div class="relative w-12 h-12 rounded-2xl bg-gradient-to-tr from-pink-500 to-amber-400 p-[2px] flex-shrink-0 flex items-center justify-center shadow-lg shadow-pink-500/30">
+        <div class="relative w-11 h-11 rounded-2xl bg-gradient-to-tr from-pink-500 to-amber-400 p-[2px] flex-shrink-0 flex items-center justify-center shadow-lg shadow-pink-500/30">
           <div class="w-full h-full bg-[#110424] rounded-[13px] flex items-center justify-center space-x-1" id="eqContainer">
             <span class="eq-bar eq-anim-1"></span>
             <span class="eq-bar eq-anim-2"></span>
@@ -389,33 +389,33 @@
         <div class="truncate">
           <div class="flex items-center space-x-2">
             <span class="text-sm font-black text-amber-300 tracking-wider">📻 VICE CITY FM // GTA VI</span>
-            <span id="radioStatusText" class="text-xs font-bold px-2.5 py-0.5 rounded bg-pink-500/30 text-pink-200 border border-pink-400">CANLI</span>
+            <span id="radioStatusText" class="text-xs font-bold px-2 py-0.5 rounded bg-pink-500/30 text-pink-200 border border-pink-400">CANLI</span>
           </div>
-          <div class="text-sm sm:text-base font-bold text-white truncate mt-0.5" id="radioTrackTitle" title="Justice — Flower In A Hurricane (feat. Tame Impala, SZA)">
+          <div class="text-sm font-bold text-white truncate mt-0.5" id="radioTrackTitle" title="Justice — Flower In A Hurricane (feat. Tame Impala, SZA)">
             Justice — Flower In A Hurricane
           </div>
         </div>
       </div>
 
       <!-- Play / Pause Button -->
-      <button id="btnRadioPlayPause" class="w-14 h-14 rounded-2xl bg-gradient-to-tr from-pink-500 to-orange-500 hover:from-pink-400 hover:to-orange-400 text-white flex items-center justify-center shadow-xl shadow-pink-500/50 transition transform active:scale-95 flex-shrink-0">
-        <i data-lucide="play" id="iconPlay" class="w-7 h-7 fill-white"></i>
-        <i data-lucide="pause" id="iconPause" class="w-7 h-7 fill-white hidden"></i>
+      <button id="btnRadioPlayPause" class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-pink-500 to-orange-500 hover:from-pink-400 hover:to-orange-400 text-white flex items-center justify-center shadow-xl shadow-pink-500/50 transition transform active:scale-95 flex-shrink-0">
+        <i data-lucide="play" id="iconPlay" class="w-6 h-6 fill-white"></i>
+        <i data-lucide="pause" id="iconPause" class="w-6 h-6 fill-white hidden"></i>
       </button>
     </div>
 
     <!-- Bottom Controls: Volume & External Link -->
-    <div class="flex items-center justify-between text-sm pt-2 border-t border-pink-500/30 text-slate-200">
-      <div class="flex items-center space-x-3 w-60">
+    <div class="flex items-center justify-between text-xs sm:text-sm pt-2 border-t border-pink-500/30 text-slate-200">
+      <div class="flex items-center space-x-3 w-56">
         <button id="btnRadioMute" class="hover:text-cyan-400 transition" title="Sesi Aç/Kapat">
-          <i data-lucide="volume-2" id="iconVolume" class="w-6 h-6"></i>
-          <i data-lucide="volume-x" id="iconMuted" class="w-6 h-6 text-pink-500 hidden"></i>
+          <i data-lucide="volume-2" id="iconVolume" class="w-5 h-5"></i>
+          <i data-lucide="volume-x" id="iconMuted" class="w-5 h-5 text-pink-500 hidden"></i>
         </button>
         <input type="range" id="radioVolume" min="0" max="100" value="70" class="w-full cursor-pointer" title="Ses Seviyesi">
-        <span id="volumeValueText" class="text-sm font-extrabold text-pink-300 w-9">70%</span>
+        <span id="volumeValueText" class="text-xs font-extrabold text-pink-300 w-8">70%</span>
       </div>
 
-      <a href="https://youtu.be/5dPwBWvmcbQ" target="_blank" rel="noopener" class="text-xs sm:text-sm text-pink-300 hover:text-cyan-300 flex items-center space-x-1.5 transition font-bold" title="YouTube'da Aç">
+      <a href="https://youtu.be/5dPwBWvmcbQ" target="_blank" rel="noopener" class="text-xs text-pink-300 hover:text-cyan-300 flex items-center space-x-1.5 transition font-bold" title="YouTube'da Aç">
         <span>GTA VI SOUNDTRACK</span>
         <i data-lucide="external-link" class="w-4 h-4"></i>
       </a>
@@ -428,10 +428,10 @@
     <div id="toastMessage" class="text-white"></div>
   </div>
 
-  <footer class="py-10 border-t-2 border-pink-500/30 text-center text-sm font-medium text-slate-400">
+  <footer class="py-8 border-t-2 border-pink-500/30 text-center text-sm font-medium text-slate-400">
     AIRDROP FARM VI // VICE CITY EDITION • LEONIDA COUNTY
   </footer>
 
-  <script src="app.js?v=20261110_legible_v6"></script>
+  <script src="app.js?v=20261110_wide_v7"></script>
 </body>
 </html>
