@@ -402,6 +402,33 @@ function createCardHTML(p) {
     statusBadgeClass = 'bg-[#003440] text-cyan-200 border border-cyan-400 shadow-sm';
   }
 
+  // Confirmation Status Badges (Airdrop Onaylı, Tokenomik Onaylı, Henüz Onay Yok)
+  let confirmBadgeHTML = '';
+  const conf = p.confirmation || (p.status && p.status.includes('TGE') ? 'Airdrop Onaylı' : 'Henüz Onay Yok');
+
+  if (conf === 'Airdrop Onaylı') {
+    confirmBadgeHTML = `
+      <span class="inline-flex items-center space-x-1.5 px-2.5 py-1 rounded-lg bg-emerald-950/90 text-emerald-300 border border-emerald-400 text-xs font-black shadow-sm tracking-wide" title="Airdrop resmi olarak onaylandı">
+        <span class="text-emerald-400 font-bold">✓</span>
+        <span>AİRDROP ONAYLI</span>
+      </span>
+    `;
+  } else if (conf === 'Tokenomik Onaylı') {
+    confirmBadgeHTML = `
+      <span class="inline-flex items-center space-x-1.5 px-2.5 py-1 rounded-lg bg-amber-950/90 text-amber-300 border border-amber-400 text-xs font-black shadow-sm tracking-wide" title="Tokenomik ve puan çarpanı onaylandı">
+        <span class="text-amber-400 font-bold">⚡</span>
+        <span>TOKENOMİK ONAYLI</span>
+      </span>
+    `;
+  } else {
+    confirmBadgeHTML = `
+      <span class="inline-flex items-center space-x-1.5 px-2.5 py-1 rounded-lg bg-[#270c47]/90 text-pink-300 border border-pink-400/60 text-xs font-extrabold shadow-sm tracking-wide" title="Henüz resmi token veya airdrop onayı yok">
+        <span class="text-pink-400 font-bold">⚠️</span>
+        <span>HENÜZ ONAY YOK</span>
+      </span>
+    `;
+  }
+
   const isStableStock = p.id === 'stablestock';
 
   // Render Large High-Contrast Bulletins with strict uniform height for pixel-perfect row sync
@@ -455,20 +482,26 @@ function createCardHTML(p) {
           </span>
         </div>
 
-        <!-- Tier 2: Identity Bar (Avatar Box + Title + Ticker on Single Row) -->
-        <div class="flex items-center space-x-3.5 mb-3 min-h-[52px]">
-          <div class="w-12 h-12 sm:w-13 sm:h-13 rounded-xl bg-gradient-to-tr from-[#ff007f] via-[#ff5500] to-[#ffbe0b] p-[2px] shadow-lg flex-shrink-0">
-            <div class="w-full h-full bg-[#0d041c] rounded-[10px] flex items-center justify-center font-black text-cyan-300 text-base sm:text-lg tracking-wider">
-              ${(p.symbol || 'PRJ').slice(0, 4)}
+        <!-- Tier 2: Identity Bar (Avatar + Title + Ticker on Left, Confirmation Badge on Right) -->
+        <div class="flex items-center justify-between gap-2 mb-3 min-h-[52px]">
+          <div class="flex items-center space-x-3.5 min-w-0">
+            <div class="w-12 h-12 sm:w-13 sm:h-13 rounded-xl bg-gradient-to-tr from-[#ff007f] via-[#ff5500] to-[#ffbe0b] p-[2px] shadow-lg flex-shrink-0">
+              <div class="w-full h-full bg-[#0d041c] rounded-[10px] flex items-center justify-center font-black text-cyan-300 text-base sm:text-lg tracking-wider">
+                ${(p.symbol || 'PRJ').slice(0, 4)}
+              </div>
+            </div>
+            <div class="flex items-center gap-2 flex-wrap min-w-0">
+              <h3 class="text-xl sm:text-2xl font-black text-white group-hover:text-cyan-300 transition-colors tracking-tight truncate">
+                ${p.name}
+              </h3>
+              <span class="text-xs sm:text-sm font-extrabold px-2.5 py-0.5 rounded-lg bg-pink-500/25 text-cyan-300 border border-pink-500/50 font-mono flex-shrink-0">
+                // ${p.symbol}
+              </span>
             </div>
           </div>
-          <div class="flex items-center gap-2.5 flex-wrap min-w-0">
-            <h3 class="text-xl sm:text-2xl font-black text-white group-hover:text-cyan-300 transition-colors tracking-tight truncate">
-              ${p.name}
-            </h3>
-            <span class="text-xs sm:text-sm font-extrabold px-2.5 py-0.5 rounded-lg bg-pink-500/25 text-cyan-300 border border-pink-500/50 font-mono flex-shrink-0">
-              // ${p.symbol}
-            </span>
+
+          <div class="flex-shrink-0">
+            ${confirmBadgeHTML}
           </div>
         </div>
 
@@ -513,6 +546,21 @@ function openDetailModal(id) {
   document.getElementById('detailSymbolBadge').textContent = (project.symbol || 'PRJ').slice(0, 4);
   document.getElementById('detailCategory').textContent = project.category || 'DeFi / Airdrop';
   document.getElementById('detailStatusBadge').textContent = project.status || 'Aktif';
+
+  const detailConfirmBadge = document.getElementById('detailConfirmBadge');
+  if (detailConfirmBadge) {
+    const conf = project.confirmation || (project.status && project.status.includes('TGE') ? 'Airdrop Onaylı' : 'Henüz Onay Yok');
+    if (conf === 'Airdrop Onaylı') {
+      detailConfirmBadge.className = 'px-4 py-1.5 rounded-full text-sm font-extrabold bg-emerald-950/90 text-emerald-300 border-2 border-emerald-400 shadow-md';
+      detailConfirmBadge.textContent = '✓ AİRDROP ONAYLI';
+    } else if (conf === 'Tokenomik Onaylı') {
+      detailConfirmBadge.className = 'px-4 py-1.5 rounded-full text-sm font-extrabold bg-amber-950/90 text-amber-300 border-2 border-amber-400 shadow-md';
+      detailConfirmBadge.textContent = '⚡ TOKENOMİK ONAYLI';
+    } else {
+      detailConfirmBadge.className = 'px-4 py-1.5 rounded-full text-sm font-extrabold bg-[#270c47] text-pink-300 border-2 border-pink-400/60 shadow-md';
+      detailConfirmBadge.textContent = '⚠️ HENÜZ ONAY YOK / SPEKÜLATİF';
+    }
+  }
   
   document.getElementById('detailFunding').textContent = project.funding || '-';
   document.getElementById('detailRisk').textContent = project.riskTier || '-';
@@ -554,6 +602,9 @@ function openNewModal() {
   document.getElementById('formModalTitle').textContent = 'YENİ HEDEF EKLE';
   document.getElementById('formProjectId').value = '';
   projectForm.reset();
+  if (document.getElementById('formConfirmation')) {
+    document.getElementById('formConfirmation').value = 'Henüz Onay Yok';
+  }
   formModal.classList.remove('hidden');
 }
 
@@ -567,6 +618,9 @@ function openEditModal(id) {
   document.getElementById('formSymbol').value = project.symbol || '';
   document.getElementById('formCategory').value = project.category || '';
   document.getElementById('formStatus').value = project.status || 'Aktif Puan Kasma';
+  if (document.getElementById('formConfirmation')) {
+    document.getElementById('formConfirmation').value = project.confirmation || 'Henüz Onay Yok';
+  }
   document.getElementById('formRiskTier').value = project.riskTier || '';
   document.getElementById('formFunding').value = project.funding || '';
   document.getElementById('formFounders').value = project.founders || '';
@@ -590,11 +644,13 @@ async function handleFormSubmit(e) {
   e.preventDefault();
   
   const id = document.getElementById('formProjectId').value;
+  const confirmation = document.getElementById('formConfirmation') ? document.getElementById('formConfirmation').value : 'Henüz Onay Yok';
   const projectData = {
     name: document.getElementById('formName').value.trim(),
     symbol: document.getElementById('formSymbol').value.trim().toUpperCase(),
     category: document.getElementById('formCategory').value.trim(),
     status: document.getElementById('formStatus').value,
+    confirmation,
     riskTier: document.getElementById('formRiskTier').value.trim(),
     funding: document.getElementById('formFunding').value.trim(),
     founders: document.getElementById('formFounders').value.trim(),

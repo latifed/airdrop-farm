@@ -55,7 +55,7 @@
   <script src="https://unpkg.com/lucide@latest"></script>
   <!-- YouTube IFrame API -->
   <script src="https://www.youtube.com/iframe_api"></script>
-  <link rel="stylesheet" href="style.css?v=20261110_accordion_v11">
+  <link rel="stylesheet" href="style.css?v=20261110_confirm_v12">
 </head>
 <body class="min-h-screen flex flex-col font-sans selection:bg-pink-500 selection:text-white pb-36" style="background-color: #07020e !important; color: #ffffff !important;">
 
@@ -207,6 +207,7 @@
               <h2 id="detailTitle" class="text-2xl sm:text-3xl lg:text-4xl font-black text-white tracking-tight">StableStock</h2>
               <span id="detailSymbol" class="px-3.5 py-1.5 rounded-xl text-sm sm:text-base font-extrabold bg-pink-500/30 text-cyan-300 border-2 border-pink-500/50">// STK</span>
               <span id="detailStatusBadge" class="px-4 py-1.5 rounded-full text-sm font-bold bg-cyan-500/20 text-cyan-300 border-2 border-cyan-400">Aktif Puan Kasma</span>
+              <span id="detailConfirmBadge" class="px-4 py-1.5 rounded-full text-sm font-extrabold shadow-sm bg-purple-950/80 text-pink-300 border-2 border-pink-400/60">⚠️ Henüz Onay Yok</span>
             </div>
             <p id="detailCategory" class="text-sm sm:text-base text-pink-300 mt-1.5 font-bold">RWA & Tokenized Equities</p>
           </div>
@@ -295,7 +296,7 @@
           </div>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-5">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
           <div>
             <label class="block text-sm font-bold text-pink-200 mb-2">// KATEGORİ</label>
             <input type="text" id="formCategory" placeholder="Örn: RWA & Perps" class="form-input" />
@@ -307,6 +308,15 @@
               <option value="TGE Öncesi Son Düzlük">TGE Öncesi Son Düzlük</option>
               <option value="Erken Test / Spekülatif">Erken Test / Spekülatif</option>
               <option value="Çok Erken / Puan Sistemi Kapıda">Çok Erken / Puan Sistemi Kapıda</option>
+              <option value="Erken Aşama / Launchpad">Erken Aşama / Launchpad</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-sm font-bold text-pink-200 mb-2">// AİRDROP ONAY DURUMU</label>
+            <select id="formConfirmation" class="form-input">
+              <option value="Henüz Onay Yok">⚠️ Henüz Onay Yok / Spekülatif</option>
+              <option value="Tokenomik Onaylı">⚡ Tokenomik Onaylı</option>
+              <option value="Airdrop Onaylı">✓ Airdrop Onaylı</option>
             </select>
           </div>
           <div>
@@ -432,6 +442,6 @@
     AIRDROP FARM VI // VICE CITY EDITION • LEONIDA COUNTY
   </footer>
 
-  <script src="app.js?v=20261110_accordion_v11"></script>
+  <script src="app.js?v=20261110_confirm_v12"></script>
 </body>
 </html>
