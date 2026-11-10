@@ -802,9 +802,6 @@ function setupEventListeners() {
 
   const btnExport = document.getElementById('btnExportJSON');
   if (btnExport) btnExport.addEventListener('click', exportJSON);
-
-  const btnReset = document.getElementById('btnResetDefault');
-  if (btnReset) btnReset.addEventListener('click', resetToDefaults);
 }
 
 function showToast(message, type = 'info') {
