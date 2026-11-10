@@ -1,3 +1,7 @@
+// ==========================================================================
+// AIRDROP FARM VI // VICE CITY ALPHA TERMINAL - APP LOGIC
+// ==========================================================================
+
 // Global state
 let projects = [];
 let activeFilter = 'all';
@@ -24,15 +28,204 @@ const detailModal = document.getElementById('detailModal');
 const formModal = document.getElementById('formModal');
 const projectForm = document.getElementById('projectForm');
 
+// Radio Elements
+const btnRadioPlayPause = document.getElementById('btnRadioPlayPause');
+const iconPlay = document.getElementById('iconPlay');
+const iconPause = document.getElementById('iconPause');
+const radioStatusText = document.getElementById('radioStatusText');
+const radioVolume = document.getElementById('radioVolume');
+const volumeValueText = document.getElementById('volumeValueText');
+const btnRadioMute = document.getElementById('btnRadioMute');
+const iconVolume = document.getElementById('iconVolume');
+const iconMuted = document.getElementById('iconMuted');
+const eqContainer = document.getElementById('eqContainer');
+
+// YouTube Player variables
+let ytPlayer = null;
+let isRadioPlaying = false;
+let isRadioMuted = false;
+let currentRadioVolume = 70;
+
 // Initialize
 document.addEventListener('DOMContentLoaded', () => {
   fetchProjects();
   setupEventListeners();
-
+  initRadioControls();
   window.addEventListener('hashchange', checkHashRoute);
 });
 
-// Fetch all projects (Hybrid: API if available, else LocalStorage/Static JSON)
+// ==========================================================================
+// YOUTUBE RADIO CONTROLLER (Justice — Flower In A Hurricane / GTA VI)
+// ==========================================================================
+
+window.onYouTubeIframeAPIReady = function() {
+  try {
+    ytPlayer = new YT.Player('ytPlayer', {
+      height: '100',
+      width: '100',
+      videoId: '5dPwBWvmcbQ',
+      playerVars: {
+        autoplay: 1,
+        controls: 0,
+        loop: 1,
+        playlist: '5dPwBWvmcbQ',
+        playsinline: 1,
+        rel: 0,
+        modestbranding: 1
+      },
+      events: {
+        onReady: onRadioReady,
+        onStateChange: onRadioStateChange,
+        onError: onRadioError
+      }
+    });
+  } catch (err) {
+    console.warn('YouTube IFrame API init error:', err);
+  }
+};
+
+function onRadioReady(event) {
+  try {
+    event.target.setVolume(currentRadioVolume);
+    // Attempt autoplay; browsers may block unmuted playback until first user gesture
+    const playPromise = event.target.playVideo();
+    if (playPromise !== undefined) {
+      playPromise.catch(() => {
+        setupFirstUserGestureAudioUnlock();
+      });
+    }
+  } catch (err) {
+    console.warn('Radio autoplay blocked by browser policy, waiting for user click:', err);
+    setupFirstUserGestureAudioUnlock();
+  }
+}
+
+function onRadioStateChange(event) {
+  if (event.data === YT.PlayerState.PLAYING) {
+    setRadioUIState(true);
+  } else if (event.data === YT.PlayerState.PAUSED || event.data === YT.PlayerState.ENDED) {
+    setRadioUIState(false);
+  } else if (event.data === YT.PlayerState.BUFFERING) {
+    radioStatusText.textContent = 'YÜKLENİYOR';
+  }
+}
+
+function onRadioError(event) {
+  console.warn('YouTube Player encountered an error:', event.data);
+  radioStatusText.textContent = 'RADYO ÇEVRİMDIŞI';
+  setRadioUIState(false);
+}
+
+function setRadioUIState(playing) {
+  isRadioPlaying = playing;
+  if (playing) {
+    iconPlay.classList.add('hidden');
+    iconPause.classList.remove('hidden');
+    radioStatusText.textContent = 'CANLI';
+    radioStatusText.className = 'text-[9px] font-mono px-1.5 py-0.2 rounded bg-pink-500/20 text-pink-300 border border-pink-500/30';
+    setEqualizerAnimation(true);
+  } else {
+    iconPlay.classList.remove('hidden');
+    iconPause.classList.add('hidden');
+    radioStatusText.textContent = 'DURAKLATILDI';
+    radioStatusText.className = 'text-[9px] font-mono px-1.5 py-0.2 rounded bg-[#1f0738] text-pink-400/60 border border-pink-500/20';
+    setEqualizerAnimation(false);
+  }
+}
+
+function setEqualizerAnimation(animate) {
+  if (!eqContainer) return;
+  const bars = eqContainer.querySelectorAll('.eq-bar');
+  bars.forEach((bar, index) => {
+    if (animate) {
+      bar.classList.add(`eq-anim-${(index % 4) + 1}`);
+    } else {
+      bar.className = 'eq-bar';
+      bar.style.height = '4px';
+    }
+  });
+}
+
+function initRadioControls() {
+  if (btnRadioPlayPause) {
+    btnRadioPlayPause.addEventListener('click', toggleRadioPlayback);
+  }
+
+  if (radioVolume) {
+    radioVolume.addEventListener('input', (e) => {
+      currentRadioVolume = parseInt(e.target.value, 10);
+      volumeValueText.textContent = `${currentRadioVolume}%`;
+      if (ytPlayer && typeof ytPlayer.setVolume === 'function') {
+        ytPlayer.setVolume(currentRadioVolume);
+      }
+      if (currentRadioVolume === 0) {
+        updateMuteUI(true);
+      } else if (isRadioMuted) {
+        updateMuteUI(false);
+        if (ytPlayer && typeof ytPlayer.unMute === 'function') ytPlayer.unMute();
+      }
+    });
+  }
+
+  if (btnRadioMute) {
+    btnRadioMute.addEventListener('click', toggleRadioMute);
+  }
+
+  setupFirstUserGestureAudioUnlock();
+}
+
+function toggleRadioPlayback() {
+  if (!ytPlayer || typeof ytPlayer.playVideo !== 'function') {
+    showToast('Radyo oynatıcı hazırlanıyor...', 'info');
+    return;
+  }
+  if (isRadioPlaying) {
+    ytPlayer.pauseVideo();
+  } else {
+    ytPlayer.playVideo();
+  }
+}
+
+function toggleRadioMute() {
+  if (!ytPlayer) return;
+  isRadioMuted = !isRadioMuted;
+  if (isRadioMuted) {
+    if (typeof ytPlayer.mute === 'function') ytPlayer.mute();
+    updateMuteUI(true);
+  } else {
+    if (typeof ytPlayer.unMute === 'function') ytPlayer.unMute();
+    if (typeof ytPlayer.setVolume === 'function') ytPlayer.setVolume(currentRadioVolume);
+    updateMuteUI(false);
+  }
+}
+
+function updateMuteUI(muted) {
+  isRadioMuted = muted;
+  if (muted) {
+    iconVolume.classList.add('hidden');
+    iconMuted.classList.remove('hidden');
+  } else {
+    iconVolume.classList.remove('hidden');
+    iconMuted.classList.add('hidden');
+  }
+}
+
+function setupFirstUserGestureAudioUnlock() {
+  const unlockAudio = () => {
+    if (ytPlayer && typeof ytPlayer.playVideo === 'function' && !isRadioPlaying) {
+      ytPlayer.playVideo();
+    }
+    document.removeEventListener('click', unlockAudio);
+    document.removeEventListener('keydown', unlockAudio);
+  };
+  document.addEventListener('click', unlockAudio, { once: true });
+  document.addEventListener('keydown', unlockAudio, { once: true });
+}
+
+// ==========================================================================
+// DATA FETCHING & SYNCHRONIZATION
+// ==========================================================================
+
 async function fetchProjects() {
   try {
     if (!isStaticHost) {
@@ -40,7 +233,6 @@ async function fetchProjects() {
         const res = await fetch('/api/projects');
         if (res.ok) {
           projects = await res.json();
-          // Save backup copy to localStorage
           localStorage.setItem('airdrop_projects_backup', JSON.stringify(projects));
           updateStats();
           renderProjects();
@@ -89,20 +281,22 @@ async function fetchProjects() {
   }
 }
 
-// Save projects state in static / GitHub Pages mode
 function saveLocalProjects() {
   localStorage.setItem('airdrop_projects_data', JSON.stringify(projects));
 }
 
 // Update Header Statistics
 function updateStats() {
-  statTotal.textContent = projects.length;
-  statActive.textContent = projects.filter(p => p.status && p.status.includes('Aktif')).length;
-  statTge.textContent = projects.filter(p => p.status && (p.status.includes('TGE') || p.status.includes('Donduruluyor'))).length;
-  statEarly.textContent = projects.filter(p => p.status && (p.status.includes('Erken') || p.status.includes('Çok Erken'))).length;
+  if (statTotal) statTotal.textContent = projects.length;
+  if (statActive) statActive.textContent = projects.filter(p => p.status && p.status.includes('Aktif')).length;
+  if (statTge) statTge.textContent = projects.filter(p => p.status && (p.status.includes('TGE') || p.status.includes('Donduruluyor'))).length;
+  if (statEarly) statEarly.textContent = projects.filter(p => p.status && (p.status.includes('Erken') || p.status.includes('Çok Erken'))).length;
 }
 
-// Render Project Cards
+// ==========================================================================
+// CARD RENDERING & VICE CITY THEME
+// ==========================================================================
+
 function renderProjects() {
   const filtered = projects.filter(project => {
     const matchesSearch = 
@@ -118,8 +312,6 @@ function renderProjects() {
       matchesFilter = project.status && (project.status.includes('TGE') || project.status.includes('Donduruluyor'));
     } else if (activeFilter === 'Erken') {
       matchesFilter = project.status && (project.status.includes('Erken') || project.status.includes('Çok Erken'));
-    } else if (activeFilter === 'Geç') {
-      matchesFilter = project.status && (project.status.includes('Geç') || project.riskTier.includes('Geç'));
     }
 
     return matchesSearch && matchesFilter;
@@ -136,42 +328,43 @@ function renderProjects() {
   lucide.createIcons();
 }
 
-// Generate Card HTML
 function createCardHTML(p) {
-  let statusBadgeClass = 'bg-purple-950/50 text-purple-300 border-purple-500/30';
+  let statusBadgeClass = 'bg-pink-950/40 text-pink-300 border-pink-500/30';
   if (p.status && p.status.includes('Aktif')) {
-    statusBadgeClass = 'bg-cyan-500/10 text-cyan-300 border-cyan-400/40 shadow-sm shadow-cyan-500/20';
+    statusBadgeClass = 'bg-pink-500/15 text-pink-300 border-pink-500/40 shadow-sm shadow-pink-500/25';
   } else if (p.status && (p.status.includes('TGE') || p.status.includes('Donduruluyor'))) {
-    statusBadgeClass = 'bg-fuchsia-500/10 text-fuchsia-300 border-fuchsia-400/40 shadow-sm shadow-fuchsia-500/20';
+    statusBadgeClass = 'bg-amber-500/15 text-amber-300 border-amber-500/40 shadow-sm shadow-amber-500/25';
   } else if (p.status && p.status.includes('Erken')) {
-    statusBadgeClass = 'bg-emerald-500/10 text-emerald-300 border-emerald-400/40 shadow-sm shadow-emerald-500/20';
+    statusBadgeClass = 'bg-cyan-500/15 text-cyan-300 border-cyan-500/40 shadow-sm shadow-cyan-500/25';
   }
 
   const isStableStock = p.id === 'stablestock';
 
   return `
-    <div class="project-card relative rounded-3xl p-6 flex flex-col justify-between cursor-pointer group ${isStableStock ? 'border-purple-400/60 shadow-purple-500/20' : ''}" onclick="openDetailModal('${p.id}')">
+    <div class="project-card relative rounded-3xl p-6 flex flex-col justify-between cursor-pointer group"
+         style="background: linear-gradient(180deg, #130629 0%, #0c031c 100%) !important; border: 1px solid rgba(255, 0, 127, 0.35) !important; color: #ffffff !important;"
+         onclick="openDetailModal('${p.id}')">
       
       ${isStableStock ? `
-        <div class="absolute -top-3 right-6 bg-gradient-to-r from-fuchsia-600 via-purple-600 to-cyan-400 text-white text-[9px] font-orbitron font-black uppercase px-3 py-0.5 rounded-full shadow-lg shadow-fuchsia-500/30 tracking-widest">
-          ⚡ YÜKSEK ALPHA
+        <div class="absolute -top-3 right-6 bg-gradient-to-r from-[#ff007f] via-[#ff5500] to-[#ffbe0b] text-white text-[9px] font-orbitron font-black uppercase px-3 py-1 rounded-full shadow-lg shadow-pink-500/40 tracking-widest flex items-center space-x-1">
+          <span>🌴 ÖZEL ANALİZ</span>
         </div>
       ` : ''}
 
       <div>
         <div class="flex items-start justify-between mb-4">
           <div class="flex items-center space-x-3.5">
-            <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-fuchsia-600 via-purple-600 to-cyan-400 p-[1.5px] shadow-lg shadow-purple-950/60 flex-shrink-0">
-              <div class="w-full h-full bg-[#0b061c] rounded-[14px] flex items-center justify-center font-orbitron font-black text-cyan-300 text-sm tracking-wider">
+            <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-[#ff007f] via-[#ff5500] to-[#ffbe0b] p-[1.5px] shadow-lg shadow-pink-950/60 flex-shrink-0">
+              <div class="w-full h-full bg-[#0d041c] rounded-[14px] flex items-center justify-center font-orbitron font-black text-cyan-300 text-sm tracking-wider">
                 ${(p.symbol || 'PRJ').slice(0, 4)}
               </div>
             </div>
             <div>
               <div class="flex items-center space-x-2">
                 <h3 class="text-base font-orbitron font-bold text-white group-hover:text-cyan-300 transition-colors tracking-wide">${p.name}</h3>
-                <span class="text-[11px] font-mono font-bold px-2 py-0.5 rounded bg-purple-950/60 text-purple-300 border border-purple-500/30">// ${p.symbol}</span>
+                <span class="text-[11px] font-mono font-bold px-2 py-0.5 rounded bg-pink-950/50 text-cyan-300 border border-pink-500/35">// ${p.symbol}</span>
               </div>
-              <p class="text-xs font-mono text-purple-300/60 mt-0.5 uppercase tracking-wider">${p.category || 'DeFi / Airdrop'}</p>
+              <p class="text-xs font-mono text-pink-300/60 mt-0.5 uppercase tracking-wider">${p.category || 'DeFi / Airdrop'}</p>
             </div>
           </div>
 
@@ -185,22 +378,22 @@ function createCardHTML(p) {
         </p>
 
         <div class="flex flex-wrap gap-1.5 mb-5 text-[10px] font-mono">
-          ${p.funding ? `<span class="px-2 py-0.5 rounded-md bg-[#180d38] text-purple-200 border border-purple-500/25">💰 ${p.funding}</span>` : ''}
-          ${p.riskTier ? `<span class="px-2 py-0.5 rounded-md bg-[#180d38] text-amber-300 border border-amber-500/30">🛡️ ${p.riskTier}</span>` : ''}
+          ${p.funding ? `<span class="px-2 py-0.5 rounded-md bg-[#16062d] text-pink-200 border border-pink-500/30">💰 ${p.funding}</span>` : ''}
+          ${p.riskTier ? `<span class="px-2 py-0.5 rounded-md bg-[#16062d] text-amber-300 border border-amber-500/30">🛡️ ${p.riskTier}</span>` : ''}
         </div>
       </div>
 
-      <div class="pt-4 border-t border-purple-500/20 flex items-center justify-between" onclick="event.stopPropagation()">
+      <div class="pt-4 border-t border-pink-500/20 flex items-center justify-between" onclick="event.stopPropagation()">
         <button onclick="openDetailModal('${p.id}')" class="inline-flex items-center space-x-1.5 text-xs font-orbitron font-bold text-cyan-400 hover:text-cyan-300 group-hover:translate-x-1 transition-all">
           <span>İNCELE & ALPHA OKU</span>
           <i data-lucide="arrow-right" class="w-3.5 h-3.5 text-cyan-400"></i>
         </button>
 
         <div class="flex items-center space-x-1.5">
-          <button onclick="openEditModal('${p.id}')" class="p-1.5 rounded-lg bg-purple-950/50 hover:bg-purple-800/40 border border-purple-500/25 text-purple-300 hover:text-white transition" title="Düzenle">
+          <button onclick="openEditModal('${p.id}')" class="p-1.5 rounded-lg bg-pink-950/40 hover:bg-pink-800/40 border border-pink-500/30 text-pink-300 hover:text-white transition" title="Düzenle">
             <i data-lucide="edit-2" class="w-3.5 h-3.5"></i>
           </button>
-          <button onclick="deleteProject('${p.id}', '${p.name}')" class="p-1.5 rounded-lg bg-purple-950/50 hover:bg-rose-500/20 border border-purple-500/25 text-purple-300 hover:text-rose-400 transition" title="Sil">
+          <button onclick="deleteProject('${p.id}', '${p.name}')" class="p-1.5 rounded-lg bg-pink-950/40 hover:bg-rose-500/20 border border-pink-500/30 text-pink-300 hover:text-rose-400 transition" title="Sil">
             <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
           </button>
         </div>
@@ -210,7 +403,10 @@ function createCardHTML(p) {
   `;
 }
 
-// Open Detail Modal
+// ==========================================================================
+// MODAL CONTROLS & ROUTING
+// ==========================================================================
+
 function openDetailModal(id) {
   const project = projects.find(p => p.id === id);
   if (!project) return;
@@ -219,7 +415,7 @@ function openDetailModal(id) {
   window.location.hash = project.id;
 
   document.getElementById('detailTitle').textContent = project.name;
-  document.getElementById('detailSymbol').textContent = project.symbol;
+  document.getElementById('detailSymbol').textContent = `// ${project.symbol}`;
   document.getElementById('detailSymbolBadge').textContent = (project.symbol || 'PRJ').slice(0, 4);
   document.getElementById('detailCategory').textContent = project.category || 'DeFi / Airdrop';
   document.getElementById('detailStatusBadge').textContent = project.status || 'Aktif';
@@ -232,28 +428,27 @@ function openDetailModal(id) {
   const linksBar = document.getElementById('detailLinksBar');
   let linksHTML = '';
   if (project.website) {
-    linksHTML += `<a href="${project.website}" target="_blank" rel="noopener" class="inline-flex items-center space-x-1 px-3 py-1.5 rounded-xl bg-surface-700 hover:bg-surface-600 text-xs text-slate-200 transition font-medium"><i data-lucide="globe" class="w-3.5 h-3.5 text-brand-400"></i><span>Website</span></a>`;
+    linksHTML += `<a href="${project.website}" target="_blank" rel="noopener" class="inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-xl bg-[#18062e] hover:bg-[#250a48] text-xs text-pink-200 hover:text-cyan-300 transition font-mono border border-pink-500/30"><i data-lucide="globe" class="w-3.5 h-3.5 text-cyan-400"></i><span>Website</span></a>`;
   }
   if (project.appUrl) {
-    linksHTML += `<a href="${project.appUrl}" target="_blank" rel="noopener" class="inline-flex items-center space-x-1 px-3 py-1.5 rounded-xl bg-brand-500/20 hover:bg-brand-500/30 text-xs text-brand-300 transition font-bold border border-brand-500/30"><i data-lucide="external-link" class="w-3.5 h-3.5 text-brand-400"></i><span>DApp / Katıl</span></a>`;
+    linksHTML += `<a href="${project.appUrl}" target="_blank" rel="noopener" class="inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-xl bg-gradient-to-r from-pink-600 to-orange-500 hover:from-pink-500 hover:to-orange-400 text-xs text-white transition font-mono font-bold shadow-md shadow-pink-500/30"><i data-lucide="external-link" class="w-3.5 h-3.5 text-white"></i><span>DApp / Katıl</span></a>`;
   }
   if (project.twitter) {
-    linksHTML += `<a href="${project.twitter}" target="_blank" rel="noopener" class="inline-flex items-center space-x-1 px-3 py-1.5 rounded-xl bg-surface-700 hover:bg-surface-600 text-xs text-slate-200 transition font-medium"><i data-lucide="twitter" class="w-3.5 h-3.5 text-cyan-400"></i><span>X (Twitter)</span></a>`;
+    linksHTML += `<a href="${project.twitter}" target="_blank" rel="noopener" class="inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-xl bg-[#18062e] hover:bg-[#250a48] text-xs text-pink-200 hover:text-cyan-300 transition font-mono border border-pink-500/30"><i data-lucide="twitter" class="w-3.5 h-3.5 text-cyan-400"></i><span>X (Twitter)</span></a>`;
   }
-  linksBar.innerHTML = linksHTML || '<span class="text-xs text-slate-500">Harici link eklenmemiş</span>';
+  linksBar.innerHTML = linksHTML || '<span class="text-xs font-mono text-pink-300/50">Harici link eklenmemiş</span>';
 
   const markdownContainer = document.getElementById('detailMarkdownContent');
   if (project.content) {
     markdownContainer.innerHTML = marked.parse(project.content);
   } else {
-    markdownContainer.innerHTML = `<p class="text-slate-400 italic">Bu proje için henüz detaylı analiz raporu yazılmadı.</p>`;
+    markdownContainer.innerHTML = `<p class="text-slate-400 italic font-mono text-xs">Bu proje için henüz detaylı analiz raporu yazılmadı.</p>`;
   }
 
   detailModal.classList.remove('hidden');
   lucide.createIcons();
 }
 
-// Close Detail Modal
 function closeDetailModal() {
   detailModal.classList.add('hidden');
   if (window.location.hash) {
@@ -261,20 +456,18 @@ function closeDetailModal() {
   }
 }
 
-// Open Form Modal (Add New)
 function openNewModal() {
-  document.getElementById('formModalTitle').textContent = 'Yeni Proje Ekle';
+  document.getElementById('formModalTitle').textContent = 'YENİ HEDEF EKLE';
   document.getElementById('formProjectId').value = '';
   projectForm.reset();
   formModal.classList.remove('hidden');
 }
 
-// Open Form Modal (Edit Existing)
 function openEditModal(id) {
   const project = projects.find(p => p.id === id);
   if (!project) return;
 
-  document.getElementById('formModalTitle').textContent = `Projeyi Düzenle: ${project.name}`;
+  document.getElementById('formModalTitle').textContent = `HEDEFİ DÜZENLE: ${project.name}`;
   document.getElementById('formProjectId').value = project.id;
   document.getElementById('formName').value = project.name || '';
   document.getElementById('formSymbol').value = project.symbol || '';
@@ -294,13 +487,11 @@ function openEditModal(id) {
   formModal.classList.remove('hidden');
 }
 
-// Close Form Modal
 function closeFormModal() {
   formModal.classList.add('hidden');
   projectForm.reset();
 }
 
-// Handle Form Submission
 async function handleFormSubmit(e) {
   e.preventDefault();
   
@@ -373,7 +564,6 @@ async function handleFormSubmit(e) {
   }
 }
 
-// Delete Project
 async function deleteProject(id, name) {
   const confirmDelete = confirm(`"${name}" projesini ve tüm analiz verilerini silmek istediğinize emin misiniz?`);
   if (!confirmDelete) return;
@@ -404,7 +594,6 @@ async function deleteProject(id, name) {
   }
 }
 
-// Check URL Hash routing
 function checkHashRoute() {
   const hash = window.location.hash.replace('#', '').trim();
   if (!hash) return;
@@ -415,7 +604,6 @@ function checkHashRoute() {
   }
 }
 
-// Export JSON to File (for pushing updates to GitHub)
 function exportJSON() {
   const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(projects, null, 2));
   const downloadAnchor = document.createElement('a');
@@ -427,60 +615,64 @@ function exportJSON() {
   showToast('projects.json indirildi! GitHub reponuza yükleyebilirsiniz.', 'success');
 }
 
-// Reset data to default data/projects.json
-async function resetToDefaults() {
-  if (!confirm('Tüm özel eklemeler sıfırlanıp varsayılan proje listesine dönülsün mü?')) return;
-  try {
-    const res = await fetch('data/projects.json');
-    if (!res.ok) throw new Error('data/projects.json okunamadı');
-    projects = await res.json();
-    saveLocalProjects();
-    updateStats();
-    renderProjects();
-    showToast('Veriler varsayılana sıfırlandı.', 'info');
-  } catch (e) {
-    showToast('Sıfırlama başarısız oldu: ' + e.message, 'error');
-  }
-}
-
-// Setup Event Listeners
 function setupEventListeners() {
-  searchInput.addEventListener('input', (e) => {
-    searchQuery = e.target.value.trim();
-    renderProjects();
-  });
+  if (searchInput) {
+    searchInput.addEventListener('input', (e) => {
+      searchQuery = e.target.value.trim();
+      renderProjects();
+    });
+  }
 
-  filterContainer.addEventListener('click', (e) => {
-    const btn = e.target.closest('.filter-btn');
-    if (!btn) return;
+  if (filterContainer) {
+    filterContainer.addEventListener('click', (e) => {
+      const btn = e.target.closest('.filter-btn');
+      if (!btn) return;
 
-    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    activeFilter = btn.dataset.filter;
-    renderProjects();
-  });
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      activeFilter = btn.dataset.filter;
+      renderProjects();
+    });
+  }
 
-  document.getElementById('btnNewProject').addEventListener('click', openNewModal);
+  const btnNew = document.getElementById('btnNewProject');
+  if (btnNew) btnNew.addEventListener('click', openNewModal);
 
-  document.getElementById('btnCloseDetail').addEventListener('click', closeDetailModal);
-  document.getElementById('btnCloseDetailFooter').addEventListener('click', closeDetailModal);
-  document.getElementById('btnCloseForm').addEventListener('click', closeFormModal);
-  document.getElementById('btnCancelForm').addEventListener('click', closeFormModal);
+  const btnCloseDetail = document.getElementById('btnCloseDetail');
+  if (btnCloseDetail) btnCloseDetail.addEventListener('click', closeDetailModal);
 
-  document.getElementById('btnEditFromDetail').addEventListener('click', () => {
-    if (currentDetailProject) {
-      openEditModal(currentDetailProject.id);
-    }
-  });
+  const btnCloseDetailFooter = document.getElementById('btnCloseDetailFooter');
+  if (btnCloseDetailFooter) btnCloseDetailFooter.addEventListener('click', closeDetailModal);
 
-  detailModal.addEventListener('click', (e) => {
-    if (e.target === detailModal) closeDetailModal();
-  });
-  formModal.addEventListener('click', (e) => {
-    if (e.target === formModal) closeFormModal();
-  });
+  const btnCloseForm = document.getElementById('btnCloseForm');
+  if (btnCloseForm) btnCloseForm.addEventListener('click', closeFormModal);
 
-  projectForm.addEventListener('submit', handleFormSubmit);
+  const btnCancelForm = document.getElementById('btnCancelForm');
+  if (btnCancelForm) btnCancelForm.addEventListener('click', closeFormModal);
+
+  const btnEditFromDetail = document.getElementById('btnEditFromDetail');
+  if (btnEditFromDetail) {
+    btnEditFromDetail.addEventListener('click', () => {
+      if (currentDetailProject) {
+        openEditModal(currentDetailProject.id);
+      }
+    });
+  }
+
+  if (detailModal) {
+    detailModal.addEventListener('click', (e) => {
+      if (e.target === detailModal) closeDetailModal();
+    });
+  }
+  if (formModal) {
+    formModal.addEventListener('click', (e) => {
+      if (e.target === formModal) closeFormModal();
+    });
+  }
+
+  if (projectForm) {
+    projectForm.addEventListener('submit', handleFormSubmit);
+  }
 
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
@@ -491,31 +683,29 @@ function setupEventListeners() {
 
   const btnExport = document.getElementById('btnExportJSON');
   if (btnExport) btnExport.addEventListener('click', exportJSON);
-
-  const btnReset = document.getElementById('btnResetDefault');
-  if (btnReset) btnReset.addEventListener('click', resetToDefaults);
 }
 
-// Toast Helper
 function showToast(message, type = 'info') {
   const toast = document.getElementById('toast');
   const toastMsg = document.getElementById('toastMessage');
   const toastIcon = document.getElementById('toastIcon');
 
+  if (!toast || !toastMsg) return;
+
   toastMsg.textContent = message;
   
   if (type === 'success') {
-    toastIcon.innerHTML = `<span class="text-brand-400 font-bold">✓</span>`;
-    toast.className = 'fixed bottom-6 right-6 z-50 transform translate-y-0 opacity-100 transition-all duration-300 px-5 py-3 rounded-2xl bg-surface-800 border border-brand-500/50 shadow-2xl flex items-center space-x-3 text-sm font-semibold text-white';
+    toastIcon.innerHTML = `<span class="text-cyan-400 font-bold">✓</span>`;
+    toast.className = 'fixed bottom-24 right-6 z-50 transform translate-y-0 opacity-100 transition-all duration-300 px-5 py-3 rounded-2xl bg-[#140626] border border-cyan-400/50 shadow-2xl flex items-center space-x-3 text-sm font-semibold text-white';
   } else if (type === 'error') {
     toastIcon.innerHTML = `<span class="text-rose-400 font-bold">✕</span>`;
-    toast.className = 'fixed bottom-6 right-6 z-50 transform translate-y-0 opacity-100 transition-all duration-300 px-5 py-3 rounded-2xl bg-surface-800 border border-rose-500/50 shadow-2xl flex items-center space-x-3 text-sm font-semibold text-white';
+    toast.className = 'fixed bottom-24 right-6 z-50 transform translate-y-0 opacity-100 transition-all duration-300 px-5 py-3 rounded-2xl bg-[#140626] border border-rose-500/50 shadow-2xl flex items-center space-x-3 text-sm font-semibold text-white';
   } else {
-    toastIcon.innerHTML = `<span class="text-cyan-400 font-bold">ℹ</span>`;
-    toast.className = 'fixed bottom-6 right-6 z-50 transform translate-y-0 opacity-100 transition-all duration-300 px-5 py-3 rounded-2xl bg-surface-800 border border-surface-600 shadow-2xl flex items-center space-x-3 text-sm font-semibold text-white';
+    toastIcon.innerHTML = `<span class="text-pink-400 font-bold">ℹ</span>`;
+    toast.className = 'fixed bottom-24 right-6 z-50 transform translate-y-0 opacity-100 transition-all duration-300 px-5 py-3 rounded-2xl bg-[#140626] border border-pink-500/40 shadow-2xl flex items-center space-x-3 text-sm font-semibold text-white';
   }
 
   setTimeout(() => {
-    toast.className = 'fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none px-5 py-3 rounded-2xl bg-surface-700';
+    toast.className = 'fixed bottom-24 right-6 z-50 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none px-5 py-3 rounded-2xl bg-[#140626]';
   }, 3500);
 }

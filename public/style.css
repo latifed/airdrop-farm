@@ -1,172 +1,210 @@
 /* ==========================================================================
-   BLADE RUNNER & CYBERPUNK DARK PURPLE THEME
+   GRAND THEFT AUTO VI // VICE CITY SUNSET DARK NEON THEME
    ========================================================================== */
 
 :root {
-  --cyber-void: #060310;
-  --cyber-dark: #0b071d;
-  --cyber-card: rgba(16, 10, 38, 0.82);
-  --cyber-card-hover: rgba(24, 15, 56, 0.92);
-  --cyber-border: rgba(168, 85, 247, 0.28);
-  --cyber-border-hover: rgba(0, 240, 255, 0.65);
+  --gta-void: #07020e;
+  --gta-dark: #0d041c;
+  --gta-card: #120526;
+  --gta-card-hover: #1b0838;
+  --gta-border: rgba(255, 0, 127, 0.32);
+  --gta-border-hover: rgba(0, 240, 255, 0.7);
   
-  --neon-purple: #a855f7;
-  --neon-magenta: #ff007f;
+  --neon-pink: #ff007f;
+  --neon-orange: #ff5500;
+  --neon-sunset: #ff8a00;
   --neon-cyan: #00f0ff;
-  --neon-green: #00ff9d;
-  --neon-amber: #facc15;
+  --neon-purple: #b5179e;
+  --neon-gold: #ffbe0b;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html, body {
+  background-color: #07020e !important;
+  color: #ffffff !important;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
 }
 
 body {
-  background-color: var(--cyber-void);
-  background-image: 
-    radial-gradient(circle at 50% -10%, rgba(168, 85, 247, 0.22) 0%, transparent 60%),
-    radial-gradient(circle at 5% 45%, rgba(255, 0, 127, 0.12) 0%, transparent 45%),
-    radial-gradient(circle at 95% 65%, rgba(0, 240, 255, 0.12) 0%, transparent 45%),
-    linear-gradient(rgba(168, 85, 247, 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(168, 85, 247, 0.03) 1px, transparent 1px);
-  background-size: 100% 100%, 100% 100%, 100% 100%, 40px 40px, 40px 40px;
-  background-attachment: fixed;
-  color: #e2e8f0;
-  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  background: #07020e radial-gradient(circle at 50% -15%, rgba(255, 0, 127, 0.22) 0%, transparent 55%),
+              radial-gradient(circle at 10% 40%, rgba(255, 85, 0, 0.12) 0%, transparent 45%),
+              radial-gradient(circle at 90% 60%, rgba(0, 240, 255, 0.12) 0%, transparent 45%),
+              linear-gradient(rgba(255, 0, 127, 0.02) 1px, transparent 1px),
+              linear-gradient(90deg, rgba(255, 0, 127, 0.02) 1px, transparent 1px) fixed !important;
+  background-size: 100% 100%, 100% 100%, 100% 100%, 48px 48px, 48px 48px !important;
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
 }
 
-/* Custom Cyber Scrollbar */
+/* Custom Scrollbar */
 ::-webkit-scrollbar {
-  width: 7px;
-  height: 7px;
+  width: 8px;
+  height: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: #060310;
+  background: #07020e;
 }
 ::-webkit-scrollbar-thumb {
-  background: #2a144f;
-  border-radius: 3px;
-  border: 1px solid rgba(168, 85, 247, 0.3);
+  background: #2a0b4d;
+  border-radius: 4px;
+  border: 1px solid rgba(255, 0, 127, 0.4);
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #8b5cf6;
-  box-shadow: 0 0 10px rgba(139, 92, 246, 0.8);
+  background: #ff007f;
+  box-shadow: 0 0 12px #ff007f;
 }
 
-/* Cyber Title Glow */
-.cyber-glow-title {
-  text-shadow: 
-    0 0 10px rgba(168, 85, 247, 0.6),
-    0 0 25px rgba(217, 70, 239, 0.4),
-    0 0 40px rgba(0, 240, 255, 0.2);
+/* GTA VI Gradient Titles */
+.gta-title-gradient {
+  background: linear-gradient(135deg, #ff007f 0%, #ff5500 50%, #ffbe0b 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 16px rgba(255, 0, 127, 0.55));
 }
 
-.cyber-neon-cyan {
-  text-shadow: 0 0 10px rgba(0, 240, 255, 0.7);
+.gta-glow-vi {
+  text-shadow: 0 0 15px rgba(255, 0, 127, 0.8), 0 0 30px rgba(255, 85, 0, 0.5);
 }
 
-.cyber-neon-magenta {
-  text-shadow: 0 0 10px rgba(255, 0, 127, 0.7);
-}
-
-/* Form Input Blade Runner Style */
-.form-input {
-  width: 100%;
-  background-color: rgba(15, 9, 36, 0.85);
-  border: 1px solid rgba(168, 85, 247, 0.35);
-  border-radius: 0.75rem;
-  padding: 0.65rem 0.95rem;
-  color: #f8fafc;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.85rem;
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.5);
-}
-.form-input:focus {
-  outline: none;
-  border-color: #00f0ff;
-  box-shadow: 
-    0 0 12px rgba(0, 240, 255, 0.45),
-    inset 0 0 6px rgba(0, 240, 255, 0.2);
-  background-color: rgba(22, 13, 52, 0.95);
-}
-
-/* Project Card Cyber HUD Styling */
+/* Project Card Vice City HUD Styling */
 .project-card {
-  background: var(--cyber-card);
-  backdrop-filter: blur(14px);
-  border: 1px solid var(--cyber-border);
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-  position: relative;
-  overflow: hidden;
-}
-
-.project-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 32px;
-  height: 2px;
-  background: #00f0ff;
-  box-shadow: 0 0 8px #00f0ff;
+  background: linear-gradient(180deg, #130629 0%, #0c031c 100%) !important;
+  border: 1px solid rgba(255, 0, 127, 0.3) !important;
+  color: #ffffff !important;
+  border-radius: 1.5rem !important;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  position: relative !important;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.75), inset 0 1px 0 rgba(255, 255, 255, 0.05) !important;
 }
 
 .project-card:hover {
-  transform: translateY(-5px);
-  background: var(--cyber-card-hover);
-  border-color: var(--cyber-border-hover);
+  transform: translateY(-6px) !important;
+  border-color: #00f0ff !important;
+  background: linear-gradient(180deg, #1c093d 0%, #100424 100%) !important;
   box-shadow: 
-    0 16px 36px -8px rgba(0, 0, 0, 0.8),
-    0 0 25px rgba(168, 85, 247, 0.35),
-    0 0 45px rgba(0, 240, 255, 0.15);
+    0 18px 40px rgba(0, 0, 0, 0.9),
+    0 0 25px rgba(255, 0, 127, 0.45),
+    0 0 45px rgba(0, 240, 255, 0.25) !important;
 }
 
-/* Filter Buttons HUD Style */
+/* Form Input Vice City Style */
+.form-input {
+  width: 100%;
+  background-color: #0b0318 !important;
+  border: 1px solid rgba(255, 0, 127, 0.35) !important;
+  border-radius: 0.75rem;
+  padding: 0.7rem 1rem;
+  color: #ffffff !important;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.85rem;
+  transition: all 0.2s ease;
+}
+.form-input:focus {
+  outline: none;
+  border-color: #00f0ff !important;
+  box-shadow: 0 0 14px rgba(0, 240, 255, 0.5) !important;
+  background-color: #14062c !important;
+}
+
+/* Filter Buttons Vice City HUD */
 .filter-btn {
   font-family: 'JetBrains Mono', monospace;
   transition: all 0.15s ease;
   white-space: nowrap;
   letter-spacing: 0.05em;
-  border: 1px solid rgba(168, 85, 247, 0.25);
-  background: rgba(18, 10, 42, 0.7);
+  border: 1px solid rgba(255, 0, 127, 0.25);
+  background: rgba(18, 5, 38, 0.75);
+  color: #ffd6ea;
 }
 .filter-btn:hover {
-  border-color: rgba(0, 240, 255, 0.6);
+  border-color: #00f0ff;
   color: #00f0ff;
-  box-shadow: 0 0 12px rgba(0, 240, 255, 0.25);
+  box-shadow: 0 0 14px rgba(0, 240, 255, 0.35);
 }
 .filter-btn.active {
-  background: linear-gradient(135deg, #a855f7 0%, #00f0ff 100%) !important;
-  color: #060310 !important;
+  background: linear-gradient(135deg, #ff007f 0%, #ff5500 100%) !important;
+  color: #ffffff !important;
   font-weight: 800 !important;
   border-color: transparent !important;
-  box-shadow: 0 0 16px rgba(168, 85, 247, 0.6);
+  box-shadow: 0 0 18px rgba(255, 0, 127, 0.7) !important;
 }
 
-/* Markdown Styling (Blade Runner / Cyberpunk) */
+/* Vice City Radio Player Dock */
+.radio-dock {
+  background: linear-gradient(90deg, rgba(19, 6, 40, 0.95) 0%, rgba(13, 4, 28, 0.95) 100%);
+  border: 1px solid rgba(255, 0, 127, 0.45);
+  box-shadow: 0 0 25px rgba(255, 0, 127, 0.3), 0 8px 32px rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(16px);
+}
+
+/* Equalizer Bars */
+.eq-bar {
+  width: 3px;
+  background: linear-gradient(180deg, #00f0ff 0%, #ff007f 100%);
+  border-radius: 2px;
+  transition: height 0.15s ease;
+}
+.eq-anim-1 { animation: eqJump 0.8s infinite ease-in-out; }
+.eq-anim-2 { animation: eqJump 1.1s infinite 0.2s ease-in-out; }
+.eq-anim-3 { animation: eqJump 0.9s infinite 0.4s ease-in-out; }
+.eq-anim-4 { animation: eqJump 1.2s infinite 0.1s ease-in-out; }
+
+@keyframes eqJump {
+  0%, 100% { height: 6px; }
+  50% { height: 18px; }
+}
+
+/* Volume Range Slider Custom Styling */
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  background: rgba(255, 0, 127, 0.2);
+  height: 6px;
+  border-radius: 3px;
+  outline: none;
+}
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #00f0ff;
+  cursor: pointer;
+  box-shadow: 0 0 8px #00f0ff;
+}
+
+/* Markdown Styling (Vice City Sunset) */
 #detailMarkdownContent {
-  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  color: #f1f5f9 !important;
 }
 #detailMarkdownContent h3 {
   font-family: 'Orbitron', 'Plus Jakarta Sans', sans-serif;
-  color: #00f0ff;
+  color: #00f0ff !important;
   font-size: 1.35rem;
   letter-spacing: 0.05em;
   margin-top: 1.75rem;
   margin-bottom: 0.85rem;
   padding-bottom: 0.5rem;
-  border-bottom: 1px solid rgba(168, 85, 247, 0.4);
-  text-shadow: 0 0 12px rgba(0, 240, 255, 0.4);
+  border-bottom: 1px solid rgba(255, 0, 127, 0.4);
+  text-shadow: 0 0 12px rgba(0, 240, 255, 0.5);
 }
 #detailMarkdownContent h4 {
   font-family: 'JetBrains Mono', monospace;
-  color: #ff007f;
+  color: #ff5500 !important;
   font-size: 1.1rem;
   margin-top: 1.35rem;
   margin-bottom: 0.6rem;
-  text-shadow: 0 0 8px rgba(255, 0, 127, 0.4);
+  text-shadow: 0 0 8px rgba(255, 85, 0, 0.5);
 }
 #detailMarkdownContent p {
   line-height: 1.75;
   margin-bottom: 0.95rem;
-  color: #cbd5e1;
+  color: #cbd5e1 !important;
 }
 #detailMarkdownContent ul {
   list-style-type: none;
@@ -178,30 +216,29 @@ body {
   padding-left: 1.5rem;
   margin-bottom: 0.45rem;
   line-height: 1.6;
+  color: #f1f5f9 !important;
 }
 #detailMarkdownContent li::before {
-  content: '▸';
+  content: '🌴';
   position: absolute;
   left: 0;
-  color: #a855f7;
-  font-weight: bold;
+  font-size: 0.85rem;
 }
 #detailMarkdownContent strong {
-  color: #f8fafc;
+  color: #ffffff !important;
   font-weight: 700;
 }
 #detailMarkdownContent hr {
-  border-color: rgba(168, 85, 247, 0.35);
+  border-color: rgba(255, 0, 127, 0.35);
   margin: 1.75rem 0;
 }
 #detailMarkdownContent blockquote {
   border-left: 3px solid #ff007f;
-  background: rgba(255, 0, 127, 0.08);
+  background: rgba(255, 0, 127, 0.12);
   padding: 0.85rem 1.25rem;
   border-radius: 0 0.75rem 0.75rem 0;
   margin: 1.25rem 0;
-  font-style: italic;
-  box-shadow: inset 0 0 15px rgba(255, 0, 127, 0.05);
+  color: #ffd6ea !important;
 }
 #detailMarkdownContent table {
   width: 100%;
@@ -209,44 +246,26 @@ body {
   margin: 1.25rem 0;
   font-size: 0.85rem;
   font-family: 'JetBrains Mono', monospace;
+  color: #f1f5f9 !important;
 }
 #detailMarkdownContent th {
-  background-color: rgba(30, 16, 70, 0.9);
+  background-color: #210842 !important;
   text-align: left;
   padding: 0.75rem 1rem;
-  border: 1px solid rgba(168, 85, 247, 0.4);
-  color: #00f0ff;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
+  border: 1px solid rgba(255, 0, 127, 0.4);
+  color: #00f0ff !important;
 }
 #detailMarkdownContent td {
   padding: 0.75rem 1rem;
-  border: 1px solid rgba(168, 85, 247, 0.25);
-  background-color: rgba(15, 9, 36, 0.6);
+  border: 1px solid rgba(255, 0, 127, 0.25);
+  background-color: #0d031c !important;
+  color: #cbd5e1 !important;
 }
 #detailMarkdownContent code {
   font-family: 'JetBrains Mono', monospace;
-  background: rgba(168, 85, 247, 0.15);
-  color: #00f0ff;
+  background: rgba(255, 0, 127, 0.2);
+  color: #00f0ff !important;
   padding: 0.15rem 0.4rem;
   border-radius: 0.35rem;
-  border: 1px solid rgba(168, 85, 247, 0.3);
-  font-size: 0.85em;
-}
-
-/* Neon Pulse Dot */
-@keyframes neonPulse {
-  0%, 100% {
-    opacity: 1;
-    transform: scale(1);
-    box-shadow: 0 0 10px #00ff9d;
-  }
-  50% {
-    opacity: 0.5;
-    transform: scale(0.9);
-    box-shadow: 0 0 2px #00ff9d;
-  }
-}
-.neon-pulse-dot {
-  animation: neonPulse 2s infinite ease-in-out;
+  border: 1px solid rgba(255, 0, 127, 0.4);
 }

@@ -1,10 +1,32 @@
 <!DOCTYPE html>
-<html lang="tr" class="dark">
+<html lang="tr" class="dark" style="background-color: #07020e !important; color: #ffffff !important;">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AIRDROP FARM // CYBERNETIC ALPHA TERMINAL</title>
+  <title>AIRDROP FARM VI // VICE CITY ALPHA TERMINAL</title>
   
+  <!-- Critical Inlined Dark Theme Styles to Prevent Any White Flash / Caching -->
+  <style>
+    html, body {
+      background-color: #07020e !important;
+      color: #ffffff !important;
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+    }
+    .project-card {
+      background: linear-gradient(180deg, #130629 0%, #0c031c 100%) !important;
+      border: 1px solid rgba(255, 0, 127, 0.35) !important;
+      color: #ffffff !important;
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.8) !important;
+    }
+    .project-card:hover {
+      border-color: #00f0ff !important;
+      background: linear-gradient(180deg, #1d093d 0%, #100424 100%) !important;
+      box-shadow: 0 0 25px rgba(255, 0, 127, 0.5), 0 0 50px rgba(0, 240, 255, 0.25) !important;
+    }
+  </style>
+
   <!-- Google Fonts: Orbitron & JetBrains Mono & Plus Jakarta Sans -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -20,23 +42,6 @@
             orbitron: ['Orbitron', 'sans-serif'],
             mono: ['JetBrains Mono', 'monospace'],
             sans: ['Plus Jakarta Sans', 'sans-serif'],
-          },
-          colors: {
-            cyber: {
-              void: '#060310',
-              dark: '#0b071d',
-              surface: '#110a26',
-              card: '#160d33',
-              cardHover: '#1f1245',
-              border: '#2e1c59',
-              borderGlow: '#8b5cf6',
-              neonCyan: '#00f0ff',
-              neonPink: '#ff007f',
-              neonPurple: '#a855f7',
-              neonViolet: '#c084fc',
-              neonYellow: '#fcee0a',
-              neonGreen: '#00ff9d',
-            }
           }
         }
       }
@@ -46,45 +51,52 @@
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   <!-- Lucide Icons -->
   <script src="https://unpkg.com/lucide@latest"></script>
-  <link rel="stylesheet" href="style.css">
+  <!-- YouTube IFrame API -->
+  <script src="https://www.youtube.com/iframe_api"></script>
+  <link rel="stylesheet" href="style.css?v=20261110_gta6_v4">
 </head>
-<body class="min-h-screen flex flex-col font-sans selection:bg-fuchsia-500 selection:text-white">
+<body class="min-h-screen flex flex-col font-sans selection:bg-pink-500 selection:text-white pb-28" style="background-color: #07020e !important; color: #ffffff !important;">
 
-  <!-- Blade Runner Top Navigation Header -->
-  <header class="sticky top-0 z-40 bg-[#070414]/85 backdrop-blur-xl border-b border-purple-500/25 shadow-2xl shadow-purple-950/40">
+  <!-- Invisible YouTube Audio Player Container -->
+  <div id="youtubePlayerContainer" style="position: absolute; left: -9999px; top: -9999px; width: 1px; height: 1px; overflow: hidden;">
+    <div id="ytPlayer"></div>
+  </div>
+
+  <!-- GTA VI Top Navigation Header -->
+  <header class="sticky top-0 z-40 bg-[#090314]/95 backdrop-blur-xl border-b border-pink-500/30 shadow-2xl shadow-pink-950/70">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
       
-      <!-- Logo / Title -->
+      <!-- Logo / Title with GTA VI Aesthetic -->
       <div class="flex items-center space-x-4">
-        <div class="relative w-11 h-11 rounded-xl bg-gradient-to-tr from-fuchsia-600 via-purple-600 to-cyan-400 p-[1.5px] shadow-lg shadow-purple-500/30">
-          <div class="w-full h-full bg-[#090518] rounded-[10px] flex items-center justify-center font-orbitron font-black text-cyan-400 text-lg">
-            ⚡
+        <div class="relative w-12 h-12 rounded-2xl bg-gradient-to-tr from-[#ff007f] via-[#ff5500] to-[#ffbe0b] p-[1.5px] shadow-lg shadow-pink-500/40">
+          <div class="w-full h-full bg-[#0d041c] rounded-[14px] flex items-center justify-center font-orbitron font-black text-transparent bg-clip-text bg-gradient-to-tr from-pink-500 to-amber-400 text-xl tracking-tighter">
+            VI
           </div>
         </div>
         <div>
           <div class="flex items-center space-x-2.5">
-            <h1 class="text-2xl font-orbitron font-black tracking-wider bg-gradient-to-r from-fuchsia-400 via-purple-200 to-cyan-400 bg-clip-text text-transparent cyber-glow-title">
-              AIRDROP FARM
+            <h1 class="text-2xl font-orbitron font-black tracking-wider gta-title-gradient">
+              AIRDROP FARM <span class="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-pink-500 gta-glow-vi">VI</span>
             </h1>
-            <span class="inline-flex items-center space-x-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold bg-fuchsia-500/10 text-fuchsia-300 border border-fuchsia-500/30 shadow-sm shadow-fuchsia-500/20">
-              <span class="w-1.5 h-1.5 rounded-full bg-cyan-400 neon-pulse-dot"></span>
-              <span>NEXUS // v2.0</span>
+            <span class="inline-flex items-center space-x-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold bg-pink-500/15 text-pink-300 border border-pink-500/40 shadow-sm shadow-pink-500/25">
+              <span class="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-ping"></span>
+              <span>VICE CITY // 2026</span>
             </span>
           </div>
-          <p class="text-[11px] font-mono text-purple-300/60 uppercase tracking-widest mt-0.5">
-            // CYBERNETIC PROTOCOL HARVESTER // ACTIVE ALPHA POOL
+          <p class="text-[11px] font-mono text-pink-300/70 uppercase tracking-widest mt-0.5">
+            🌴 LEONIDA COUNTY // VICE CITY ALPHA TERMINAL
           </p>
         </div>
       </div>
 
       <!-- Action Buttons -->
       <div class="flex items-center space-x-3">
-        <button id="btnExportJSON" class="hidden sm:inline-flex items-center space-x-1.5 px-3.5 py-2 rounded-xl bg-[#140b2e] hover:bg-[#1f1147] text-purple-200 hover:text-cyan-300 border border-purple-500/30 hover:border-cyan-400/50 text-xs font-mono font-semibold transition-all shadow-md" title="Mevcut listeyi projects.json olarak indir">
+        <button id="btnExportJSON" class="hidden sm:inline-flex items-center space-x-1.5 px-3.5 py-2 rounded-xl bg-[#140626] hover:bg-[#1f093d] text-pink-200 hover:text-cyan-300 border border-pink-500/35 hover:border-cyan-400/50 text-xs font-mono font-semibold transition-all shadow-md" title="Mevcut listeyi projects.json olarak indir">
           <i data-lucide="download" class="w-3.5 h-3.5 text-cyan-400"></i>
           <span>JSON İNDİR</span>
         </button>
-        <button id="btnNewProject" class="inline-flex items-center space-x-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-fuchsia-600 via-purple-600 to-cyan-500 hover:from-fuchsia-500 hover:to-cyan-400 text-white font-orbitron font-bold text-xs tracking-wider shadow-lg shadow-purple-600/30 transition-all transform hover:-translate-y-0.5 active:translate-y-0">
-          <i data-lucide="plus-circle" class="w-4 h-4 text-cyan-200"></i>
+        <button id="btnNewProject" class="inline-flex items-center space-x-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-[#ff007f] via-[#ff5500] to-[#ffbe0b] hover:from-pink-500 hover:to-orange-400 text-white font-orbitron font-bold text-xs tracking-wider shadow-lg shadow-pink-600/40 transition-all transform hover:-translate-y-0.5 active:translate-y-0">
+          <i data-lucide="plus-circle" class="w-4 h-4 text-white"></i>
           <span>YENİ HEDEF EKLE</span>
         </button>
       </div>
@@ -92,70 +104,70 @@
   </header>
 
   <!-- Main Content Container -->
-  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8" style="background-color: transparent !important;">
 
-    <!-- Cyberpunk Stats Bar -->
+    <!-- GTA VI Sunset Stats Bar -->
     <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
-      <div class="bg-[#120a28]/80 border border-purple-500/25 rounded-2xl p-4.5 flex items-center space-x-4 shadow-lg backdrop-blur-md">
-        <div class="p-3 bg-purple-500/10 text-purple-400 rounded-xl border border-purple-500/20">
+      <div class="bg-[#110526] border border-pink-500/30 rounded-2xl p-4.5 flex items-center space-x-4 shadow-xl">
+        <div class="p-3 bg-pink-500/10 text-pink-400 rounded-xl border border-pink-500/20">
           <i data-lucide="layers" class="w-6 h-6"></i>
         </div>
         <div>
           <div class="text-2xl font-orbitron font-black text-white" id="statTotal">5</div>
-          <div class="text-xs font-mono text-purple-300/60 uppercase">Aktif Havuz</div>
+          <div class="text-xs font-mono text-pink-300/70 uppercase">Aktif Havuz</div>
         </div>
       </div>
 
-      <div class="bg-[#120a28]/80 border border-purple-500/25 rounded-2xl p-4.5 flex items-center space-x-4 shadow-lg backdrop-blur-md">
+      <div class="bg-[#110526] border border-pink-500/30 rounded-2xl p-4.5 flex items-center space-x-4 shadow-xl">
         <div class="p-3 bg-cyan-500/10 text-cyan-400 rounded-xl border border-cyan-500/20">
           <i data-lucide="flame" class="w-6 h-6"></i>
         </div>
         <div>
-          <div class="text-2xl font-orbitron font-black text-cyan-400 cyber-neon-cyan" id="statActive">2</div>
-          <div class="text-xs font-mono text-cyan-300/60 uppercase">Aktif Puan Kasımı</div>
+          <div class="text-2xl font-orbitron font-black text-cyan-400" id="statActive">2</div>
+          <div class="text-xs font-mono text-cyan-300/70 uppercase">Aktif Puan Kasımı</div>
         </div>
       </div>
 
-      <div class="bg-[#120a28]/80 border border-purple-500/25 rounded-2xl p-4.5 flex items-center space-x-4 shadow-lg backdrop-blur-md">
-        <div class="p-3 bg-fuchsia-500/10 text-fuchsia-400 rounded-xl border border-fuchsia-500/20">
+      <div class="bg-[#110526] border border-pink-500/30 rounded-2xl p-4.5 flex items-center space-x-4 shadow-xl">
+        <div class="p-3 bg-amber-500/10 text-amber-400 rounded-xl border border-amber-500/20">
           <i data-lucide="clock" class="w-6 h-6"></i>
         </div>
         <div>
-          <div class="text-2xl font-orbitron font-black text-fuchsia-400 cyber-neon-magenta" id="statTge">1</div>
-          <div class="text-xs font-mono text-fuchsia-300/60 uppercase">TGE Yaklaşan</div>
+          <div class="text-2xl font-orbitron font-black text-amber-400" id="statTge">1</div>
+          <div class="text-xs font-mono text-amber-300/70 uppercase">TGE Yaklaşan</div>
         </div>
       </div>
 
-      <div class="bg-[#120a28]/80 border border-purple-500/25 rounded-2xl p-4.5 flex items-center space-x-4 shadow-lg backdrop-blur-md">
-        <div class="p-3 bg-emerald-500/10 text-emerald-400 rounded-xl border border-emerald-500/20">
+      <div class="bg-[#110526] border border-pink-500/30 rounded-2xl p-4.5 flex items-center space-x-4 shadow-xl">
+        <div class="p-3 bg-orange-500/10 text-orange-400 rounded-xl border border-orange-500/20">
           <i data-lucide="crosshair" class="w-6 h-6"></i>
         </div>
         <div>
-          <div class="text-2xl font-orbitron font-black text-emerald-400" id="statEarly">2</div>
-          <div class="text-xs font-mono text-emerald-300/60 uppercase">Erken Alpha Sektörü</div>
+          <div class="text-2xl font-orbitron font-black text-orange-400" id="statEarly">2</div>
+          <div class="text-xs font-mono text-orange-300/70 uppercase">Erken Alpha Sektörü</div>
         </div>
       </div>
     </div>
 
     <!-- Filters & Search Toolbar -->
-    <div class="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4 bg-[#100924]/70 p-3.5 rounded-2xl border border-purple-500/25 backdrop-blur-md">
+    <div class="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4 bg-[#0f0422] p-3.5 rounded-2xl border border-pink-500/30">
       
       <!-- Filter Badges -->
       <div class="flex items-center space-x-2 overflow-x-auto pb-2 md:pb-0 scrollbar-none" id="filterContainer">
         <button class="filter-btn active px-4 py-1.5 rounded-xl text-xs font-bold" data-filter="all">TÜMÜ</button>
-        <button class="filter-btn px-4 py-1.5 rounded-xl text-xs font-bold text-purple-200" data-filter="Aktif Puan Kasma">AKTİF PUAN</button>
-        <button class="filter-btn px-4 py-1.5 rounded-xl text-xs font-bold text-purple-200" data-filter="TGE">TGE SON DÜZLÜK</button>
-        <button class="filter-btn px-4 py-1.5 rounded-xl text-xs font-bold text-purple-200" data-filter="Erken">ERKEN ALPHA</button>
+        <button class="filter-btn px-4 py-1.5 rounded-xl text-xs font-bold" data-filter="Aktif Puan Kasma">AKTİF PUAN</button>
+        <button class="filter-btn px-4 py-1.5 rounded-xl text-xs font-bold" data-filter="TGE">TGE SON DÜZLÜK</button>
+        <button class="filter-btn px-4 py-1.5 rounded-xl text-xs font-bold" data-filter="Erken">ERKEN ALPHA</button>
       </div>
 
       <!-- Search Input -->
       <div class="relative w-full md:w-80">
-        <i data-lucide="search" class="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-purple-400"></i>
+        <i data-lucide="search" class="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-pink-400"></i>
         <input 
           type="text" 
           id="searchInput" 
           placeholder="HEDEF VEYA TICKER ARA (ÖRN: STK)..." 
-          class="w-full bg-[#150c30]/80 border border-purple-500/30 rounded-xl pl-10 pr-4 py-2 text-xs font-mono text-slate-100 placeholder-purple-400/50 focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400"
+          class="w-full bg-[#080214] border border-pink-500/40 rounded-xl pl-10 pr-4 py-2 text-xs font-mono text-white placeholder-pink-400/50 focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400"
         />
       </div>
     </div>
@@ -166,41 +178,41 @@
     </div>
 
     <!-- Empty State -->
-    <div id="emptyState" class="hidden text-center py-16 bg-[#120a28]/40 rounded-3xl border border-dashed border-purple-500/30">
-      <div class="w-14 h-14 mx-auto mb-4 bg-purple-500/10 border border-purple-500/20 rounded-2xl flex items-center justify-center text-purple-400">
+    <div id="emptyState" class="hidden text-center py-16 bg-[#0f0422]/60 rounded-3xl border border-dashed border-pink-500/30">
+      <div class="w-14 h-14 mx-auto mb-4 bg-pink-500/10 border border-pink-500/20 rounded-2xl flex items-center justify-center text-pink-400">
         <i data-lucide="radar" class="w-7 h-7"></i>
       </div>
-      <h3 class="text-lg font-orbitron font-bold text-slate-200">RADARDA HEDEF BULUNAMADI</h3>
-      <p class="text-xs font-mono text-purple-300/60 mt-1">Kriterlerinizi değiştirin veya yeni bir proje protokolü ekleyin.</p>
+      <h3 class="text-lg font-orbitron font-bold text-white">RADARDA HEDEF BULUNAMADI</h3>
+      <p class="text-xs font-mono text-pink-300/60 mt-1">Kriterlerinizi değiştirin veya yeni bir proje protokolü ekleyin.</p>
     </div>
 
   </main>
 
-  <!-- Project Detail Modal (Blade Runner Cyber View) -->
-  <div id="detailModal" class="fixed inset-0 z-50 hidden bg-black/85 backdrop-blur-xl overflow-y-auto p-4 sm:p-6 lg:p-8 flex items-center justify-center">
-    <div class="relative bg-[#0d0722] border border-purple-500/40 rounded-3xl max-w-4xl w-full max-h-[92vh] flex flex-col shadow-2xl shadow-purple-950/80 overflow-hidden animate-in fade-in zoom-in-95 duration-150">
+  <!-- Project Detail Modal (Vice City Sunset Cyber View) -->
+  <div id="detailModal" class="fixed inset-0 z-50 hidden bg-black/90 backdrop-blur-xl overflow-y-auto p-4 sm:p-6 lg:p-8 flex items-center justify-center">
+    <div class="relative bg-[#0d031c] border border-pink-500/40 rounded-3xl max-w-4xl w-full max-h-[92vh] flex flex-col shadow-2xl shadow-pink-950/90 overflow-hidden animate-in fade-in zoom-in-95 duration-150">
       
       <!-- Modal Header -->
-      <div class="p-6 border-b border-purple-500/30 bg-[#0f0827]/95 sticky top-0 z-10 flex items-start justify-between backdrop-blur-md">
+      <div class="p-6 border-b border-pink-500/30 bg-[#110424] sticky top-0 z-10 flex items-start justify-between">
         <div class="flex items-center space-x-4">
-          <div id="detailSymbolBadge" class="w-14 h-14 rounded-2xl bg-gradient-to-tr from-fuchsia-600 via-purple-600 to-cyan-400 flex items-center justify-center text-black font-orbitron font-black text-xl shadow-lg shadow-purple-500/30">
+          <div id="detailSymbolBadge" class="w-14 h-14 rounded-2xl bg-gradient-to-tr from-[#ff007f] via-[#ff5500] to-[#ffbe0b] flex items-center justify-center text-black font-orbitron font-black text-xl shadow-lg shadow-pink-500/30">
             STK
           </div>
           <div>
             <div class="flex items-center space-x-3">
               <h2 id="detailTitle" class="text-2xl font-orbitron font-black text-white tracking-wide">StableStock</h2>
-              <span id="detailSymbol" class="px-2.5 py-0.5 rounded-lg text-xs font-mono font-black bg-purple-500/20 text-cyan-300 border border-purple-500/40">// STK</span>
+              <span id="detailSymbol" class="px-2.5 py-0.5 rounded-lg text-xs font-mono font-black bg-pink-500/20 text-cyan-300 border border-pink-500/40">// STK</span>
               <span id="detailStatusBadge" class="px-2.5 py-0.5 rounded-full text-xs font-mono font-bold bg-cyan-500/10 text-cyan-400 border border-cyan-500/30">Aktif Puan Kasma</span>
             </div>
-            <p id="detailCategory" class="text-xs font-mono text-purple-300/70 mt-1 tracking-wider uppercase">RWA & Tokenized Equities</p>
+            <p id="detailCategory" class="text-xs font-mono text-pink-300/70 mt-1 tracking-wider uppercase">RWA & Tokenized Equities</p>
           </div>
         </div>
 
         <div class="flex items-center space-x-2">
-          <button id="btnEditFromDetail" class="p-2 rounded-xl bg-purple-900/30 border border-purple-500/30 hover:border-cyan-400/50 text-purple-200 hover:text-cyan-300 transition" title="Projeyi Düzenle">
+          <button id="btnEditFromDetail" class="p-2 rounded-xl bg-pink-950/40 border border-pink-500/30 hover:border-cyan-400/50 text-pink-200 hover:text-cyan-300 transition" title="Projeyi Düzenle">
             <i data-lucide="edit-3" class="w-5 h-5"></i>
           </button>
-          <button id="btnCloseDetail" class="p-2 rounded-xl bg-purple-900/30 border border-purple-500/30 hover:border-fuchsia-500 text-purple-200 hover:text-white transition" title="Kapat">
+          <button id="btnCloseDetail" class="p-2 rounded-xl bg-pink-950/40 border border-pink-500/30 hover:border-pink-500 text-pink-200 hover:text-white transition" title="Kapat">
             <i data-lucide="x" class="w-5 h-5"></i>
           </button>
         </div>
@@ -211,26 +223,26 @@
         
         <!-- Quick Meta Info Cards -->
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 text-xs font-mono">
-          <div class="bg-[#150c33]/70 p-3.5 rounded-xl border border-purple-500/25">
-            <div class="text-purple-400/80 font-bold mb-1">// DEĞERLEME</div>
+          <div class="bg-[#140628] p-3.5 rounded-xl border border-pink-500/30">
+            <div class="text-pink-400/80 font-bold mb-1">// DEĞERLEME</div>
             <div id="detailFunding" class="font-bold text-white text-sm">-</div>
           </div>
-          <div class="bg-[#150c33]/70 p-3.5 rounded-xl border border-purple-500/25">
-            <div class="text-purple-400/80 font-bold mb-1">// GÜVENİLİRLİK NOTU</div>
+          <div class="bg-[#140628] p-3.5 rounded-xl border border-pink-500/30">
+            <div class="text-pink-400/80 font-bold mb-1">// GÜVENİLİRLİK NOTU</div>
             <div id="detailRisk" class="font-bold text-amber-300 text-sm">-</div>
           </div>
-          <div class="bg-[#150c33]/70 p-3.5 rounded-xl border border-purple-500/25">
-            <div class="text-purple-400/80 font-bold mb-1">// KURUCU EKİP</div>
+          <div class="bg-[#140628] p-3.5 rounded-xl border border-pink-500/30">
+            <div class="text-pink-400/80 font-bold mb-1">// KURUCU EKİP</div>
             <div id="detailFounders" class="font-bold text-white truncate text-sm">-</div>
           </div>
-          <div class="bg-[#150c33]/70 p-3.5 rounded-xl border border-purple-500/25">
-            <div class="text-purple-400/80 font-bold mb-1">// YATIRIMCILAR</div>
+          <div class="bg-[#140628] p-3.5 rounded-xl border border-pink-500/30">
+            <div class="text-pink-400/80 font-bold mb-1">// YATIRIMCILAR</div>
             <div id="detailBackers" class="font-bold text-white truncate text-sm">-</div>
           </div>
         </div>
 
         <!-- Links Toolbar -->
-        <div class="flex flex-wrap gap-2 pt-1 pb-2 border-b border-purple-500/25" id="detailLinksBar">
+        <div class="flex flex-wrap gap-2 pt-1 pb-2 border-b border-pink-500/25" id="detailLinksBar">
           <!-- Links will be injected here -->
         </div>
 
@@ -242,9 +254,9 @@
       </div>
 
       <!-- Modal Footer -->
-      <div class="p-4 bg-[#080415] border-t border-purple-500/25 flex items-center justify-between text-xs font-mono text-purple-300/60">
-        <span>// CYBERNETIC ALPHA LOG • CONTINUOUS REAL-TIME FEED</span>
-        <button id="btnCloseDetailFooter" class="px-4 py-2 rounded-xl bg-purple-900/40 border border-purple-500/30 hover:border-cyan-400 text-white font-bold transition">
+      <div class="p-4 bg-[#080214] border-t border-pink-500/25 flex items-center justify-between text-xs font-mono text-pink-300/60">
+        <span>🌴 VICE CITY ALPHA DOSYASI // REAL-TIME RECORD</span>
+        <button id="btnCloseDetailFooter" class="px-4 py-2 rounded-xl bg-pink-950/40 border border-pink-500/30 hover:border-cyan-400 text-white font-bold transition">
           KAPAT
         </button>
       </div>
@@ -253,13 +265,13 @@
   </div>
 
   <!-- Project Add / Edit Modal -->
-  <div id="formModal" class="fixed inset-0 z-50 hidden bg-black/85 backdrop-blur-xl overflow-y-auto p-4 sm:p-6 lg:p-8 flex items-center justify-center">
-    <div class="relative bg-[#0d0722] border border-purple-500/40 rounded-3xl max-w-3xl w-full max-h-[90vh] flex flex-col shadow-2xl overflow-hidden animate-in fade-in zoom-in-95 duration-150">
+  <div id="formModal" class="fixed inset-0 z-50 hidden bg-black/90 backdrop-blur-xl overflow-y-auto p-4 sm:p-6 lg:p-8 flex items-center justify-center">
+    <div class="relative bg-[#0d031c] border border-pink-500/40 rounded-3xl max-w-3xl w-full max-h-[90vh] flex flex-col shadow-2xl overflow-hidden animate-in fade-in zoom-in-95 duration-150">
       
       <!-- Form Header -->
-      <div class="p-6 border-b border-purple-500/30 bg-[#0f0827] sticky top-0 z-10 flex items-center justify-between">
-        <h3 id="formModalTitle" class="text-xl font-orbitron font-black text-white tracking-wider">YENİ PROTOKOL EKLE</h3>
-        <button id="btnCloseForm" class="p-2 rounded-xl bg-purple-900/30 border border-purple-500/30 hover:border-fuchsia-500 text-slate-300 hover:text-white transition">
+      <div class="p-6 border-b border-pink-500/30 bg-[#110424] sticky top-0 z-10 flex items-center justify-between">
+        <h3 id="formModalTitle" class="text-xl font-orbitron font-black text-white tracking-wider">YENİ HEDEF EKLE</h3>
+        <button id="btnCloseForm" class="p-2 rounded-xl bg-pink-950/30 border border-pink-500/30 hover:border-pink-500 text-slate-300 hover:text-white transition">
           <i data-lucide="x" class="w-5 h-5"></i>
         </button>
       </div>
@@ -270,22 +282,22 @@
 
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
-            <label class="block text-xs font-mono font-semibold text-purple-300 mb-1.5">// PROJE ADI *</label>
+            <label class="block text-xs font-mono font-semibold text-pink-300 mb-1.5">// PROJE ADI *</label>
             <input type="text" id="formName" required placeholder="Örn: StableStock" class="form-input" />
           </div>
           <div>
-            <label class="block text-xs font-mono font-semibold text-purple-300 mb-1.5">// TICKER / SEMBOL *</label>
+            <label class="block text-xs font-mono font-semibold text-pink-300 mb-1.5">// TICKER / SEMBOL *</label>
             <input type="text" id="formSymbol" required placeholder="Örn: STK" class="form-input" />
           </div>
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <div>
-            <label class="block text-xs font-mono font-semibold text-purple-300 mb-1.5">// KATEGORİ</label>
+            <label class="block text-xs font-mono font-semibold text-pink-300 mb-1.5">// KATEGORİ</label>
             <input type="text" id="formCategory" placeholder="Örn: RWA & Perps" class="form-input" />
           </div>
           <div>
-            <label class="block text-xs font-mono font-semibold text-purple-300 mb-1.5">// DURUM / AŞAMA</label>
+            <label class="block text-xs font-mono font-semibold text-pink-300 mb-1.5">// DURUM / AŞAMA</label>
             <select id="formStatus" class="form-input">
               <option value="Aktif Puan Kasma">Aktif Puan Kasma</option>
               <option value="TGE Öncesi Son Düzlük">TGE Öncesi Son Düzlük</option>
@@ -294,60 +306,60 @@
             </select>
           </div>
           <div>
-            <label class="block text-xs font-mono font-semibold text-purple-300 mb-1.5">// RİSK DERECESİ</label>
+            <label class="block text-xs font-mono font-semibold text-pink-300 mb-1.5">// RİSK DERECESİ</label>
             <input type="text" id="formRiskTier" placeholder="Örn: B+ / Orta Risk" class="form-input" />
           </div>
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
-            <label class="block text-xs font-mono font-semibold text-purple-300 mb-1.5">// FONLAMA / DEĞERLEME</label>
+            <label class="block text-xs font-mono font-semibold text-pink-300 mb-1.5">// FONLAMA / DEĞERLEME</label>
             <input type="text" id="formFunding" placeholder="Örn: $75M Değerleme" class="form-input" />
           </div>
           <div>
-            <label class="block text-xs font-mono font-semibold text-purple-300 mb-1.5">// KURUCU EKİP</label>
+            <label class="block text-xs font-mono font-semibold text-pink-300 mb-1.5">// KURUCU EKİP</label>
             <input type="text" id="formFounders" placeholder="Örn: Zixi Zhu, Zac" class="form-input" />
           </div>
         </div>
 
         <div>
-          <label class="block text-xs font-mono font-semibold text-purple-300 mb-1.5">// YATIRIMCILAR & VC'LER</label>
+          <label class="block text-xs font-mono font-semibold text-pink-300 mb-1.5">// YATIRIMCILAR & VC'LER</label>
           <input type="text" id="formBackers" placeholder="Örn: YZi Labs, Matrix Partners, Amber Group" class="form-input" />
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <div>
-            <label class="block text-xs font-mono font-semibold text-purple-300 mb-1.5">// WEB SİTESİ</label>
+            <label class="block text-xs font-mono font-semibold text-pink-300 mb-1.5">// WEB SİTESİ</label>
             <input type="url" id="formWebsite" placeholder="https://..." class="form-input" />
           </div>
           <div>
-            <label class="block text-xs font-mono font-semibold text-purple-300 mb-1.5">// DAPP / GÖREV LİNKİ</label>
+            <label class="block text-xs font-mono font-semibold text-pink-300 mb-1.5">// DAPP / GÖREV LİNKİ</label>
             <input type="url" id="formAppUrl" placeholder="https://app..." class="form-input" />
           </div>
           <div>
-            <label class="block text-xs font-mono font-semibold text-purple-300 mb-1.5">// X (TWITTER) LİNKİ</label>
+            <label class="block text-xs font-mono font-semibold text-pink-300 mb-1.5">// X (TWITTER) LİNKİ</label>
             <input type="url" id="formTwitter" placeholder="https://x.com/..." class="form-input" />
           </div>
         </div>
 
         <div>
-          <label class="block text-xs font-mono font-semibold text-purple-300 mb-1.5">// KISA ÖZET (KARTTA GÖRÜNECEK)</label>
+          <label class="block text-xs font-mono font-semibold text-pink-300 mb-1.5">// KISA ÖZET (KARTTA GÖRÜNECEK)</label>
           <textarea id="formSummary" rows="2" placeholder="Protokolün temel mantığı ve airdrop strateji özeti..." class="form-input"></textarea>
         </div>
 
         <div>
-          <label class="block text-xs font-mono font-semibold text-purple-300 mb-1.5">
+          <label class="block text-xs font-mono font-semibold text-pink-300 mb-1.5">
             // DETAYLI ALPHA & AİRDROP RAPORU (MARKDOWN)
           </label>
           <textarea id="formContent" rows="10" placeholder="Puan kasma taktikleri, wash trading uyarıları, VC sicili ve adım adım kılavuz..." class="form-input font-mono text-xs"></textarea>
         </div>
 
         <!-- Form Submit / Cancel -->
-        <div class="pt-4 border-t border-purple-500/30 flex items-center justify-end space-x-3">
-          <button type="button" id="btnCancelForm" class="px-4 py-2.5 rounded-xl bg-purple-900/30 border border-purple-500/30 hover:border-purple-400 text-slate-300 font-mono font-semibold transition">
+        <div class="pt-4 border-t border-pink-500/30 flex items-center justify-end space-x-3">
+          <button type="button" id="btnCancelForm" class="px-4 py-2.5 rounded-xl bg-pink-950/30 border border-pink-500/30 hover:border-pink-400 text-slate-300 font-mono font-semibold transition">
             İPTAL
           </button>
-          <button type="submit" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-fuchsia-600 to-cyan-500 hover:from-fuchsia-500 hover:to-cyan-400 text-white font-orbitron font-bold transition shadow-lg shadow-purple-500/30">
+          <button type="submit" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#ff007f] via-[#ff5500] to-[#ffbe0b] hover:from-pink-500 hover:to-orange-400 text-white font-orbitron font-bold transition shadow-lg shadow-pink-500/30">
             KAYDET // ONAYLA
           </button>
         </div>
@@ -356,16 +368,66 @@
     </div>
   </div>
 
+  <!-- VICE CITY FM // GTA VI FLOATING RADIO PLAYER DOCK -->
+  <div class="fixed bottom-4 left-4 right-4 sm:left-auto sm:right-6 sm:w-[460px] z-50 radio-dock rounded-2xl p-3.5 flex flex-col space-y-2.5 transition-all">
+    <div class="flex items-center justify-between">
+      <div class="flex items-center space-x-3 truncate">
+        <!-- Radio Animated Indicator -->
+        <div class="relative w-9 h-9 rounded-xl bg-gradient-to-tr from-pink-500 to-amber-400 p-[1px] flex-shrink-0 flex items-center justify-center">
+          <div class="w-full h-full bg-[#110424] rounded-[11px] flex items-center justify-center space-x-0.5" id="eqContainer">
+            <span class="eq-bar eq-anim-1"></span>
+            <span class="eq-bar eq-anim-2"></span>
+            <span class="eq-bar eq-anim-3"></span>
+            <span class="eq-bar eq-anim-4"></span>
+          </div>
+        </div>
+
+        <div class="truncate">
+          <div class="flex items-center space-x-2">
+            <span class="text-[10px] font-mono font-black text-amber-300 tracking-wider">📻 VICE CITY FM // GTA VI</span>
+            <span id="radioStatusText" class="text-[9px] font-mono px-1.5 py-0.2 rounded bg-pink-500/20 text-pink-300 border border-pink-500/30">CANLI</span>
+          </div>
+          <div class="text-xs font-mono font-bold text-white truncate" id="radioTrackTitle" title="Justice — Flower In A Hurricane (feat. Tame Impala, SZA)">
+            Justice — Flower In A Hurricane
+          </div>
+        </div>
+      </div>
+
+      <!-- Play / Pause Button -->
+      <button id="btnRadioPlayPause" class="w-10 h-10 rounded-xl bg-gradient-to-tr from-pink-500 to-orange-500 hover:from-pink-400 hover:to-orange-400 text-white flex items-center justify-center shadow-lg shadow-pink-500/40 transition transform active:scale-95 flex-shrink-0">
+        <i data-lucide="play" id="iconPlay" class="w-5 h-5 fill-white"></i>
+        <i data-lucide="pause" id="iconPause" class="w-5 h-5 fill-white hidden"></i>
+      </button>
+    </div>
+
+    <!-- Bottom Controls: Volume & External Link -->
+    <div class="flex items-center justify-between text-xs font-mono pt-1.5 border-t border-pink-500/20 text-pink-200/80">
+      <div class="flex items-center space-x-2 w-48">
+        <button id="btnRadioMute" class="hover:text-cyan-400 transition" title="Sesi Aç/Kapat">
+          <i data-lucide="volume-2" id="iconVolume" class="w-4 h-4"></i>
+          <i data-lucide="volume-x" id="iconMuted" class="w-4 h-4 text-pink-500 hidden"></i>
+        </button>
+        <input type="range" id="radioVolume" min="0" max="100" value="70" class="w-full cursor-pointer" title="Ses Seviyesi">
+        <span id="volumeValueText" class="text-[10px] text-pink-300 w-7">70%</span>
+      </div>
+
+      <a href="https://youtu.be/5dPwBWvmcbQ" target="_blank" rel="noopener" class="text-[10px] text-pink-300/80 hover:text-cyan-300 flex items-center space-x-1 transition font-bold" title="YouTube'da Aç">
+        <span>GTA VI SOUNDTRACK</span>
+        <i data-lucide="external-link" class="w-3 h-3"></i>
+      </a>
+    </div>
+  </div>
+
   <!-- Toast Notification Container -->
-  <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none px-4 py-3 rounded-2xl bg-[#140b2e] border border-purple-500/40 shadow-2xl flex items-center space-x-3 text-sm font-mono font-medium">
+  <div id="toast" class="fixed bottom-24 right-6 z-50 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none px-4 py-3 rounded-2xl bg-[#140626] border border-pink-500/40 shadow-2xl flex items-center space-x-3 text-sm font-mono font-medium">
     <div id="toastIcon"></div>
     <div id="toastMessage" class="text-white"></div>
   </div>
 
-  <footer class="py-6 border-t border-purple-500/20 text-center text-xs font-mono text-purple-400/50">
-    AIRDROP FARM // BLADE RUNNER TERMINAL EDITION • PROTOCOL VERSION 2026-ALPHA
+  <footer class="py-6 border-t border-pink-500/20 text-center text-xs font-mono text-pink-400/50">
+    AIRDROP FARM VI // VICE CITY EDITION • LEONIDA COUNTY
   </footer>
 
-  <script src="app.js"></script>
+  <script src="app.js?v=20261110_gta6_v4"></script>
 </body>
 </html>
