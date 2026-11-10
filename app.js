@@ -583,6 +583,10 @@ function openDetailModal(id) {
   const markdownContainer = document.getElementById('detailMarkdownContent');
   if (project.content) {
     markdownContainer.innerHTML = marked.parse(project.content);
+    markdownContainer.querySelectorAll('a').forEach(a => {
+      a.setAttribute('target', '_blank');
+      a.setAttribute('rel', 'noopener noreferrer');
+    });
   } else {
     markdownContainer.innerHTML = `<p class="text-slate-300 italic text-base">Bu proje için henüz detaylı analiz raporu yazılmadı.</p>`;
   }
