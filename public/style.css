@@ -1,5 +1,6 @@
 /* ==========================================================================
    GRAND THEFT AUTO VI // VICE CITY SUNSET DARK NEON THEME
+   LARGE & HIGH-READABILITY HUD EDITION
    ========================================================================== */
 
 :root {
@@ -7,8 +8,8 @@
   --gta-dark: #0d041c;
   --gta-card: #120526;
   --gta-card-hover: #1b0838;
-  --gta-border: rgba(255, 0, 127, 0.32);
-  --gta-border-hover: rgba(0, 240, 255, 0.7);
+  --gta-border: rgba(255, 0, 127, 0.4);
+  --gta-border-hover: rgba(0, 240, 255, 0.8);
   
   --neon-pink: #ff007f;
   --neon-orange: #ff5500;
@@ -28,34 +29,36 @@ html, body {
   margin: 0;
   padding: 0;
   min-height: 100vh;
+  font-size: 16px;
 }
 
 body {
-  background: #07020e radial-gradient(circle at 50% -15%, rgba(255, 0, 127, 0.22) 0%, transparent 55%),
-              radial-gradient(circle at 10% 40%, rgba(255, 85, 0, 0.12) 0%, transparent 45%),
-              radial-gradient(circle at 90% 60%, rgba(0, 240, 255, 0.12) 0%, transparent 45%),
-              linear-gradient(rgba(255, 0, 127, 0.02) 1px, transparent 1px),
-              linear-gradient(90deg, rgba(255, 0, 127, 0.02) 1px, transparent 1px) fixed !important;
-  background-size: 100% 100%, 100% 100%, 100% 100%, 48px 48px, 48px 48px !important;
+  background: #07020e radial-gradient(circle at 50% -15%, rgba(255, 0, 127, 0.25) 0%, transparent 60%),
+              radial-gradient(circle at 10% 40%, rgba(255, 85, 0, 0.15) 0%, transparent 50%),
+              radial-gradient(circle at 90% 60%, rgba(0, 240, 255, 0.15) 0%, transparent 50%),
+              linear-gradient(rgba(255, 0, 127, 0.03) 1px, transparent 1px),
+              linear-gradient(90deg, rgba(255, 0, 127, 0.03) 1px, transparent 1px) fixed !important;
+  background-size: 100% 100%, 100% 100%, 100% 100%, 56px 56px, 56px 56px !important;
   font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  letter-spacing: -0.01em;
 }
 
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 10px;
+  height: 10px;
 }
 ::-webkit-scrollbar-track {
   background: #07020e;
 }
 ::-webkit-scrollbar-thumb {
-  background: #2a0b4d;
-  border-radius: 4px;
-  border: 1px solid rgba(255, 0, 127, 0.4);
+  background: #2f0c57;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 0, 127, 0.45);
 }
 ::-webkit-scrollbar-thumb:hover {
   background: #ff007f;
-  box-shadow: 0 0 12px #ff007f;
+  box-shadow: 0 0 14px #ff007f;
 }
 
 /* GTA VI Gradient Titles */
@@ -63,87 +66,90 @@ body {
   background: linear-gradient(135deg, #ff007f 0%, #ff5500 50%, #ffbe0b 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  filter: drop-shadow(0 0 16px rgba(255, 0, 127, 0.55));
+  filter: drop-shadow(0 0 18px rgba(255, 0, 127, 0.6));
 }
 
 .gta-glow-vi {
-  text-shadow: 0 0 15px rgba(255, 0, 127, 0.8), 0 0 30px rgba(255, 85, 0, 0.5);
+  text-shadow: 0 0 16px rgba(255, 0, 127, 0.85), 0 0 32px rgba(255, 85, 0, 0.6);
 }
 
-/* Project Card Vice City HUD Styling */
+/* Project Card Vice City HUD Styling (Large, Spacious, High-Contrast) */
 .project-card {
   background: linear-gradient(180deg, #130629 0%, #0c031c 100%) !important;
-  border: 1px solid rgba(255, 0, 127, 0.3) !important;
+  border: 1.5px solid rgba(255, 0, 127, 0.4) !important;
   color: #ffffff !important;
-  border-radius: 1.5rem !important;
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  border-radius: 2rem !important;
+  transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1) !important;
   position: relative !important;
-  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.75), inset 0 1px 0 rgba(255, 255, 255, 0.05) !important;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.85), inset 0 1px 0 rgba(255, 255, 255, 0.08) !important;
 }
 
 .project-card:hover {
-  transform: translateY(-6px) !important;
+  transform: translateY(-8px) !important;
   border-color: #00f0ff !important;
   background: linear-gradient(180deg, #1c093d 0%, #100424 100%) !important;
   box-shadow: 
-    0 18px 40px rgba(0, 0, 0, 0.9),
-    0 0 25px rgba(255, 0, 127, 0.45),
-    0 0 45px rgba(0, 240, 255, 0.25) !important;
+    0 24px 48px rgba(0, 0, 0, 0.95),
+    0 0 30px rgba(255, 0, 127, 0.5),
+    0 0 60px rgba(0, 240, 255, 0.3) !important;
 }
 
 /* Form Input Vice City Style */
 .form-input {
   width: 100%;
   background-color: #0b0318 !important;
-  border: 1px solid rgba(255, 0, 127, 0.35) !important;
-  border-radius: 0.75rem;
-  padding: 0.7rem 1rem;
+  border: 1.5px solid rgba(255, 0, 127, 0.4) !important;
+  border-radius: 0.85rem;
+  padding: 0.85rem 1.15rem;
   color: #ffffff !important;
   font-family: 'JetBrains Mono', monospace;
-  font-size: 0.85rem;
+  font-size: 0.95rem;
   transition: all 0.2s ease;
 }
 .form-input:focus {
   outline: none;
   border-color: #00f0ff !important;
-  box-shadow: 0 0 14px rgba(0, 240, 255, 0.5) !important;
+  box-shadow: 0 0 16px rgba(0, 240, 255, 0.55) !important;
   background-color: #14062c !important;
 }
 
 /* Filter Buttons Vice City HUD */
 .filter-btn {
   font-family: 'JetBrains Mono', monospace;
-  transition: all 0.15s ease;
+  transition: all 0.18s ease;
   white-space: nowrap;
   letter-spacing: 0.05em;
-  border: 1px solid rgba(255, 0, 127, 0.25);
-  background: rgba(18, 5, 38, 0.75);
+  font-size: 0.85rem;
+  padding: 0.65rem 1.25rem;
+  border-radius: 0.85rem;
+  border: 1.5px solid rgba(255, 0, 127, 0.3);
+  background: rgba(18, 5, 38, 0.85);
   color: #ffd6ea;
 }
 .filter-btn:hover {
   border-color: #00f0ff;
   color: #00f0ff;
-  box-shadow: 0 0 14px rgba(0, 240, 255, 0.35);
+  box-shadow: 0 0 16px rgba(0, 240, 255, 0.4);
 }
 .filter-btn.active {
   background: linear-gradient(135deg, #ff007f 0%, #ff5500 100%) !important;
   color: #ffffff !important;
   font-weight: 800 !important;
   border-color: transparent !important;
-  box-shadow: 0 0 18px rgba(255, 0, 127, 0.7) !important;
+  box-shadow: 0 0 22px rgba(255, 0, 127, 0.75) !important;
 }
 
 /* Vice City Radio Player Dock */
 .radio-dock {
-  background: linear-gradient(90deg, rgba(19, 6, 40, 0.95) 0%, rgba(13, 4, 28, 0.95) 100%);
-  border: 1px solid rgba(255, 0, 127, 0.45);
-  box-shadow: 0 0 25px rgba(255, 0, 127, 0.3), 0 8px 32px rgba(0, 0, 0, 0.8);
-  backdrop-filter: blur(16px);
+  background: linear-gradient(90deg, rgba(20, 6, 42, 0.97) 0%, rgba(13, 4, 30, 0.97) 100%);
+  border: 1.5px solid rgba(255, 0, 127, 0.5);
+  box-shadow: 0 0 30px rgba(255, 0, 127, 0.35), 0 12px 40px rgba(0, 0, 0, 0.9);
+  backdrop-filter: blur(20px);
 }
 
 /* Equalizer Bars */
 .eq-bar {
-  width: 3px;
+  width: 4px;
   background: linear-gradient(180deg, #00f0ff 0%, #ff007f 100%);
   border-radius: 2px;
   transition: height 0.15s ease;
@@ -155,117 +161,128 @@ body {
 
 @keyframes eqJump {
   0%, 100% { height: 6px; }
-  50% { height: 18px; }
+  50% { height: 22px; }
 }
 
 /* Volume Range Slider Custom Styling */
 input[type="range"] {
   -webkit-appearance: none;
   appearance: none;
-  background: rgba(255, 0, 127, 0.2);
-  height: 6px;
-  border-radius: 3px;
+  background: rgba(255, 0, 127, 0.3);
+  height: 8px;
+  border-radius: 4px;
   outline: none;
 }
 input[type="range"]::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
-  width: 14px;
-  height: 14px;
+  width: 16px;
+  height: 16px;
   border-radius: 50%;
   background: #00f0ff;
   cursor: pointer;
-  box-shadow: 0 0 8px #00f0ff;
+  box-shadow: 0 0 10px #00f0ff;
 }
 
-/* Markdown Styling (Vice City Sunset) */
+/* Markdown Styling (Vice City Sunset Large Typography) */
 #detailMarkdownContent {
   color: #f1f5f9 !important;
+  font-size: 1.05rem;
+  line-height: 1.85;
 }
 #detailMarkdownContent h3 {
   font-family: 'Orbitron', 'Plus Jakarta Sans', sans-serif;
   color: #00f0ff !important;
-  font-size: 1.35rem;
+  font-size: 1.75rem;
+  font-weight: 800;
   letter-spacing: 0.05em;
-  margin-top: 1.75rem;
-  margin-bottom: 0.85rem;
-  padding-bottom: 0.5rem;
-  border-bottom: 1px solid rgba(255, 0, 127, 0.4);
-  text-shadow: 0 0 12px rgba(0, 240, 255, 0.5);
+  margin-top: 2.25rem;
+  margin-bottom: 1rem;
+  padding-bottom: 0.65rem;
+  border-bottom: 2px solid rgba(255, 0, 127, 0.45);
+  text-shadow: 0 0 14px rgba(0, 240, 255, 0.55);
 }
 #detailMarkdownContent h4 {
   font-family: 'JetBrains Mono', monospace;
   color: #ff5500 !important;
-  font-size: 1.1rem;
-  margin-top: 1.35rem;
-  margin-bottom: 0.6rem;
-  text-shadow: 0 0 8px rgba(255, 85, 0, 0.5);
+  font-size: 1.35rem;
+  font-weight: 700;
+  margin-top: 1.6rem;
+  margin-bottom: 0.75rem;
+  text-shadow: 0 0 10px rgba(255, 85, 0, 0.5);
 }
 #detailMarkdownContent p {
-  line-height: 1.75;
-  margin-bottom: 0.95rem;
-  color: #cbd5e1 !important;
+  font-size: 1.05rem;
+  line-height: 1.85;
+  margin-bottom: 1.15rem;
+  color: #e2e8f0 !important;
 }
 #detailMarkdownContent ul {
   list-style-type: none;
   padding-left: 0.5rem;
-  margin-bottom: 1.1rem;
+  margin-bottom: 1.35rem;
 }
 #detailMarkdownContent li {
   position: relative;
-  padding-left: 1.5rem;
-  margin-bottom: 0.45rem;
-  line-height: 1.6;
-  color: #f1f5f9 !important;
+  padding-left: 1.85rem;
+  margin-bottom: 0.65rem;
+  line-height: 1.8;
+  font-size: 1.05rem;
+  color: #f8fafc !important;
 }
 #detailMarkdownContent li::before {
   content: '🌴';
   position: absolute;
   left: 0;
-  font-size: 0.85rem;
+  font-size: 1rem;
 }
 #detailMarkdownContent strong {
   color: #ffffff !important;
-  font-weight: 700;
+  font-weight: 800;
 }
 #detailMarkdownContent hr {
-  border-color: rgba(255, 0, 127, 0.35);
-  margin: 1.75rem 0;
+  border-color: rgba(255, 0, 127, 0.4);
+  margin: 2.25rem 0;
 }
 #detailMarkdownContent blockquote {
-  border-left: 3px solid #ff007f;
-  background: rgba(255, 0, 127, 0.12);
-  padding: 0.85rem 1.25rem;
-  border-radius: 0 0.75rem 0.75rem 0;
-  margin: 1.25rem 0;
+  border-left: 4px solid #ff007f;
+  background: rgba(255, 0, 127, 0.15);
+  padding: 1.1rem 1.5rem;
+  border-radius: 0 1rem 1rem 0;
+  margin: 1.5rem 0;
+  font-size: 1.05rem;
+  line-height: 1.8;
   color: #ffd6ea !important;
 }
 #detailMarkdownContent table {
   width: 100%;
   border-collapse: collapse;
-  margin: 1.25rem 0;
-  font-size: 0.85rem;
+  margin: 1.5rem 0;
+  font-size: 0.95rem;
   font-family: 'JetBrains Mono', monospace;
-  color: #f1f5f9 !important;
+  color: #f8fafc !important;
 }
 #detailMarkdownContent th {
-  background-color: #210842 !important;
+  background-color: #24094a !important;
   text-align: left;
-  padding: 0.75rem 1rem;
-  border: 1px solid rgba(255, 0, 127, 0.4);
+  padding: 0.95rem 1.25rem;
+  border: 1.5px solid rgba(255, 0, 127, 0.45);
   color: #00f0ff !important;
+  font-size: 1rem;
+  font-weight: 800;
 }
 #detailMarkdownContent td {
-  padding: 0.75rem 1rem;
-  border: 1px solid rgba(255, 0, 127, 0.25);
-  background-color: #0d031c !important;
-  color: #cbd5e1 !important;
+  padding: 0.95rem 1.25rem;
+  border: 1.5px solid rgba(255, 0, 127, 0.3);
+  background-color: #0e031e !important;
+  color: #e2e8f0 !important;
 }
 #detailMarkdownContent code {
   font-family: 'JetBrains Mono', monospace;
-  background: rgba(255, 0, 127, 0.2);
+  background: rgba(255, 0, 127, 0.25);
   color: #00f0ff !important;
-  padding: 0.15rem 0.4rem;
-  border-radius: 0.35rem;
-  border: 1px solid rgba(255, 0, 127, 0.4);
+  padding: 0.2rem 0.5rem;
+  border-radius: 0.4rem;
+  border: 1px solid rgba(255, 0, 127, 0.45);
+  font-size: 0.95rem;
 }
